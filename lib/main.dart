@@ -6,8 +6,8 @@ import 'package:shinecash/common/routers/shinerouter.dart';
 import 'package:shinecash/common/utils/save_login_info.dart';
 
 void main() async {
-  await SaveLoginInfo.init();
   WidgetsFlutterBinding.ensureInitialized();
+  await SaveLoginInfo.init();
   runApp(ShineApp());
 }
 

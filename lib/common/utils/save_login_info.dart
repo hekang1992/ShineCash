@@ -8,7 +8,7 @@ class SaveLoginInfo {
 
   static Box? _box;
 
-  /// 开启存储盒子
+  /// 开启存储用户信息盒子
   static Future<void> init() async {
     await Hive.initFlutter();
     _box = await Hive.openBox(_boxName);

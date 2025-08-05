@@ -8,18 +8,7 @@ class NetworkMonitoring {
   static Future<bool> isConnected() async {
     List<ConnectivityResult> results = await _connectivity.checkConnectivity();
     final result = results.isNotEmpty ? results.first : ConnectivityResult.none;
-
-    switch (result) {
-      case ConnectivityResult.none:
-      case ConnectivityResult.other:
-        return false;
-      case ConnectivityResult.mobile:
-      case ConnectivityResult.wifi:
-      case ConnectivityResult.ethernet:
-      case ConnectivityResult.vpn:
-      case ConnectivityResult.bluetooth:
-        return true;
-    }
+    return result != ConnectivityResult.none;
   }
 
   // 监听网络变化（返回Stream<ConnectivityResult>）
