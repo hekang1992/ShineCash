@@ -1,0 +1,38 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/route_manager.dart';
+import 'package:shinecash/common/routers/shinerouter.dart';
+import 'package:shinecash/common/utils/save_login_info.dart';
+
+void main() async {
+  await SaveLoginInfo.init();
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(ShineApp());
+}
+
+class ShineApp extends StatefulWidget {
+  const ShineApp({super.key});
+
+  @override
+  State<StatefulWidget> createState() {
+    return ShineAppState();
+  }
+}
+
+class ShineAppState extends State {
+  @override
+  Widget build(BuildContext context) {
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) => GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: ShineAppRouter.splash,
+        getPages: ShineAppRouter.routes,
+        builder: FToastBuilder(),
+      ),
+    );
+  }
+}
