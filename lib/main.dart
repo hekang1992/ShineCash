@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/route_manager.dart';
-import 'package:shinecash/common/routers/shinerouter.dart';
+import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/common/utils/save_login_info.dart';
 
 void main() async {
@@ -28,6 +28,11 @@ class ShineAppState extends State {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) => GetMaterialApp(
+        theme: ThemeData(
+          scaffoldBackgroundColor: Colors.white,
+          highlightColor: Colors.transparent,
+          splashFactory: NoSplash.splashFactory,
+        ),
         debugShowCheckedModeBanner: false,
         initialRoute: ShineAppRouter.splash,
         getPages: ShineAppRouter.routes,

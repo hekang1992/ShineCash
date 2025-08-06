@@ -1,7 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:shinecash/common/routers/shinerouter.dart';
+import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/common/utils/network_monitoring.dart';
 import 'package:shinecash/common/utils/save_idfv_info.dart';
 import 'package:shinecash/common/utils/save_login_info.dart';
@@ -45,7 +45,11 @@ class SplashController extends GetxController {
   void onReady() async {
     // TODO: implement onReady
     super.onReady();
-    Get.offAllNamed(ShineAppRouter.login);
+    if (SaveLoginInfo.isLogin()) {
+      Get.offAllNamed(ShineAppRouter.tab);
+    } else {
+      Get.offAllNamed(ShineAppRouter.login);
+    }
   }
 
   @override

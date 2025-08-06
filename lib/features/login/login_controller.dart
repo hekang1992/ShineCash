@@ -31,17 +31,14 @@ class LoginController extends GetxController {
 
 extension LoginVc on LoginController {
   void startPolling() {
-    // 立即执行一次
     fetchData();
 
-    // 然后每1秒执行一次
     _timer = Timer.periodic(Duration(milliseconds: 1000), (timer) {
       fetchData();
     });
   }
 
   void fetchData() async {
-    // 这里写你的轮询逻辑
     String? idfa = await AppTrackingTransparency.getAdvertisingIdentifier();
     print('idfa---login------$idfa');
     if (idfa.isEmpty || idfa == '00000000-0000-0000-0000-000000000000') {
