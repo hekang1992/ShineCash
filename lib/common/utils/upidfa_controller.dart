@@ -10,7 +10,7 @@ class UpidfaController extends GetxController {
     super.onInit();
     debounce<Map<String, String>>(
       idfaParams,
-      time: Duration(milliseconds: 500),
+      time: Duration(milliseconds: 1000),
       (value) {
         print('value---------$value');
         _postToServer(value);

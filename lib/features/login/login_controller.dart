@@ -1,11 +1,14 @@
 import 'dart:async';
-
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/utils/save_idfv_info.dart';
 
 class LoginController extends GetxController {
   Timer? _timer;
+
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController codeController = TextEditingController();
 
   @override
   void onInit() {
