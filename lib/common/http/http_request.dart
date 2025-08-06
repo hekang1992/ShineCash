@@ -1,18 +1,21 @@
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:shinecash/common/constants/constant.dart';
 
 const String websiteUrl = 'http://47.84.60.25:8520';
 const String apiUrl = '$websiteUrl/iukws';
 
-class HttpRequest {
-  static final HttpRequest _instance = HttpRequest._internal();
-  factory HttpRequest() => _instance;
+class ShineHttpRequest {
+  static final ShineHttpRequest _instance = ShineHttpRequest._internal();
+
+  factory ShineHttpRequest() => _instance;
+
   late final Dio _dio;
 
-  HttpRequest._internal() {
+  ShineHttpRequest._internal() {
     _dio = Dio(
       BaseOptions(
         baseUrl: apiUrl,
@@ -21,6 +24,39 @@ class HttpRequest {
         headers: {'Content-Type': 'application/json'},
       ),
     );
+
+    // 添加日志拦截器，方便调试
+    _dio.interceptors.add(
+      LogInterceptor(
+        request: true,
+        requestHeader: true,
+        requestBody: true,
+        responseHeader: true,
+        responseBody: true,
+        error: true,
+        logPrint: (obj) => print(obj),
+      ),
+    );
+
+    _configureProxy();
+  }
+
+  // 配置代理
+  _configureProxy() {
+    String proxyIP = '10.1.1.59';
+    String proxyPort = "8888";
+
+    if (proxyIP.isNotEmpty) {
+      (_dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
+        final client = HttpClient();
+        client.findProxy = (uri) {
+          return 'PROXY $proxyIP:$proxyPort';
+        };
+        client.badCertificateCallback =
+            (X509Certificate cert, String host, int port) => true;
+        return client;
+      };
+    }
   }
 
   /// GET请求, 参数可选
@@ -30,8 +66,9 @@ class HttpRequest {
     Options? options,
     CancelToken? cancelToken,
   }) async {
+    final resolvedUrl = await ApiUrlManager.getApiUrl(path) ?? '';
     return await _dio.get(
-      path,
+      resolvedUrl,
       queryParameters: queryParameters,
       options: options,
       cancelToken: cancelToken,
@@ -46,8 +83,9 @@ class HttpRequest {
     Options? options,
     CancelToken? cancelToken,
   }) async {
+    final resolvedUrl = await ApiUrlManager.getApiUrl(path) ?? '';
     return await _dio.post(
-      path,
+      resolvedUrl,
       data: data,
       queryParameters: queryParameters,
       options: options,
@@ -84,12 +122,39 @@ class HttpRequest {
       ),
       ...?extraData,
     });
-
+    final resolvedUrl = await ApiUrlManager.getApiUrl(path) ?? '';
     return await _dio.post(
-      path,
+      resolvedUrl,
       data: formData,
       options: Options(headers: {'Content-Type': 'multipart/form-data'}),
       cancelToken: cancelToken,
     );
+  }
+}
+
+/// 获取实际请求的api地址
+class ApiUrlManager {
+  static Future<String?> getApiUrl(String path) async {
+    Map<String, String> dict = await AppCommonPera.getCommonPera();
+    String? apiUrl = URLParameterHelper.appendQueryParameters(path, dict) ?? '';
+    return apiUrl;
+  }
+}
+
+/// 拼接字典参数
+class URLParameterHelper {
+  static String? appendQueryParameters(
+    String url,
+    Map<String, String> parameters,
+  ) {
+    try {
+      final uri = Uri.parse(url);
+      final newUri = uri.replace(
+        queryParameters: {...uri.queryParameters, ...parameters},
+      );
+      return newUri.toString();
+    } catch (e) {
+      return null;
+    }
   }
 }

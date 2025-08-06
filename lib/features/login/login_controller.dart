@@ -40,10 +40,9 @@ extension LoginVc on LoginController {
 
   void fetchData() async {
     String? idfa = await AppTrackingTransparency.getAdvertisingIdentifier();
+    await GetIDFVInfo.requestIDFA();
     print('idfa---login------$idfa');
-    if (idfa.isEmpty || idfa == '00000000-0000-0000-0000-000000000000') {
-      await GetIDFVInfo.requestIDFA();
-    } else {
+    if (idfa != '00000000-0000-0000-0000-000000000000') {
       dispose();
     }
   }
