@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/route_manager.dart';
 import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/common/utils/save_login_info.dart';
@@ -36,7 +36,7 @@ class ShineAppState extends State {
         debugShowCheckedModeBanner: false,
         initialRoute: ShineAppRouter.splash,
         getPages: ShineAppRouter.routes,
-        builder: FToastBuilder(),
+        builder: EasyLoading.init(),
       ),
     );
   }

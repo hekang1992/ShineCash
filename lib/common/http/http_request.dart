@@ -43,7 +43,8 @@ class ShineHttpRequest {
 
   // 配置代理
   _configureProxy() {
-    String proxyIP = '10.1.1.59';
+    String proxyIP = '10.1.1.57';
+    // String proxyIP = '192.168.71.12';
     String proxyPort = "8888";
 
     if (proxyIP.isNotEmpty) {
@@ -78,15 +79,16 @@ class ShineHttpRequest {
   /// POST请求, 参数可选, 支持json和表单
   Future<Response> post(
     String path, {
-    dynamic data,
+    dynamic formData,
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
   }) async {
     final resolvedUrl = await ApiUrlManager.getApiUrl(path) ?? '';
+    final form = FormData.fromMap(formData);
     return await _dio.post(
       resolvedUrl,
-      data: data,
+      data: form,
       queryParameters: queryParameters,
       options: options,
       cancelToken: cancelToken,

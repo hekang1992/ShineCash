@@ -22,7 +22,7 @@ class AppCommonPera {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
     final String features = '1.0.0';
-    final String descended = iosInfo.name;
+    final String descended = iosInfo.modelName;
     final String unconfined = await SaveIdfvInfo.getOrCreateIDFV() ?? '';
     final String hair = iosInfo.systemVersion;
     final String emerging = SaveLoginInfo.getToken() ?? '';

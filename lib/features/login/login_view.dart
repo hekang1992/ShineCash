@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
+import 'package:shinecash/common/http/http_request.dart';
+import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/features/login/customer_btn.dart';
 import 'package:shinecash/features/login/login_controller.dart';
 
@@ -97,7 +99,93 @@ Widget _loginView(LoginController controller) {
             SizedBox(height: 25.h),
             _phoneView(controller),
             SizedBox(height: 16.h),
-            _codeView(controller),
+            _codeView(
+              controller,
+              onPressed: () {
+                controller.getCode(
+                  controller.phoneController.text,
+                  type: 'code',
+                );
+              },
+            ),
+            SizedBox(height: 32.h),
+            CustomBtn(
+              text: 'Login',
+              fontSize: 18.sp,
+              width: 311.w,
+              height: 52.h,
+              onPressed: () {
+                final String phone = controller.phoneController.text;
+                final String code = controller.codeController.text;
+                controller.toLogin(phone: phone, code: code);
+              },
+            ),
+            SizedBox(height: 20.h),
+            InkWell(
+              onTap: () {
+                controller.getCode(controller.phoneController.text);
+              },
+              child: Image.asset(
+                'assets/images/voice_imge.png',
+                width: 138.w,
+                height: 20.h,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: () {
+                    final bool isClick = controller.isclickAgreement.value;
+                    controller.changeType(!isClick);
+                  },
+                  child: Obx(
+                    () => Image.asset(
+                      controller.isclickAgreement.value
+                          ? 'assets/images/login_sel_image.png'
+                          : 'assets/images/login_nor_image.png',
+                      width: 15.w,
+                      height: 15.h,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 6.w),
+                InkWell(
+                  onTap: () {
+                    Get.toNamed(
+                      ShineAppRouter.web,
+                      parameters: {'pageUrl': '$websiteUrl'},
+                    );
+                  },
+                  child: RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'I have read and agree with ',
+                          style: TextStyle(
+                            color: Color(0xFF888888),
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12.sp,
+                          ),
+                        ),
+                        TextSpan(
+                          text: 'Privacy agreement',
+                          style: TextStyle(
+                            color: AppColor.bgColor,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 12.sp,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16.h),
           ],
         ),
       ],
@@ -153,7 +241,7 @@ Widget _phoneView(LoginController controller) {
   );
 }
 
-Widget _codeView(LoginController controller) {
+Widget _codeView(LoginController controller, {VoidCallback? onPressed}) {
   return Padding(
     padding: EdgeInsets.only(left: 20.sp, right: 20.sp),
     child: Container(
@@ -170,7 +258,7 @@ Widget _codeView(LoginController controller) {
             child: TextField(
               textAlignVertical: TextAlignVertical.center,
               keyboardType: TextInputType.number,
-              controller: controller.phoneController,
+              controller: controller.codeController,
               decoration: InputDecoration(
                 isDense: true,
                 border: InputBorder.none,
@@ -183,7 +271,16 @@ Widget _codeView(LoginController controller) {
               ),
             ),
           ),
-          CustomBtn(text: 'Send', width: 44.w, height: 44.h, onPressed: () {}),
+          Obx(
+            () => CustomBtn(
+              text: controller.seconds.value == 0
+                  ? 'Send'
+                  : '${controller.seconds.value}s',
+              width: 44.w,
+              height: 44.h,
+              onPressed: controller.seconds.value == 0 ? onPressed : null,
+            ),
+          ),
           SizedBox(width: 4.w),
         ],
       ),
