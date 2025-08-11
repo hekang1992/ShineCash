@@ -35,7 +35,7 @@ class ExpectModel {
       satisfactory: json['satisfactory'],
       natural: json['natural'],
       emerging: json['emerging'],
-      fair: FairModel.fromJson(json['fair']),
+      fair: FairModel.fromJson(json['fair'] ?? {}),
     );
   }
 
@@ -44,7 +44,7 @@ class ExpectModel {
       'satisfactory': satisfactory,
       'natural': natural,
       'emerging': emerging,
-      'fair': fair,
+      'fair': fair?.toJson(),
     };
   }
 }

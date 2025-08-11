@@ -4,14 +4,19 @@ class ToastManager {
   static showToast(String msg) {
     EasyLoading.showToast(
       msg,
-      duration: Duration(seconds: 2),
+      duration: Duration(seconds: 3),
       toastPosition: EasyLoadingToastPosition.center,
+      maskType: EasyLoadingMaskType.clear,
       dismissOnTap: false,
     );
   }
 
   static showLoading() {
-    EasyLoading.show(status: 'loading...');
+    EasyLoading.show(
+      status: 'loading...',
+      maskType: EasyLoadingMaskType.clear,
+      dismissOnTap: false,
+    );
   }
 
   static hideLoading() {

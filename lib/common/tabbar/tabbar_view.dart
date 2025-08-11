@@ -10,11 +10,7 @@ import 'package:shinecash/features/order/order_view.dart';
 class TabbarView extends GetView<TabbarController> {
   TabbarView({super.key});
 
-  late final List<Widget> _widgetOptions = [
-    HomeView(),
-    OrderView(),
-    CenterView(),
-  ];
+  final List<Widget> _widgetOptions = [HomeView(), OrderView(), CenterView()];
 
   @override
   Widget build(BuildContext context) {

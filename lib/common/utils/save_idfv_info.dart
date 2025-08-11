@@ -4,7 +4,6 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/utils/upidfa_controller.dart';
-import 'package:shinecash/splash/splash_controller.dart';
 
 class SaveIdfvInfo {
   static const _storageKey = 'idfv_storage_key';

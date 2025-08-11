@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -103,10 +104,15 @@ extension LoginVc on LoginController {
   }
 
   void fetchData() async {
-    String? idfa = await AppTrackingTransparency.getAdvertisingIdentifier();
-    await GetIDFVInfo.requestIDFA();
-    if (idfa != '00000000-0000-0000-0000-000000000000') {
-      dispose();
+    final deviceInfo = DeviceInfoPlugin();
+    final iosInfo = await deviceInfo.iosInfo;
+    final isPhysicalDevice = iosInfo.isPhysicalDevice != true;
+    if (!isPhysicalDevice) {
+      String? idfa = await AppTrackingTransparency.getAdvertisingIdentifier();
+      await GetIDFVInfo.requestIDFA();
+      if (idfa != '00000000-0000-0000-0000-000000000000') {
+        dispose();
+      }
     }
   }
 
