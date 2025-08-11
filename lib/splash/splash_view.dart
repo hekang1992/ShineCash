@@ -9,9 +9,11 @@ class SplashView extends GetView<SplashController> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.transparent,
-      child: Image.asset('assets/images/launch_image.png', fit: BoxFit.cover),
+    return Scaffold(
+      body: Container(
+        color: Colors.transparent,
+        child: Image.asset('assets/images/launch_image.png', fit: BoxFit.cover),
+      ),
     );
   }
 }

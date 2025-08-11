@@ -1,6 +1,7 @@
 import Flutter
 import UIKit
 import NetworkExtension
+import FBSDKCoreKit
 
 @main
 @objc class AppDelegate: FlutterAppDelegate {
@@ -33,6 +34,8 @@ extension AppDelegate {
                 self.isVpnActive { isActive in
                     result(isActive)
                 }
+            }else if call.method == "googleMarket" {
+                self.googleMarket(call: call)
             }
             else {
                 result(FlutterMethodNotImplemented)
@@ -43,14 +46,25 @@ extension AppDelegate {
     
     private func isVpnActive(completion: @escaping (Bool) -> Void) {
         if #available(iOS 9.0, *) {
-          NEVPNManager.shared().loadFromPreferences { _ in
-            let isActive = NEVPNManager.shared().connection.status == .connected
-            completion(isActive)
-          }
+            NEVPNManager.shared().loadFromPreferences { _ in
+                let isActive = NEVPNManager.shared().connection.status == .connected
+                completion(isActive)
+            }
         } else {
-          completion(false)
+            completion(false)
         }
-      }
+    }
     
+    private func googleMarket(call: FlutterMethodCall) {
+        if let jsonData = call.arguments as? [String: Any] {
+            Settings.shared.appID = jsonData["dirty"] as? String ?? ""
+            Settings.shared.clientToken = jsonData["answers"] as? String ?? ""
+            Settings.shared.displayName = jsonData["taking"] as? String ?? ""
+            Settings.shared.appURLSchemeSuffix = jsonData["crumpled"] as? String ?? ""
+            ApplicationDelegate.shared.application(UIApplication.shared, didFinishLaunchingWithOptions: nil)
+        } else {
+            
+        }
+    }
     
 }

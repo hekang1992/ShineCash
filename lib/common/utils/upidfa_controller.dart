@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
 import 'package:shinecash/common/http/http_request.dart';
+import 'package:shinecash/common/devices/devices.dart';
+import 'package:shinecash/common/http/http_model.dart';
+import 'package:shinecash/common/utils/google_market.dart';
 
 class UpidfaController extends GetxController {
   final idfaParams = <String, String>{}.obs;
@@ -12,7 +15,6 @@ class UpidfaController extends GetxController {
       idfaParams,
       time: Duration(milliseconds: 1000),
       (value) {
-        print('value---------$value');
         _postToServer(value);
       },
     );
@@ -42,5 +44,33 @@ class UpidfaController extends GetxController {
     } catch (e) {
       print('response-failure: $e');
     }
+    initLoginInfo();
+  }
+
+  Future<void> initLoginInfo() async {
+    final http = ShineHttpRequest();
+    try {
+      final delusion = await GetLanguageInfo.getLanguageMessage();
+      final proudly = await VpnEnabled.isVpnActive();
+      final feeling = ProxyEnabled.isProxyEnabled();
+      final dict = {
+        'delusion': delusion,
+        'feeling': feeling,
+        'proudly': proudly,
+      };
+      final respose = await http.post('/wzcnrht/delusion', formData: dict);
+      final model = BaseModel.fromJson(respose.data);
+      if (model.beautiful == '0' || model.beautiful == '00') {
+        final BaseModel model = BaseModel.fromJson(respose.data);
+        final fairModel = model.expect?.fair;
+        final Map<String, String> fromJson = {
+          'answers': fairModel?.answers ?? '',
+          'crumpled': fairModel?.crumpled ?? '',
+          'dirty': fairModel?.dirty ?? '',
+          'taking': fairModel?.taking ?? '',
+        };
+        GoogleMarket.isVpnActive(fromJson);
+      }
+    } catch (e) {}
   }
 }

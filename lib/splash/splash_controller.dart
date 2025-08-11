@@ -1,9 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:shinecash/common/devices/devices.dart';
-import 'package:shinecash/common/http/http_model.dart';
-import 'package:shinecash/common/http/http_request.dart';
 import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/common/utils/network_monitoring.dart';
 import 'package:shinecash/common/utils/save_idfv_info.dart';
@@ -48,7 +45,7 @@ class SplashController extends GetxController {
   void onReady() {
     // TODO: implement onReady
     super.onReady();
-    initLoginInfo().then((model) {});
+    // initLoginInfo().then((model) {});
     if (SaveLoginInfo.isLogin()) {
       Get.offAllNamed(ShineAppRouter.tab);
     } else {
@@ -63,27 +60,4 @@ class SplashController extends GetxController {
   }
 }
 
-extension SplashVc on SplashController {
-  Future<BaseModel?> initLoginInfo() async {
-    final http = ShineHttpRequest();
-    try {
-      final delusion = await GetLanguageInfo.getLanguageMessage();
-      final feeling = ProxyEnabled.isProxyEnabled();
-      final proudly = await VpnEnabled.isVpnActive();
-      final dict = {
-        'delusion': delusion,
-        'feeling': feeling,
-        'proudly': proudly,
-      };
-      final respose = await http.post('/wzcnrht/delusionth', formData: dict);
-      final model = BaseModel.fromJson(respose.data);
-      if (model.beautiful == '0' || model.beautiful == '00') {
-        return model;
-      } else {
-        return null;
-      }
-    } catch (e) {
-      return null;
-    }
-  }
-}
+extension SplashVc on SplashController {}
