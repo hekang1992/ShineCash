@@ -37,8 +37,8 @@ class UpidfaController extends GetxController {
   }
 
   Future<void> _postToServer(Map<String, String> dict) async {
-    final http = ShineHttpRequest();
     try {
+      final http = ShineHttpRequest();
       final respose = await http.post('/wzcnrht/nonsense', formData: dict);
       print('respose---------${respose.data}');
     } catch (e) {
@@ -48,8 +48,8 @@ class UpidfaController extends GetxController {
   }
 
   Future<void> initLoginInfo() async {
-    final http = ShineHttpRequest();
     try {
+      final http = ShineHttpRequest();
       final delusion = await GetLanguageInfo.getLanguageMessage();
       final proudly = await VpnEnabled.isVpnActive();
       final feeling = ProxyEnabled.isProxyEnabled();
@@ -58,10 +58,9 @@ class UpidfaController extends GetxController {
         'feeling': feeling,
         'proudly': proudly,
       };
-      final respose = await http.post('/wzcnrht/delusion', formData: dict);
-      final model = BaseModel.fromJson(respose.data);
+      final response = await http.post('/wzcnrht/delusion', formData: dict);
+      final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
-        final BaseModel model = BaseModel.fromJson(respose.data);
         final fairModel = model.expect?.fair;
         final Map<String, String> fromJson = {
           'answers': fairModel?.answers ?? '',

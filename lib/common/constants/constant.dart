@@ -11,6 +11,7 @@ class AppColor {
   static const Color btnBgColor = Color(0XFF91FA95);
   static const Color orderTypeColor = Color(0XFF7893F5);
   static const Color whiteColor = Color(0XFFFFFFFF);
+  static const Color pinkColor = Color(0XFFFF8EA5);
 }
 
 class AppFont {

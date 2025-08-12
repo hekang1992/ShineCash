@@ -24,9 +24,9 @@ class HomeController extends GetxController {
 
 extension HomeVc on HomeController {
   initHomeInfo() async {
-    ToastManager.showLoading();
-    final http = ShineHttpRequest();
     try {
+      ToastManager.showLoading();
+      final http = ShineHttpRequest();
       final response = await http.get('/wzcnrht/crowned');
       ToastManager.hideLoading();
     } catch (e) {
