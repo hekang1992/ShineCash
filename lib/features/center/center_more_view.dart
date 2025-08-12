@@ -29,29 +29,32 @@ class CenterMoreView extends GetView<CenterController> {
             ],
           ),
           SizedBox(height: 12.h),
-          GridView.builder(
-            scrollDirection: Axis.vertical,
-            itemCount: 3,
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: 1.4,
-              crossAxisCount: 2,
-              crossAxisSpacing: 15.sp,
-              mainAxisSpacing: 15.sp,
-            ),
-            itemBuilder: (context, index) {
-              final name = controller.nameStr[index];
-              return listItemView(
-                oneStr: name,
-                twoStr: name,
-                onTap: () {
-                  ToastManager.showToast(name);
-                },
-              );
-            },
-          ),
-          SizedBox(height: 20.h),
+          Obx(() {
+            final model = controller.model.value;
+            return GridView.builder(
+              scrollDirection: Axis.vertical,
+              itemCount: model.expect?.centuries?.length ?? 0,
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                childAspectRatio: 1.4,
+                crossAxisCount: 2,
+                crossAxisSpacing: 15.sp,
+                mainAxisSpacing: 15.sp,
+              ),
+              itemBuilder: (context, index) {
+                final name = model.expect?.centuries?[index].acquainted ?? '';
+                return listItemView(
+                  oneStr: 'All Orders',
+                  twoStr: name,
+                  onTap: () {
+                    ToastManager.showToast(name);
+                  },
+                );
+              },
+            );
+          }),
+          SizedBox(height: 24.h),
         ],
       ),
     );

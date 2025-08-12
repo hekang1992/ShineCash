@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shinecash/common/constants/constant.dart';
 
 class HomeOneView extends StatelessWidget {
   final String name1;
@@ -16,39 +17,55 @@ class HomeOneView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(width: 10.w),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                name1,
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        SizedBox(width: 12.w),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              name1,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
               ),
-              Text(
-                name2,
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
+            ),
+            Text(
+              name2,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
               ),
-            ],
+            ),
+          ],
+        ),
+        Spacer(),
+        if (name3.isNotEmpty)
+          ClipRRect(
+            borderRadius: BorderRadius.circular(5.sp),
+            child: Image.network(
+              name3,
+              width: 30.w,
+              height: 30.w,
+              fit: BoxFit.cover,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation(AppColor.blackColor),
+                    strokeWidth: 2.sp,
+                  ),
+                );
+              },
+            ),
           ),
-          Spacer(),
-          Image.asset('assets/images/$name3', width: 30.w, height: 30.w),
-          SizedBox(width: 10.w),
-        ],
-      ),
+        SizedBox(width: 12.w),
+      ],
     );
   }
 }

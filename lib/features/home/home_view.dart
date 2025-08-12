@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/instance_manager.dart';
-import 'package:get/utils.dart';
 import 'package:shinecash/common/constants/constant.dart';
-import 'package:shinecash/common/http/http_toast.dart';
+import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/features/home/home_controller.dart';
 import 'package:shinecash/features/home/onehome/home_one_view.dart';
 import 'package:shinecash/features/home/onehome/home_three_view.dart';
 import 'package:shinecash/features/home/onehome/home_two_view.dart';
 
 class HomeView extends GetView<HomeController> {
-  HomeView({super.key}) {
-    final _ = Get.put(HomeController());
-  }
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,35 +26,46 @@ class HomeView extends GetView<HomeController> {
               padding: EdgeInsets.only(top: 10.sp),
               child: RefreshIndicator(
                 onRefresh: () async {
-                  ToastManager.showLoading();
-                  await Future.delayed(const Duration(seconds: 5));
-                  ToastManager.hideLoading();
+                  await controller.initHomeInfo();
                 },
                 child: SafeArea(
                   child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        HomeOneView(
-                          name1: 'Hi!',
-                          name2: 'Shine Cash',
-                          name3: 'home_head_logo_icon_image.png',
-                        ),
-                        SizedBox(height: 20.h),
-                        HomeTwoView(
-                          name1: 'home_money_image.png',
-                          name2: 'Maximum Credit Limit',
-                          name3: '₱60,000',
-                          name4: 'Get It Immediately',
-                        ),
-                        SizedBox(height: 18.h),
-                        HomeThreeView(
-                          name1: 'home_three1_image.png',
-                          name2: 'home_three2_image.png',
-                          name3: 'home_three3_image.png',
-                          name4: 'home_three4_image.png',
-                        ),
-                      ],
-                    ),
+                    child: Obx(() {
+                      final model = controller.model.value;
+                      DiedModel listModel = DiedModel();
+                      for (final element in model.expect?.centuries ?? []) {
+                        if (element.many == 'received') {
+                          if (element.died?.isNotEmpty == true) {
+                            listModel = element.died!.first;
+                          } else {
+                            listModel = DiedModel();
+                          }
+                        }
+                      }
+                      return Column(
+                        children: [
+                          HomeOneView(
+                            name1: 'Hi!',
+                            name2: listModel.correspondent ?? '',
+                            name3: listModel.imaginary ?? '',
+                          ),
+                          SizedBox(height: 20.h),
+                          HomeTwoView(
+                            name1: 'home_money_image.png',
+                            name2: listModel.reduced ?? '',
+                            name3: listModel.condition ?? '',
+                            name4: listModel.appeal ?? '',
+                          ),
+                          SizedBox(height: 18.h),
+                          HomeThreeView(
+                            name1: 'home_three1_image.png',
+                            name2: 'home_three2_image.png',
+                            name3: 'home_three3_image.png',
+                            name4: 'home_three4_image.png',
+                          ),
+                        ],
+                      );
+                    }),
                   ),
                 ),
               ),

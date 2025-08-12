@@ -15,19 +15,23 @@ class CenterHeadView extends GetView<CenterController> {
       alignment: AlignmentDirectional.topCenter,
       children: [
         Container(color: Colors.transparent),
-        Align(
-          child: Padding(
-            padding: EdgeInsets.only(top: 70.sp),
-            child: Container(
-              height: 530.h,
-              width: 350.w,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(24.sp)),
+        Obx(() {
+          final model = controller.model.value;
+          final listArray = model.expect?.centuries ?? [];
+          return Align(
+            child: Padding(
+              padding: EdgeInsets.only(top: 70.sp),
+              child: Container(
+                height: 530.h + listArray.length * 20.h,
+                width: 350.w,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(24.sp)),
+                ),
               ),
             ),
-          ),
-        ),
+          );
+        }),
         Column(
           children: [
             Image.asset(

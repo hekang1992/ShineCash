@@ -24,9 +24,7 @@ class CenterView extends GetView<CenterController> {
               padding: EdgeInsets.only(top: 10.sp),
               child: RefreshIndicator(
                 onRefresh: () async {
-                  ToastManager.showLoading();
-                  await Future.delayed(const Duration(seconds: 5));
-                  ToastManager.hideLoading();
+                  await controller.initCenterInfo();
                 },
                 child: SafeArea(
                   child: Padding(

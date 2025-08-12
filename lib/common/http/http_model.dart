@@ -110,13 +110,27 @@ class CenturiesModel {
   String? acquainted;
   String? cautiously;
   String? finished;
-  CenturiesModel({this.acquainted, this.cautiously, this.finished});
+  String? many;
+  List<DiedModel>? died;
+  CenturiesModel({
+    this.acquainted,
+    this.cautiously,
+    this.finished,
+    this.many,
+    this.died,
+  });
 
   factory CenturiesModel.fromJson(Map<String, dynamic> json) {
     return CenturiesModel(
       acquainted: json['acquainted'],
       cautiously: json['cautiously'],
       finished: json['finished'],
+      many: json['many'],
+      died:
+          (json['died'] as List?)
+              ?.map((item) => DiedModel.fromJson(item ?? {}))
+              .toList() ??
+          [],
     );
   }
 
@@ -125,6 +139,64 @@ class CenturiesModel {
       'acquainted': acquainted,
       'cautiously': cautiously,
       'finished': finished,
+      'many': many,
+      'died': died?.map((model) => model.toJson()).toList(),
+    };
+  }
+}
+
+class DiedModel {
+  String? alienated;
+  String? appeal;
+  String? correspondent;
+  String? condition;
+  int? hasten;
+  String? imaginary;
+  String? love;
+  String? reduced;
+  String? seminary;
+  String? threeDes;
+
+  DiedModel({
+    this.alienated,
+    this.appeal,
+    this.correspondent,
+    this.condition,
+    this.hasten,
+    this.imaginary,
+    this.love,
+    this.reduced,
+    this.seminary,
+    this.threeDes,
+  });
+
+  factory DiedModel.fromJson(Map<String, dynamic> json) {
+    return DiedModel(
+      alienated: json['alienated'],
+      appeal: json['appeal'],
+      correspondent: json['correspondent'],
+      condition: json['condition'],
+      hasten: json['hasten'],
+      imaginary: json['imaginary'],
+      love: json['love'],
+      reduced: json['reduced'],
+      seminary: json['seminary'],
+      threeDes: json['threeDes'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'alienated': alienated,
+      'appeal': appeal,
+      'correspondent': correspondent,
+      'condition': condition,
+      'hasten': hasten,
+      'imaginary': imaginary,
+      'love': love,
+      'reduced': reduced,
+      'seminary': seminary,
+      'threeDes': threeDes,
     };
   }
 }
