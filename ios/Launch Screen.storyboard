@@ -16,23 +16,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_image" translatesAutoresizingMaskIntoConstraints="NO" id="Pkw-9b-Vw2">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_image" translatesAutoresizingMaskIntoConstraints="NO" id="lQ4-VT-XcM">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="Pkw-9b-Vw2" secondAttribute="bottom" id="0Pb-u4-WIV"/>
-                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="trailing" secondItem="Pkw-9b-Vw2" secondAttribute="trailing" id="3gN-0S-4FW"/>
-                            <constraint firstItem="Pkw-9b-Vw2" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Xh3-EV-iXi"/>
-                            <constraint firstItem="Pkw-9b-Vw2" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="zuG-KY-Nsw"/>
+                            <constraint firstItem="lQ4-VT-XcM" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="PFj-3K-AR4"/>
+                            <constraint firstItem="lQ4-VT-XcM" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="bcL-jd-DJD"/>
+                            <constraint firstItem="lQ4-VT-XcM" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="jCD-72-R2p"/>
+                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="trailing" secondItem="lQ4-VT-XcM" secondAttribute="trailing" id="nlH-hQ-Ngj"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52.671755725190835" y="374.64788732394368"/>
+            <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
     <resources>

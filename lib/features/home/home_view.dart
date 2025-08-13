@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:shinecash/common/constants/constant.dart';
 import 'package:shinecash/common/http/http_model.dart';
+import 'package:shinecash/common/http/http_toast.dart';
 import 'package:shinecash/features/home/home_controller.dart';
 import 'package:shinecash/features/home/onehome/home_one_view.dart';
 import 'package:shinecash/features/home/onehome/home_three_view.dart';
@@ -55,6 +56,11 @@ class HomeView extends GetView<HomeController> {
                             name2: listModel.reduced ?? '',
                             name3: listModel.condition ?? '',
                             name4: listModel.appeal ?? '',
+                            onTap: () {
+                              final productID = (listModel.hasten ?? 0)
+                                  .toString();
+                              ToastManager.showToast(productID);
+                            },
                           ),
                           SizedBox(height: 18.h),
                           HomeThreeView(

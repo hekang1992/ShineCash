@@ -13,7 +13,7 @@ class SplashController extends GetxController {
   void onInit() async {
     super.onInit();
 
-    await Future.delayed(Duration(milliseconds: 200));
+    await Future.delayed(Duration(milliseconds: 500));
 
     // 检查网络
     NetworkMonitoring.isConnected().then((connected) {
