@@ -26,24 +26,19 @@ class LoginController extends GetxController {
   final RxInt seconds = 0.obs;
 
   @override
-  void onInit() {
-    // TODO: implement onInit
-    super.onInit();
-  }
-
-  @override
-  void onReady() async {
+  void onReady() {
     // TODO: implement onReady
     super.onReady();
-
-    /// 开启轮询
     startPolling();
   }
 
   @override
   void onClose() {
-    // TODO: implement onClose
     super.onClose();
+    _timer?.cancel();
+    _timer = null;
+    _codetimer?.cancel();
+    _codetimer = null;
   }
 }
 
@@ -60,9 +55,9 @@ extension LoginVc on LoginController {
       return;
     }
     ToastManager.showLoading();
-    final http = ShineHttpRequest();
-    final dict = {'ever': phone, 'feeling': '1'};
     try {
+      final http = ShineHttpRequest();
+      final dict = {'ever': phone, 'feeling': '1'};
       final respose = await http.post('/wzcnrht/feeling', formData: dict);
       print('respose---------${respose.data}');
       final model = BaseModel.fromJson(respose.data);
@@ -98,7 +93,7 @@ extension LoginVc on LoginController {
   void startPolling() {
     fetchData();
 
-    _timer = Timer.periodic(Duration(milliseconds: 1000), (timer) {
+    _timer = Timer.periodic(Duration(milliseconds: 500), (timer) {
       fetchData();
     });
   }
@@ -141,8 +136,8 @@ extension LoginVc on LoginController {
       return;
     }
     ToastManager.showLoading();
-    final http = ShineHttpRequest();
     try {
+      final http = ShineHttpRequest();
       final respose = await http.post(
         '/wzcnrht/beautiful',
         formData: {'satisfactory': phone, 'doesn': code},

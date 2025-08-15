@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shinecash/splash/splash_controller.dart';
+import 'package:shinecash/features/splash/splash_controller.dart';
 
 class SplashView extends GetView<SplashController> {
   SplashView({super.key}) {

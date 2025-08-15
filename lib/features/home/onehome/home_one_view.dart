@@ -7,11 +7,14 @@ class HomeOneView extends StatelessWidget {
   final String name2;
   final String name3;
 
+  final VoidCallback onTap;
+
   const HomeOneView({
     super.key,
     required this.name1,
     required this.name2,
     required this.name3,
+    required this.onTap,
   });
 
   @override
@@ -45,25 +48,14 @@ class HomeOneView extends StatelessWidget {
           ],
         ),
         Spacer(),
-        if (name3.isNotEmpty)
-          ClipRRect(
-            borderRadius: BorderRadius.circular(5.sp),
-            child: Image.network(
-              name3,
-              width: 30.w,
-              height: 30.w,
-              fit: BoxFit.cover,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Center(
-                  child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation(AppColor.blackColor),
-                    strokeWidth: 2.sp,
-                  ),
-                );
-              },
-            ),
+        InkWell(
+          onTap: onTap,
+          child: Image.asset(
+            'assets/images/center_head_iamge.png',
+            width: 40.w,
+            height: 40.h,
           ),
+        ),
         SizedBox(width: 12.w),
       ],
     );

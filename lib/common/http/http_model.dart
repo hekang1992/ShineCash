@@ -26,17 +26,27 @@ class ExpectModel {
   String? satisfactory;
   String? natural;
   String? emerging;
+  String? cautiously;
   FairModel? fair;
   UserInfoModel? userInfo;
   List<CenturiesModel>? centuries;
+  AllowModel? allow;
+  PostedModel? posted;
+  PostedModel? rule;
+  EgyptianModel? egyptian;
 
   ExpectModel({
     this.satisfactory,
     this.natural,
     this.emerging,
+    this.cautiously,
     this.fair,
     this.userInfo,
     this.centuries,
+    this.allow,
+    this.posted,
+    this.rule,
+    this.egyptian,
   });
 
   factory ExpectModel.fromJson(Map<String, dynamic> json) {
@@ -44,6 +54,7 @@ class ExpectModel {
       satisfactory: json['satisfactory'],
       natural: json['natural'],
       emerging: json['emerging'],
+      cautiously: json['cautiously'],
       fair: FairModel.fromJson(json['fair'] ?? {}),
       userInfo: UserInfoModel.fromJson(json['userInfo'] ?? {}),
       centuries:
@@ -51,6 +62,10 @@ class ExpectModel {
               ?.map((item) => CenturiesModel.fromJson(item ?? {}))
               .toList() ??
           [],
+      allow: AllowModel.fromJson(json['allow'] ?? {}),
+      posted: PostedModel.fromJson(json['posted'] ?? {}),
+      rule: PostedModel.fromJson(json['rule'] ?? {}),
+      egyptian: EgyptianModel.fromJson(json['egyptian'] ?? {}),
     );
   }
 
@@ -59,9 +74,14 @@ class ExpectModel {
       'satisfactory': satisfactory,
       'natural': natural,
       'emerging': emerging,
+      'cautiously': cautiously,
       'fair': fair?.toJson(),
       'userInfo': userInfo?.toJson(),
       'centuries': centuries?.map((model) => model.toJson()).toList(),
+      'allow': allow?.toJson(),
+      'posted': posted?.toJson(),
+      'rule': rule?.toJson(),
+      'egyptian': egyptian?.toJson(),
     };
   }
 }
@@ -198,5 +218,112 @@ class DiedModel {
       'seminary': seminary,
       'threeDes': threeDes,
     };
+  }
+}
+
+class AllowModel {
+  String? sitting;
+
+  AllowModel({this.sitting});
+
+  factory AllowModel.fromJson(Map<String, dynamic> json) {
+    return AllowModel(sitting: json['sitting']);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'sitting': sitting};
+  }
+}
+
+class PostedModel {
+  int? listening;
+  String? cautiously;
+  String? read;
+
+  PostedModel({this.listening, this.cautiously, this.read});
+
+  factory PostedModel.fromJson(Map<String, dynamic> json) {
+    return PostedModel(
+      listening: json['listening'],
+      cautiously: json['cautiously'],
+      read: json['read'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'listening': listening, 'cautiously': cautiously, 'read': read};
+  }
+}
+
+class EgyptianModel {
+  String? glanced;
+  String? humor;
+  String? imaginary;
+  int? wink;
+  String? symbol;
+  Considering? considering;
+
+  EgyptianModel({
+    this.glanced,
+    this.humor,
+    this.imaginary,
+    this.wink,
+    this.symbol,
+    this.considering,
+  });
+
+  factory EgyptianModel.fromJson(Map<String, dynamic> json) {
+    return EgyptianModel(
+      glanced: json['glanced'],
+      humor: json['humor'],
+      imaginary: json['imaginary'],
+      wink: json['wink'],
+      symbol: json['symbol'],
+      considering: Considering.fromJson(json['considering'] ?? {}),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'glanced': glanced,
+      'humor': humor,
+      'imaginary': imaginary,
+      'wink': wink,
+      'symbol': symbol,
+      'considering': considering?.toJson(),
+    };
+  }
+}
+
+class Considering {
+  LudicrousModel? ludicrous;
+  LudicrousModel? mistress;
+
+  Considering({this.ludicrous, this.mistress});
+
+  factory Considering.fromJson(Map<String, dynamic> json) {
+    return Considering(
+      ludicrous: LudicrousModel.fromJson(json['ludicrous'] ?? {}),
+      mistress: LudicrousModel.fromJson(json['mistress'] ?? {}),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'ludicrous': ludicrous?.toJson(), 'mistress': mistress?.toJson()};
+  }
+}
+
+class LudicrousModel {
+  String? acquainted;
+  String? robes;
+
+  LudicrousModel({this.acquainted, this.robes});
+
+  factory LudicrousModel.fromJson(Map<String, dynamic> json) {
+    return LudicrousModel(acquainted: json['acquainted'], robes: json['robes']);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'acquainted': acquainted, 'robes': robes};
   }
 }

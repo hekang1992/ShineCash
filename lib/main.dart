@@ -34,6 +34,7 @@ class ShineAppState extends State {
           splashFactory: NoSplash.splashFactory,
         ),
         debugShowCheckedModeBanner: false,
+        defaultTransition: Transition.cupertino,
         initialRoute: ShineAppRouter.splash,
         getPages: ShineAppRouter.routes,
         builder: EasyLoading.init(),
