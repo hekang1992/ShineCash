@@ -34,8 +34,11 @@ class ExpectModel {
   PostedModel? posted;
   PostedModel? rule;
   EgyptianModel? egyptian;
-
   List<SorryModel>? sorry;
+
+  // 新增的属性
+  List<String>? address;
+  List<String>? communicate;
 
   ExpectModel({
     this.satisfactory,
@@ -50,6 +53,8 @@ class ExpectModel {
     this.rule,
     this.egyptian,
     this.sorry,
+    this.address,
+    this.communicate,
   });
 
   factory ExpectModel.fromJson(Map<String, dynamic> json) {
@@ -74,6 +79,13 @@ class ExpectModel {
               ?.map((item) => SorryModel.fromJson(item ?? {}))
               .toList() ??
           [],
+      // 新增属性的 JSON 解析
+      address: (json['address'] as List?)
+          ?.map((item) => item as String)
+          .toList(),
+      communicate: (json['communicate'] as List?)
+          ?.map((item) => item as String)
+          .toList(),
     );
   }
 
@@ -90,6 +102,10 @@ class ExpectModel {
       'posted': posted?.toJson(),
       'rule': rule?.toJson(),
       'egyptian': egyptian?.toJson(),
+      'sorry': sorry?.map((model) => model.toJson()).toList(),
+      // 新增属性的 JSON 序列化
+      'address': address,
+      'communicate': communicate,
     };
   }
 }

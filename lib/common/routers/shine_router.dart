@@ -2,6 +2,10 @@ import 'package:shinecash/common/tabbar/tabbar_controller.dart';
 import 'package:shinecash/common/tabbar/tabbar_view.dart';
 import 'package:shinecash/features/auth/certificationlist/certification_list_controller.dart';
 import 'package:shinecash/features/auth/certificationlist/certification_list_view.dart';
+import 'package:shinecash/features/auth/imageface/image_list_controller.dart';
+import 'package:shinecash/features/auth/imageface/image_list_view.dart';
+import 'package:shinecash/features/auth/listpage/tin_list_controller.dart';
+import 'package:shinecash/features/auth/listpage/tin_list_view.dart';
 import 'package:shinecash/features/guide/guide_view.dart';
 import 'package:shinecash/features/login/login_controller.dart';
 import 'package:shinecash/features/login/login_view.dart';
@@ -32,6 +36,9 @@ class ShineAppRouter {
 
   /// tin
   static const String tinList = '/tinList';
+
+  ///image
+  static const String imagePhoto = '/imagePhoto';
 
   static final routes = [
     GetPage(
@@ -73,6 +80,22 @@ class ShineAppRouter {
       page: () => CertificationListView(),
       binding: BindingsBuilder(() {
         Get.lazyPut(() => CertificationListController());
+      }),
+    ),
+
+    GetPage(
+      name: tinList,
+      page: () => TinListView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => TinListController());
+      }),
+    ),
+
+    GetPage(
+      name: imagePhoto,
+      page: () => ImageListView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => ImageListController());
       }),
     ),
   ];

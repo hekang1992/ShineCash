@@ -43,8 +43,8 @@ class ShineHttpRequest {
 
   // 配置代理
   _configureProxy() {
-    String proxyIP = '10.1.1.60';
-    // String proxyIP = '192.168.71.12';
+    // String proxyIP = '10.1.1.60';
+    String proxyIP = '192.168.71.18';
     String proxyPort = "8888";
 
     if (proxyIP.isNotEmpty) {
