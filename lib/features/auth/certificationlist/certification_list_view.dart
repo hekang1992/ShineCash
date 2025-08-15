@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
-import 'package:shinecash/common/http/http_model.dart';
-import 'package:shinecash/common/http/http_toast.dart';
 import 'package:shinecash/features/apphead/app_head_view.dart';
 import 'package:shinecash/features/auth/certificationlist/app_common_footer_view.dart';
 import 'package:shinecash/features/auth/certificationlist/cer_head_view.dart';
 import 'package:shinecash/features/auth/certificationlist/cer_list_view.dart';
 import 'package:shinecash/features/auth/certificationlist/certification_list_controller.dart';
+import 'package:shinecash/features/home/home_controller.dart';
 
 class CertificationListView extends GetView<CertificationListController> {
   CertificationListView({super.key}) {
@@ -60,10 +59,15 @@ class CertificationListView extends GetView<CertificationListController> {
                       Obx(() {
                         return CerListView(
                           model: controller.model.value,
-                          onTap: (model) {
-                            ToastManager.showToast(
-                              '🔥${model.acquainted ?? ''}',
+                          onTap: (model) async {
+                            final homeVc = Get.find<HomeController>();
+                            homeVc.judgeMentThat(
+                              productID: controller.productID,
+                              type: '1',
                             );
+                            // ToastManager.showToast(
+                            //   '🔥${model.acquainted ?? ''}',
+                            // );
                           },
                         );
                       }),

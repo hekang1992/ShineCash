@@ -90,7 +90,7 @@ extension HomeVc on HomeController {
   }
 
   /// 判断是否设置了umid 如果是that
-  judgeMentThat(String productID) async {
+  judgeMentThat({required String productID, required String type}) async {
     try {
       ToastManager.showLoading();
       final http = ShineHttpRequest();
@@ -105,10 +105,17 @@ extension HomeVc on HomeController {
           //人脸认证完成 -- 直接进入
         } else if (rule?.listening == 0) {
           //选择认证列表页面
-          Get.toNamed(
-            ShineAppRouter.authList,
-            arguments: {'productID': productID},
-          );
+          if (type == '1') {
+            Get.toNamed(
+              ShineAppRouter.tinList,
+              arguments: {'productID': productID},
+            );
+          } else {
+            Get.toNamed(
+              ShineAppRouter.authList,
+              arguments: {'productID': productID},
+            );
+          }
         } else {}
       }
       ToastManager.hideLoading();
@@ -121,7 +128,7 @@ extension HomeVc on HomeController {
   pushToPage(String authStr, String productID) {
     switch (authStr) {
       case 'that':
-        judgeMentThat(productID);
+        judgeMentThat(productID: productID, type: '0');
         break;
       case 'now':
         break;

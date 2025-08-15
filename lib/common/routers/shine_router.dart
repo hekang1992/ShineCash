@@ -30,6 +30,9 @@ class ShineAppRouter {
   /// 认证列表页
   static const String authList = '/authList';
 
+  /// tin
+  static const String tinList = '/tinList';
+
   static final routes = [
     GetPage(
       name: splash,
