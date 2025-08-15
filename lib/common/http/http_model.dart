@@ -35,6 +35,8 @@ class ExpectModel {
   PostedModel? rule;
   EgyptianModel? egyptian;
 
+  List<SorryModel>? sorry;
+
   ExpectModel({
     this.satisfactory,
     this.natural,
@@ -47,6 +49,7 @@ class ExpectModel {
     this.posted,
     this.rule,
     this.egyptian,
+    this.sorry,
   });
 
   factory ExpectModel.fromJson(Map<String, dynamic> json) {
@@ -66,6 +69,11 @@ class ExpectModel {
       posted: PostedModel.fromJson(json['posted'] ?? {}),
       rule: PostedModel.fromJson(json['rule'] ?? {}),
       egyptian: EgyptianModel.fromJson(json['egyptian'] ?? {}),
+      sorry:
+          (json['sorry'] as List?)
+              ?.map((item) => SorryModel.fromJson(item ?? {}))
+              .toList() ??
+          [],
     );
   }
 
@@ -325,5 +333,41 @@ class LudicrousModel {
 
   Map<String, dynamic> toJson() {
     return {'acquainted': acquainted, 'robes': robes};
+  }
+}
+
+class SorryModel {
+  String? acquainted;
+  String? gentlemen;
+  int? listening; //0 1 是否完成
+  String? sitting;
+  String? unread;
+
+  SorryModel({
+    this.acquainted,
+    this.gentlemen,
+    this.listening,
+    this.sitting,
+    this.unread,
+  });
+
+  factory SorryModel.fromJson(Map<String, dynamic> json) {
+    return SorryModel(
+      acquainted: json['acquainted'],
+      gentlemen: json['gentlemen'],
+      listening: json['listening'],
+      sitting: json['sitting'],
+      unread: json['unread'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'acquainted': acquainted,
+      'gentlemen': gentlemen,
+      'listening': listening,
+      'sitting': sitting,
+      'unread': unread,
+    };
   }
 }

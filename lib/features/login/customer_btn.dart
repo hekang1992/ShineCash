@@ -9,7 +9,7 @@ class CustomBtn extends StatelessWidget {
   final double borderRadius;
   final double? width;
   final double? height;
-  final double fontSize;
+  final double? fontSize;
 
   const CustomBtn({
     super.key,
@@ -20,7 +20,7 @@ class CustomBtn extends StatelessWidget {
     this.borderRadius = 16.0,
     this.width,
     this.height,
-    this.fontSize = 12.0,
+    this.fontSize = 12,
   });
 
   @override

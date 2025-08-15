@@ -45,7 +45,7 @@ class LoginView extends GetView<LoginController> {
 
 Widget _loginView(LoginController controller) {
   return SingleChildScrollView(
-    physics: AlwaysScrollableScrollPhysics(),
+    physics: const AlwaysScrollableScrollPhysics(),
     child: SizedBox(
       height: 650.h,
       child: Stack(

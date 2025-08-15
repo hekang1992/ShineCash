@@ -30,7 +30,7 @@ class CenterView extends GetView<CenterController> {
                   child: Padding(
                     padding: EdgeInsets.only(top: 10.sp),
                     child: SingleChildScrollView(
-                      physics: AlwaysScrollableScrollPhysics(),
+                      physics: const AlwaysScrollableScrollPhysics(),
                       child: CenterHeadView(),
                     ),
                   ),
