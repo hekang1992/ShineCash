@@ -20,7 +20,7 @@ class CustomBtn extends StatelessWidget {
     this.borderRadius = 16.0,
     this.width,
     this.height,
-    this.fontSize = 12,
+    this.fontSize = 18,
   });
 
   @override

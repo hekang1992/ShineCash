@@ -30,10 +30,8 @@ class TinListView extends GetView<TinListController> {
                 child: AppHeadView(
                   title: 'Select Identity Document',
                   onTap: () async {
-                    if (Get.previousRoute == ShineAppRouter.authList) {
-                      Get.back(result: 'refresh');
-                      await cerVc.initAuthListInfo(productID);
-                    }
+                    Get.back(result: 'refresh');
+                    await cerVc.initAuthListInfo(productID);
                   },
                 ),
               ),

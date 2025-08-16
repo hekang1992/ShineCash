@@ -117,7 +117,7 @@ class CertificationListView extends GetView<CertificationListController> {
                 bottom: 0,
                 left: 0,
                 right: 0,
-                child: AppCommonFooterView(),
+                child: AppCommonFooterView(title: 'Proceed to certification'),
               ),
             ],
           ),

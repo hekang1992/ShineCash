@@ -4,7 +4,8 @@ import 'package:shinecash/common/constants/constant.dart';
 import 'package:shinecash/features/login/customer_btn.dart';
 
 class AppCommonFooterView extends StatelessWidget {
-  const AppCommonFooterView({super.key});
+  final String title;
+  const AppCommonFooterView({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +25,7 @@ class AppCommonFooterView extends StatelessWidget {
           right: 12.sp,
           bottom: 34.sp,
         ),
-        child: CustomBtn(
-          fontSize: 15.sp,
-          text: 'Proceed to certification',
-          onPressed: () {},
-        ),
+        child: CustomBtn(fontSize: 15.sp, text: title, onPressed: () {}),
       ),
     );
   }
