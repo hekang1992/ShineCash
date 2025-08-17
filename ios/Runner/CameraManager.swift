@@ -1,0 +1,94 @@
+import UIKit
+import AVFoundation
+
+class CameraManager: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    static let shared = CameraManager()
+    private var completion: ((Data?) -> Void)?
+    
+    private override init() {}
+    
+    /// 检查相机权限并打开相机
+    func presentCamera(from viewController: UIViewController, completion: @escaping (Data?) -> Void) {
+        self.completion = completion
+        
+        let status = AVCaptureDevice.authorizationStatus(for: .video)
+        switch status {
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { granted in
+                DispatchQueue.main.async {
+                    if granted {
+                        self.openCamera(from: viewController)
+                    } else {
+                        self.showSettingsAlert(from: viewController, message: "请在“设置”中开启相机权限")
+                        completion(nil)
+                    }
+                }
+            }
+        case .restricted, .denied:
+            self.showSettingsAlert(from: viewController, message: "请在“设置”中开启相机权限")
+            completion(nil)
+        case .authorized:
+            self.openCamera(from: viewController)
+        @unknown default:
+            completion(nil)
+        }
+    }
+    
+    /// 打开相机
+    private func openCamera(from viewController: UIViewController) {
+        guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
+            print("相机不可用")
+            completion?(nil)
+            return
+        }
+        
+        let picker = UIImagePickerController()
+        picker.sourceType = .camera
+        picker.delegate = self
+        viewController.present(picker, animated: true, completion: nil)
+    }
+    
+    /// 选择图片回调
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        if let image = info[.originalImage] as? UIImage {
+            let compressedData = compressImageToUnder500KB(image)
+            completion?(compressedData)
+        } else {
+            completion?(nil)
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+        completion?(nil)
+    }
+    
+    /// 压缩图片到 500KB 以下
+    private func compressImageToUnder500KB(_ image: UIImage) -> Data? {
+        var compression: CGFloat = 1.0
+        let maxFileSize = 500 * 1024 // 500 KB
+        var imageData = image.jpegData(compressionQuality: compression)
+        
+        while let data = imageData, data.count > maxFileSize, compression > 0.05 {
+            compression -= 0.1
+            imageData = image.jpegData(compressionQuality: compression)
+        }
+        return imageData
+    }
+    
+    /// 提示去设置
+    private func showSettingsAlert(from vc: UIViewController, message: String) {
+        let alert = UIAlertController(title: "权限被拒绝", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "去设置", style: .default, handler: { _ in
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(url)
+            }
+        }))
+        vc.present(alert, animated: true, completion: nil)
+    }
+}
+

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
-import 'package:shinecash/common/http/http_toast.dart';
+import 'package:shinecash/common/utils/image_pop.dart';
 import 'package:shinecash/features/apphead/app_head_view.dart';
 import 'package:shinecash/features/auth/certificationlist/app_common_footer_view.dart';
 import 'package:shinecash/features/auth/certificationlist/certification_list_controller.dart';
@@ -80,7 +80,7 @@ class ImageListView extends GetView<ImageListController> {
                                           onTap: () async {
                                             Get.back();
                                             await Future.delayed(
-                                              Duration(milliseconds: 500),
+                                              Duration(milliseconds: 250),
                                             );
                                             Get.bottomSheet(
                                               backgroundColor: Colors.white,
@@ -92,9 +92,22 @@ class ImageListView extends GetView<ImageListController> {
                                                   ListTile(
                                                     leading: Icon(Icons.camera),
                                                     title: Text('Camera'),
-                                                    onTap: () => Get.back(
-                                                      result: 1,
-                                                    ), // 返回1表示选择相机
+                                                    onTap: () async {
+                                                      Get.back();
+                                                      final originalData =
+                                                          await ImageChannel.openCamera(
+                                                            '0',
+                                                          );
+                                                      await controller
+                                                          .uploadImageWithType(
+                                                            type: controller
+                                                                .dict['title'],
+                                                            many: 11,
+                                                            ink: 1,
+                                                            originalData:
+                                                                originalData,
+                                                          );
+                                                    }, // 返回1表示选择相机
                                                   ),
                                                   ListTile(
                                                     leading: Icon(
@@ -103,9 +116,20 @@ class ImageListView extends GetView<ImageListController> {
                                                     title: Text(
                                                       'Photo Gallery',
                                                     ),
-                                                    onTap: () => Get.back(
-                                                      result: 2,
-                                                    ), // 返回2表示选择相册
+                                                    onTap: () async {
+                                                      Get.back();
+                                                      final originalData =
+                                                          await ImageChannel.openGallery();
+                                                      await controller
+                                                          .uploadImageWithType(
+                                                            type: controller
+                                                                .dict['title'],
+                                                            many: 11,
+                                                            ink: 2,
+                                                            originalData:
+                                                                originalData,
+                                                          );
+                                                    }, // 返回2表示选择相册
                                                   ),
                                                   ListTile(
                                                     leading: Icon(Icons.cancel),
@@ -132,8 +156,38 @@ class ImageListView extends GetView<ImageListController> {
                                         enableDrag: false,
                                         ImageSheetView(
                                           imageStr: 'faca_de_image.png',
-                                          onTap: () {
+                                          onTap: () async {
                                             Get.back();
+                                            await Future.delayed(
+                                              Duration(milliseconds: 250),
+                                            );
+                                            Get.bottomSheet(
+                                              backgroundColor: Colors.white,
+                                              isDismissible: false,
+                                              enableDrag: false,
+                                              Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  ListTile(
+                                                    leading: Icon(Icons.camera),
+                                                    title: Text('Camera'),
+                                                    onTap: () {
+                                                      Get.back(); // 返回1表示选择相机
+                                                      ImageChannel.openCamera(
+                                                        '1',
+                                                      );
+                                                    },
+                                                  ),
+                                                  ListTile(
+                                                    leading: Icon(Icons.cancel),
+                                                    title: Text('Cancel'),
+                                                    onTap: () => Get.back(
+                                                      result: 0,
+                                                    ), // 返回0表示取消
+                                                  ),
+                                                ],
+                                              ),
+                                            );
                                           },
                                         ),
                                       );

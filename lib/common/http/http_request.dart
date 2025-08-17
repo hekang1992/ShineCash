@@ -43,7 +43,7 @@ class ShineHttpRequest {
 
   // 配置代理
   _configureProxy() {
-    String proxyIP = '10.1.1.61';
+    String proxyIP = '10.1.1.65';
     // String proxyIP = '192.168.71.18';
     String proxyPort = "8888";
 
@@ -98,16 +98,15 @@ class ShineHttpRequest {
   // 上传单张图片, 可选参数
   Future<Response> uploadImage(
     String path, {
-    required File imageFile,
+    required Uint8List originalData,
     Map<String, dynamic>? extraData,
     CancelToken? cancelToken,
     String fileField = 'image',
-    int quality = 85,
-    int minWidth = 1000,
-    int minHeight = 1000,
+    int quality = 80,
+    int minWidth = 850,
+    int minHeight = 850,
   }) async {
     // Read and compress the image first
-    Uint8List originalData = await imageFile.readAsBytes();
     Uint8List? compressedData = await FlutterImageCompress.compressWithList(
       originalData,
       minHeight: minHeight,

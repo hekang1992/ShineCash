@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:get/get.dart';
 import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/common/http/http_request.dart';
@@ -36,6 +38,29 @@ extension ImageListVc on ImageListController {
           //选择认证列表页面
         } else {}
       }
+      ToastManager.hideLoading();
+    } catch (e) {
+      ToastManager.hideLoading();
+    }
+  }
+
+  uploadImageWithType({
+    required String type,
+    required int many,
+    required int ink,
+    required Uint8List originalData,
+  }) async {
+    try {
+      ToastManager.showLoading();
+      final http = ShineHttpRequest();
+      final dict = {'read': type, 'many': many, 'ink': ink};
+      final response = await http.uploadImage(
+        '/wzcnrht/driving',
+        originalData: originalData,
+        extraData: dict,
+      );
+      final model = BaseModel.fromJson(response.data);
+      if (model.beautiful == '0' || model.beautiful == '00') {}
       ToastManager.hideLoading();
     } catch (e) {
       ToastManager.hideLoading();

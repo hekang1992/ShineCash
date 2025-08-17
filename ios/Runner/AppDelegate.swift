@@ -36,6 +36,21 @@ extension AppDelegate {
                 }
             }else if call.method == "googleMarket" {
                 self.googleMarket(call: call)
+            }else if call.method == "openCamera" {
+                if let args = call.arguments as? [String: Any],
+                   let type = args["type"] as? String {
+                    CameraManager.shared.presentCamera(from: controller) { imageData in
+                        if let imageData = imageData {
+                            result(FlutterStandardTypedData(bytes: imageData))
+                        }
+                    }
+                }
+            }else if call.method == "openGallery" {
+                PhotoLibraryManager.shared.presentPhotoLibrary(from: controller) { imageData in
+                    if let imageData = imageData {
+                        result(FlutterStandardTypedData(bytes: imageData))
+                    }
+                }
             }
             else {
                 result(FlutterMethodNotImplemented)
