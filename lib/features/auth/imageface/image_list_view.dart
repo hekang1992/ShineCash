@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
+import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/common/utils/image_pop.dart';
 import 'package:shinecash/features/apphead/app_head_view.dart';
 import 'package:shinecash/features/auth/certificationlist/app_common_footer_view.dart';
 import 'package:shinecash/features/auth/certificationlist/certification_list_controller.dart';
 import 'package:shinecash/features/auth/imageface/image_list_controller.dart';
 import 'package:shinecash/features/auth/imageface/image_sheet_view.dart';
+import 'package:shinecash/features/auth/imageface/image_success_list_view.dart';
 import 'package:shinecash/features/auth/imageface/progress_list_view.dart';
 
 class ImageListView extends GetView<ImageListController> {
@@ -94,11 +96,12 @@ class ImageListView extends GetView<ImageListController> {
                                                     title: Text('Camera'),
                                                     onTap: () async {
                                                       Get.back();
+
                                                       final originalData =
                                                           await ImageChannel.openCamera(
                                                             '0',
                                                           );
-                                                      await controller
+                                                      final model = await controller
                                                           .uploadImageWithType(
                                                             type: controller
                                                                 .dict['title'],
@@ -107,6 +110,41 @@ class ImageListView extends GetView<ImageListController> {
                                                             originalData:
                                                                 originalData,
                                                           );
+                                                      if (model == null) {
+                                                        return;
+                                                      }
+                                                      Get.bottomSheet(
+                                                        isDismissible: false,
+                                                        enableDrag: false,
+                                                        isScrollControlled:
+                                                            true,
+                                                        ImageSuccessListView(
+                                                          model: model,
+                                                          onTap: () {
+                                                            Get.back();
+                                                          },
+                                                          sureTap: (controller) async {
+                                                            await this
+                                                                .controller
+                                                                .saveTinInfo(
+                                                                  name:
+                                                                      controller
+                                                                          .oneVc
+                                                                          .text,
+                                                                  id: controller
+                                                                      .twoVc
+                                                                      .text,
+                                                                  time: controller
+                                                                      .threeVc
+                                                                      .text,
+                                                                  many: '11',
+                                                                  read: this
+                                                                      .controller
+                                                                      .dict['title'],
+                                                                );
+                                                          },
+                                                        ),
+                                                      );
                                                     }, // 返回1表示选择相机
                                                   ),
                                                   ListTile(
@@ -120,7 +158,7 @@ class ImageListView extends GetView<ImageListController> {
                                                       Get.back();
                                                       final originalData =
                                                           await ImageChannel.openGallery();
-                                                      await controller
+                                                      final model = await controller
                                                           .uploadImageWithType(
                                                             type: controller
                                                                 .dict['title'],
@@ -129,6 +167,41 @@ class ImageListView extends GetView<ImageListController> {
                                                             originalData:
                                                                 originalData,
                                                           );
+                                                      if (model == null) {
+                                                        return;
+                                                      }
+                                                      Get.bottomSheet(
+                                                        isDismissible: false,
+                                                        enableDrag: false,
+                                                        isScrollControlled:
+                                                            true,
+                                                        ImageSuccessListView(
+                                                          model: model,
+                                                          onTap: () {
+                                                            Get.back();
+                                                          },
+                                                          sureTap: (controller) async {
+                                                            await this
+                                                                .controller
+                                                                .saveTinInfo(
+                                                                  name:
+                                                                      controller
+                                                                          .oneVc
+                                                                          .text,
+                                                                  id: controller
+                                                                      .twoVc
+                                                                      .text,
+                                                                  time: controller
+                                                                      .threeVc
+                                                                      .text,
+                                                                  many: '11',
+                                                                  read: this
+                                                                      .controller
+                                                                      .dict['title'],
+                                                                );
+                                                          },
+                                                        ),
+                                                      );
                                                     }, // 返回2表示选择相册
                                                   ),
                                                   ListTile(

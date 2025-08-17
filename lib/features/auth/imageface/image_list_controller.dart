@@ -44,7 +44,7 @@ extension ImageListVc on ImageListController {
     }
   }
 
-  uploadImageWithType({
+  Future<BaseModel?> uploadImageWithType({
     required String type,
     required int many,
     required int ink,
@@ -60,8 +60,41 @@ extension ImageListVc on ImageListController {
         extraData: dict,
       );
       final model = BaseModel.fromJson(response.data);
-      if (model.beautiful == '0' || model.beautiful == '00') {}
+      ToastManager.showToast(model.captive ?? '');
       ToastManager.hideLoading();
+      if (model.beautiful == '0' || model.beautiful == '00') {
+        return model;
+      }
+    } catch (e) {
+      ToastManager.hideLoading();
+    }
+    return null;
+  }
+
+  saveTinInfo({
+    required String name,
+    required String id,
+    required String time,
+    required String many,
+    required String read,
+  }) async {
+    try {
+      final http = ShineHttpRequest();
+      ToastManager.showLoading();
+      final dict = {
+        'requests': time,
+        'supplied': id,
+        'pens': name,
+        'many': many,
+        'read': read,
+      };
+      final response = await http.post('/wzcnrht/kiss', formData: dict);
+      final model = BaseModel.fromJson(response.data);
+      if (model.beautiful == '0' || model.beautiful == '00') {
+        Get.back();
+        judgeMentThat(productID: this.dict['productID'], type: '1');
+      }
+      ToastManager.showToast(model.captive ?? '');
     } catch (e) {
       ToastManager.hideLoading();
     }

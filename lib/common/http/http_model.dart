@@ -40,6 +40,8 @@ class ExpectModel {
   List<String>? address;
   List<String>? communicate;
 
+  List<FavorModel>? favor;
+
   ExpectModel({
     this.satisfactory,
     this.natural,
@@ -55,6 +57,7 @@ class ExpectModel {
     this.sorry,
     this.address,
     this.communicate,
+    this.favor,
   });
 
   factory ExpectModel.fromJson(Map<String, dynamic> json) {
@@ -86,6 +89,11 @@ class ExpectModel {
       communicate: (json['communicate'] as List?)
           ?.map((item) => item as String)
           .toList(),
+      favor:
+          (json['favor'] as List?)
+              ?.map((item) => FavorModel.fromJson(item ?? {}))
+              .toList() ??
+          [],
     );
   }
 
@@ -106,6 +114,7 @@ class ExpectModel {
       // 新增属性的 JSON 序列化
       'address': address,
       'communicate': communicate,
+      'favor': favor?.map((model) => model.toJson()).toList(),
     };
   }
 }
@@ -385,5 +394,25 @@ class SorryModel {
       'sitting': sitting,
       'unread': unread,
     };
+  }
+}
+
+class FavorModel {
+  String? beautiful;
+  String? even;
+  String? remain;
+
+  FavorModel({this.beautiful, this.even, this.remain});
+
+  factory FavorModel.fromJson(Map<String, dynamic> json) {
+    return FavorModel(
+      beautiful: json['beautiful'],
+      even: json['even'],
+      remain: json['remain'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'beautiful': beautiful, 'even': even, 'remain': remain};
   }
 }

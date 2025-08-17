@@ -14,7 +14,7 @@ class CerReallistView extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: 84.h,
-        margin: EdgeInsets.only(bottom: 8.h),
+        margin: EdgeInsets.only(bottom: 8.sp),
         decoration: BoxDecoration(
           color: AppColor.whiteColor,
           border: Border.all(

@@ -146,6 +146,7 @@ extension LoginVc on LoginController {
 
       final String beautiful = model.beautiful ?? '';
       final String captive = model.captive ?? '';
+      ToastManager.showToast(captive);
       final List<String> successList = ['0', '00'];
       if (successList.contains(beautiful)) {
         final phone = model.expect?.satisfactory ?? '';
@@ -155,7 +156,6 @@ extension LoginVc on LoginController {
         Future.delayed(Duration(microseconds: 500));
         Get.offAllNamed(ShineAppRouter.tab);
       }
-      ToastManager.showToast(captive);
       ToastManager.hideLoading();
     } catch (e) {
       print('response-failure: $e');
