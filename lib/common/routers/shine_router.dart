@@ -6,6 +6,8 @@ import 'package:shinecash/features/auth/imageface/image_list_controller.dart';
 import 'package:shinecash/features/auth/imageface/image_list_view.dart';
 import 'package:shinecash/features/auth/listpage/tin_list_controller.dart';
 import 'package:shinecash/features/auth/listpage/tin_list_view.dart';
+import 'package:shinecash/features/auth/personalinfo/personal_controller.dart';
+import 'package:shinecash/features/auth/personalinfo/personal_view.dart';
 import 'package:shinecash/features/guide/guide_view.dart';
 import 'package:shinecash/features/login/login_controller.dart';
 import 'package:shinecash/features/login/login_view.dart';
@@ -39,6 +41,9 @@ class ShineAppRouter {
 
   ///image
   static const String imagePhoto = '/imagePhoto';
+
+  ///personal
+  static const String personal = '/personal';
 
   static final routes = [
     GetPage(
@@ -96,6 +101,14 @@ class ShineAppRouter {
       page: () => ImageListView(),
       binding: BindingsBuilder(() {
         Get.lazyPut(() => ImageListController());
+      }),
+    ),
+
+    GetPage(
+      name: personal,
+      page: () => PersonalView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => PersonalController());
       }),
     ),
   ];

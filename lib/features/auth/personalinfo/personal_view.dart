@@ -1,0 +1,118 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:shinecash/common/constants/constant.dart';
+import 'package:shinecash/features/apphead/app_head_view.dart';
+import 'package:shinecash/features/auth/certificationlist/app_common_footer_view.dart';
+import 'package:shinecash/features/auth/imageface/progress_list_view.dart';
+import 'package:shinecash/features/auth/personalinfo/input_click_view.dart';
+import 'package:shinecash/features/auth/personalinfo/personal_controller.dart';
+
+class PersonalView extends GetView<PersonalController> {
+  PersonalView({super.key}) {
+    final _ = Get.put(PersonalController());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Container(
+            width: double.infinity,
+            color: AppColor.bgColor,
+            child: Stack(
+              alignment: AlignmentDirectional.topCenter,
+              children: [
+                SafeArea(
+                  child: AppHeadView(
+                    title: 'Personal Info',
+                    onTap: () {
+                      Get.back();
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).padding.top + 52.h,
+                  ),
+                  child: Column(
+                    children: [
+                      ProgressListView(pix: 0.4),
+                      SizedBox(height: 16.sp),
+                      Stack(
+                        alignment: AlignmentDirectional.topCenter,
+                        children: [
+                          Image.asset(
+                            'assets/images/cycle_auth_image.png',
+                            width: 37.w,
+                            height: 23.h,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 12.sp),
+                            child: Container(
+                              width: 351.w,
+                              height: 520.h,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(9.sp),
+                                ),
+                              ),
+                              child: Obx(() {
+                                final model = controller.model.value;
+                                final temporary = model.expect?.temporary ?? [];
+                                return ListView.builder(
+                                  padding: EdgeInsets.all(12.sp),
+                                  itemCount:
+                                      model.expect?.temporary?.length ?? 0,
+                                  itemBuilder: (context, index) {
+                                    final model = temporary[index];
+                                    final necessity = model.necessity ?? '';
+                                    final enable = necessity == 'Kenyon'
+                                        ? true
+                                        : false;
+                                    return InputClickView(
+                                      model: model,
+                                      enable: enable,
+                                      controller:
+                                          controller.textControllers[index],
+                                    );
+                                  },
+                                );
+                              }),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 30.h),
+                      Expanded(
+                        child: Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: 52.h,
+                            child: AppCommonFooterView(
+                              title: 'Next',
+                              onTap: () {},
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

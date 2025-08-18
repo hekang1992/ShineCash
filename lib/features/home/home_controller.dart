@@ -56,7 +56,7 @@ extension HomeVc on HomeController {
         if (cautiously.contains(productDetailSchemeUrl)) {
           final dict = GetQueryParametersAll.getQueryParametersAll(cautiously);
           final productID = dict['nodded']?.first ?? '';
-          await getProductDetaiPageInfo(productID);
+          await getProductDetaiPageInfo(productID: productID, type: '0');
           print('dict--------$dict');
         }
       }
@@ -67,7 +67,10 @@ extension HomeVc on HomeController {
   }
 
   /// 产品详情页面
-  getProductDetaiPageInfo(String productID) async {
+  getProductDetaiPageInfo({
+    required String productID,
+    required String type,
+  }) async {
     try {
       ToastManager.showLoading();
       final http = ShineHttpRequest();
@@ -78,7 +81,7 @@ extension HomeVc on HomeController {
         detailModel.value = model;
         final sitting = model.expect?.allow?.sitting ?? '';
         if (sitting.isNotEmpty) {
-          pushToPage(sitting, productID);
+          pushToPage(authStr: sitting, productID: productID, type: type);
         } else {
           ToastManager.showToast('我我我我哦我我我我我我----h5');
         }
@@ -103,6 +106,10 @@ extension HomeVc on HomeController {
         final posted = model.expect?.rule;
         if (rule?.listening == 1 || posted?.listening == 1) {
           //人脸认证完成 -- 直接进入
+          Get.toNamed(
+            ShineAppRouter.imagePhoto,
+            arguments: {'productID': productID},
+          );
         } else if (rule?.listening == 0) {
           //选择认证列表页面
           if (type == '1') {
@@ -125,20 +132,32 @@ extension HomeVc on HomeController {
   }
 
   /// pushtopage
-  pushToPage(String authStr, String productID) {
-    switch (authStr) {
-      case 'that':
-        judgeMentThat(productID: productID, type: '0');
-        break;
-      case 'now':
-        break;
-      case 'them':
-        break;
-      case 'Cleopatra':
-        break;
-      case 'desertion':
-        break;
-      default:
+  pushToPage({
+    required String authStr,
+    required String productID,
+    required String type,
+  }) {
+    if (type == '0') {
+      Get.toNamed(ShineAppRouter.authList, arguments: {'productID': productID});
+    } else {
+      switch (authStr) {
+        case 'that':
+          judgeMentThat(productID: productID, type: '0');
+          break;
+        case 'now':
+          Get.toNamed(
+            ShineAppRouter.personal,
+            arguments: {'productID': productID},
+          );
+          break;
+        case 'them':
+          break;
+        case 'Cleopatra':
+          break;
+        case 'desertion':
+          break;
+        default:
+      }
     }
   }
 }

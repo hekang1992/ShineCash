@@ -61,10 +61,21 @@ class CertificationListView extends GetView<CertificationListController> {
                           model: controller.model.value,
                           onTap: (model) async {
                             final homeVc = Get.find<HomeController>();
-                            homeVc.judgeMentThat(
-                              productID: controller.productID,
-                              type: '1',
-                            );
+                            final sitting = model.sitting ?? '';
+                            final listening = model.listening ?? 0;
+                            if (listening == 1) {
+                              homeVc.pushToPage(
+                                authStr: sitting,
+                                productID: controller.productID,
+                                type: '1',
+                              );
+                            } else {
+                              homeVc.getProductDetaiPageInfo(
+                                productID: controller.productID,
+                                type: '1',
+                              );
+                            }
+
                             // ToastManager.showToast(
                             //   '🔥${model.acquainted ?? ''}',
                             // );
@@ -117,7 +128,16 @@ class CertificationListView extends GetView<CertificationListController> {
                 bottom: 0,
                 left: 0,
                 right: 0,
-                child: AppCommonFooterView(title: 'Proceed to certification'),
+                child: AppCommonFooterView(
+                  title: 'Proceed to certification',
+                  onTap: () {
+                    final homeVc = Get.find<HomeController>();
+                    homeVc.getProductDetaiPageInfo(
+                      productID: controller.productID,
+                      type: '1',
+                    );
+                  },
+                ),
               ),
             ],
           ),

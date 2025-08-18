@@ -5,7 +5,12 @@ import 'package:shinecash/features/login/customer_btn.dart';
 
 class AppCommonFooterView extends StatelessWidget {
   final String title;
-  const AppCommonFooterView({super.key, required this.title});
+  final VoidCallback? onTap;
+  const AppCommonFooterView({
+    super.key,
+    required this.title,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +30,7 @@ class AppCommonFooterView extends StatelessWidget {
           right: 12.sp,
           bottom: 34.sp,
         ),
-        child: CustomBtn(fontSize: 15.sp, text: title, onPressed: () {}),
+        child: CustomBtn(fontSize: 15.sp, text: title, onPressed: onTap),
       ),
     );
   }

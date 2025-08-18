@@ -42,6 +42,8 @@ class ExpectModel {
 
   List<FavorModel>? favor;
 
+  List<TemporaryModel>? temporary;
+
   ExpectModel({
     this.satisfactory,
     this.natural,
@@ -58,6 +60,7 @@ class ExpectModel {
     this.address,
     this.communicate,
     this.favor,
+    this.temporary,
   });
 
   factory ExpectModel.fromJson(Map<String, dynamic> json) {
@@ -94,6 +97,11 @@ class ExpectModel {
               ?.map((item) => FavorModel.fromJson(item ?? {}))
               .toList() ??
           [],
+      temporary:
+          (json['temporary'] as List?)
+              ?.map((item) => TemporaryModel.fromJson(item ?? {}))
+              .toList() ??
+          [],
     );
   }
 
@@ -115,6 +123,7 @@ class ExpectModel {
       'address': address,
       'communicate': communicate,
       'favor': favor?.map((model) => model.toJson()).toList(),
+      'temporary': temporary?.map((model) => model.toJson()).toList(),
     };
   }
 }
@@ -414,5 +423,66 @@ class FavorModel {
 
   Map<String, dynamic> toJson() {
     return {'beautiful': beautiful, 'even': even, 'remain': remain};
+  }
+}
+
+class TemporaryModel {
+  String? acquainted;
+  String? beautiful; //key
+  String? conversation;
+  int? regrets; //keybordtype 1num 0default
+  String? angrily;
+  String? necessity;
+  List<SincerelyModel>? sincerely;
+
+  TemporaryModel({
+    this.acquainted,
+    this.beautiful,
+    this.conversation,
+    this.regrets,
+    this.angrily,
+    this.necessity,
+    this.sincerely,
+  });
+
+  factory TemporaryModel.fromJson(Map<String, dynamic> json) {
+    return TemporaryModel(
+      acquainted: json['acquainted'],
+      beautiful: json['beautiful'],
+      conversation: json['conversation'],
+      regrets: json['regrets'],
+      angrily: json['angrily'],
+      necessity: json['necessity'],
+      sincerely: (json['sincerely'] as List?)
+          ?.map((item) => SincerelyModel.fromJson(item ?? {}))
+          .toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'acquainted': acquainted,
+      'beautiful': beautiful,
+      'conversation': conversation,
+      'regrets': regrets,
+      'angrily': angrily,
+      'necessity': necessity,
+      'sincerely': sincerely?.map((model) => model.toJson()).toList(),
+    };
+  }
+}
+
+class SincerelyModel {
+  String? pens;
+  int? many;
+
+  SincerelyModel({this.pens, this.many});
+
+  factory SincerelyModel.fromJson(Map<String, dynamic> json) {
+    return SincerelyModel(pens: json['pens'], many: json['many']);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'pens': pens, 'many': many};
   }
 }
