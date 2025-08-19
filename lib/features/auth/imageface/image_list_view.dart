@@ -296,7 +296,7 @@ class ImageListView extends GetView<ImageListController> {
                                                         homeVc.getProductDetaiPageInfo(
                                                           productID: controller
                                                               .dict['productID'],
-                                                          type: '0',
+                                                          type: '1',
                                                         );
                                                       },
                                                     ),
@@ -362,7 +362,22 @@ Widget imageClickView({
     child: Column(
       children: [
         if (imageStr.contains('http'))
-          Image.network(imageStr, width: 264.w, height: 176.h, fit: BoxFit.fill)
+          Image.network(
+            imageStr,
+            width: 264.w,
+            height: 176.h,
+            fit: BoxFit.fill,
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress == null) return child;
+              return CircularProgressIndicator(
+                color: Color(0XFF7262EC),
+                value: loadingProgress.expectedTotalBytes != null
+                    ? loadingProgress.cumulativeBytesLoaded /
+                          loadingProgress.expectedTotalBytes!
+                    : null,
+              );
+            },
+          )
         else
           Image.asset(
             'assets/images/$imageStr',

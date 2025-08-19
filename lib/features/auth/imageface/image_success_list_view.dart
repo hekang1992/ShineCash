@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:shinecash/common/constants/constant.dart';
 import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/common/http/http_toast.dart';
 import 'package:shinecash/features/auth/imageface/image_success_list_controller.dart';
 import 'package:shinecash/features/login/customer_btn.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 
 class ImageSuccessListView extends GetView<ImageSuccessListController> {
   final VoidCallback onTap;
@@ -74,7 +76,20 @@ class ImageSuccessListView extends GetView<ImageSuccessListController> {
               controller: controller.threeVc,
               model: model.expect?.favor?[2] ?? FavorModel(),
               onTap: () {
-                ToastManager.showToast('msg3');
+                DatePicker.showDatePicker(
+                  context,
+                  showTitleActions: true,
+                  currentTime: DateFormat('dd-MM-yyyy').parse(
+                    controller.threeVc.text.isEmpty
+                        ? (model.expect?.favor?[2].remain ?? '')
+                        : controller.threeVc.text,
+                  ),
+                  locale: LocaleType.en,
+                  onConfirm: (date) {
+                    final selectdate = DateFormat('dd-MM-yyyy').format(date);
+                    controller.threeVc.text = selectdate;
+                  },
+                );
               },
             ),
             Spacer(),
@@ -103,7 +118,10 @@ Widget inputCellView({
   required FavorModel model,
   VoidCallback? onTap,
 }) {
-  controller.text = model.remain ?? '';
+  if (controller.text.isEmpty) {
+    controller.text = model.remain ?? '09-09-1990';
+  }
+
   return InkWell(
     onTap: onTap,
     child: Container(

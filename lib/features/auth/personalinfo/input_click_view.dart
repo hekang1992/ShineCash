@@ -18,6 +18,9 @@ class InputClickView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (controller.text.isEmpty) {
+      controller.text = model.angrily ?? '';
+    }
     return InkWell(
       onTap: enable ? null : onTap,
       child: Container(

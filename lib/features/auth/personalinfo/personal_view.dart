@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
-import 'package:shinecash/common/http/http_toast.dart';
+import 'package:shinecash/common/http/http_model.dart';
+import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/features/apphead/app_head_view.dart';
 import 'package:shinecash/features/auth/certificationlist/app_common_footer_view.dart';
+import 'package:shinecash/features/auth/certificationlist/certification_list_controller.dart';
 import 'package:shinecash/features/auth/imageface/progress_list_view.dart';
 import 'package:shinecash/features/auth/personalinfo/auth_one_enum_view.dart';
 import 'package:shinecash/features/auth/personalinfo/input_click_view.dart';
 import 'package:shinecash/features/auth/personalinfo/personal_controller.dart';
+import 'package:shinecash/features/home/home_controller.dart';
 
 class PersonalView extends GetView<PersonalController> {
   PersonalView({super.key}) {
@@ -17,6 +20,7 @@ class PersonalView extends GetView<PersonalController> {
 
   @override
   Widget build(BuildContext context) {
+    final cerVc = Get.find<CertificationListController>();
     return PopScope(
       canPop: false,
       child: Scaffold(
@@ -33,8 +37,14 @@ class PersonalView extends GetView<PersonalController> {
                 SafeArea(
                   child: AppHeadView(
                     title: 'Personal Info',
-                    onTap: () {
-                      Get.back();
+                    onTap: () async {
+                      Get.until((route) {
+                        final currentRoute = route.settings.name
+                            ?.split('?')
+                            .first;
+                        return currentRoute == ShineAppRouter.authList;
+                      });
+                      await cerVc.initAuthListInfo(controller.productID);
                     },
                   ),
                 ),
@@ -86,19 +96,42 @@ class PersonalView extends GetView<PersonalController> {
                                       onTap: () {
                                         FocusManager.instance.primaryFocus
                                             ?.unfocus();
-                                        Get.bottomSheet(
-                                          isDismissible: false,
-                                          enableDrag: false,
-                                          AuthOneEnumView(
-                                            onTap: () {
-                                              Get.back();
+                                        if (necessity == 'Mrs') {
+                                          final homeVc =
+                                              Get.find<HomeController>();
+                                          final modelArray =
+                                              homeVc
+                                                  .citylistModel
+                                                  .value
+                                                  .expect
+                                                  ?.centuries ??
+                                              [];
+                                          controller.showPicker(
+                                            modelArray,
+                                            context,
+                                            cityBlock: (name) {
+                                              controller
+                                                      .textControllers[index]
+                                                      .text =
+                                                  name;
+                                              model.angrily = name;
                                             },
-                                            model: model,
-                                            listModel: model.sincerely ?? [],
-                                            controller: controller,
-                                            fatherIndex: index,
-                                          ),
-                                        );
+                                          );
+                                        } else {
+                                          Get.bottomSheet(
+                                            isDismissible: false,
+                                            enableDrag: false,
+                                            AuthOneEnumView(
+                                              onTap: () {
+                                                Get.back();
+                                              },
+                                              model: model,
+                                              listModel: model.sincerely ?? [],
+                                              controller: controller,
+                                              fatherIndex: index,
+                                            ),
+                                          );
+                                        }
                                       },
                                     );
                                   },
@@ -119,7 +152,25 @@ class PersonalView extends GetView<PersonalController> {
                             height: 52.h,
                             child: AppCommonFooterView(
                               title: 'Next',
-                              onTap: () {},
+                              onTap: () async {
+                                Map<String, dynamic> dict = {
+                                  'nodded': controller.productID,
+                                };
+                                for (TemporaryModel model
+                                    in controller
+                                            .model
+                                            .value
+                                            .expect
+                                            ?.temporary ??
+                                        []) {
+                                  final listDict = {
+                                    model.beautiful ?? '': model.angrily ?? '',
+                                  };
+                                  dict.addAll(listDict);
+                                }
+                                print('dict🤢--------$dict');
+                                await controller.saveInfo(dict);
+                              },
                             ),
                           ),
                         ),

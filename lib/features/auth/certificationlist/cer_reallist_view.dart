@@ -32,6 +32,16 @@ class CerReallistView extends StatelessWidget {
               width: 68.w,
               height: 68.h,
               fit: BoxFit.contain,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return CircularProgressIndicator(
+                  color: Color(0XFF7262EC),
+                  value: loadingProgress.expectedTotalBytes != null
+                      ? loadingProgress.cumulativeBytesLoaded /
+                            loadingProgress.expectedTotalBytes!
+                      : null,
+                );
+              },
             ),
             SizedBox(width: 12.w),
             Container(

@@ -5,13 +5,15 @@ import 'package:shinecash/common/constants/constant.dart';
 import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/features/auth/personalinfo/personal_controller.dart';
 import 'package:shinecash/features/auth/personalinfo/pop_list_view.dart';
+import 'package:shinecash/features/auth/work/workinfo_controller.dart';
+import 'package:shinecash/features/base_controller.dart';
 import 'package:shinecash/features/login/customer_btn.dart';
 
 class AuthOneEnumView extends StatelessWidget {
   final VoidCallback onTap;
   final TemporaryModel model;
   final List<SincerelyModel> listModel;
-  final PersonalController controller;
+  final BaseController controller;
   final int fatherIndex;
 
   const AuthOneEnumView({
@@ -92,8 +94,16 @@ class AuthOneEnumView extends StatelessWidget {
               text: 'Confirm',
               onPressed: () {
                 final selectedItem = listModel[selectedIndex];
-                controller.textControllers[fatherIndex].text =
-                    selectedItem.pens ?? '';
+                if (controller is PersonalController) {
+                  final v1Controller = controller as PersonalController;
+                  v1Controller.textControllers[fatherIndex].text =
+                      selectedItem.pens ?? '';
+                } else if (controller is WorkinfoController) {
+                  final v2Controller = controller as WorkinfoController;
+                  v2Controller.textControllers[fatherIndex].text =
+                      selectedItem.pens ?? '';
+                }
+
                 model.angrily = (selectedItem.many ?? 0).toString();
                 Get.back();
               },

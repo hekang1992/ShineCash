@@ -8,6 +8,8 @@ import 'package:shinecash/features/auth/listpage/tin_list_controller.dart';
 import 'package:shinecash/features/auth/listpage/tin_list_view.dart';
 import 'package:shinecash/features/auth/personalinfo/personal_controller.dart';
 import 'package:shinecash/features/auth/personalinfo/personal_view.dart';
+import 'package:shinecash/features/auth/work/workinfo_controller.dart';
+import 'package:shinecash/features/auth/work/workinfo_view.dart';
 import 'package:shinecash/features/guide/guide_view.dart';
 import 'package:shinecash/features/login/login_controller.dart';
 import 'package:shinecash/features/login/login_view.dart';
@@ -44,6 +46,9 @@ class ShineAppRouter {
 
   ///personal
   static const String personal = '/personal';
+
+  ///work
+  static const String work = '/work';
 
   static final routes = [
     GetPage(
@@ -109,6 +114,14 @@ class ShineAppRouter {
       page: () => PersonalView(),
       binding: BindingsBuilder(() {
         Get.lazyPut(() => PersonalController());
+      }),
+    ),
+
+    GetPage(
+      name: work,
+      page: () => WorkinfoView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => WorkinfoController());
       }),
     ),
   ];

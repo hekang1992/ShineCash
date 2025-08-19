@@ -18,10 +18,13 @@ class HomeController extends GetxController {
   // 认证列表model
   final authlistModel = BaseModel().obs;
 
+  final citylistModel = BaseModel().obs;
+
   @override
   void onInit() {
     super.onInit();
     initHomeInfo();
+    initCityInfo();
   }
 }
 
@@ -35,6 +38,21 @@ extension HomeVc on HomeController {
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
         this.model.value = model;
+      }
+      ToastManager.hideLoading();
+    } catch (e) {
+      ToastManager.hideLoading();
+    }
+  }
+
+  initCityInfo() async {
+    try {
+      ToastManager.showLoading();
+      final http = ShineHttpRequest();
+      final response = await http.get('/wzcnrht/finished');
+      final model = BaseModel.fromJson(response.data);
+      if (model.beautiful == '0' || model.beautiful == '00') {
+        citylistModel.value = model;
       }
       ToastManager.hideLoading();
     } catch (e) {
@@ -142,7 +160,7 @@ extension HomeVc on HomeController {
     } else {
       switch (authStr) {
         case 'that':
-          judgeMentThat(productID: productID, type: '0');
+          judgeMentThat(productID: productID, type: type);
           break;
         case 'now':
           Get.toNamed(
@@ -151,10 +169,13 @@ extension HomeVc on HomeController {
           );
           break;
         case 'them':
+          Get.toNamed(ShineAppRouter.work, arguments: {'productID': productID});
           break;
         case 'Cleopatra':
+          ToastManager.showToast('Cleopatra');
           break;
         case 'desertion':
+          ToastManager.showToast('desertion');
           break;
         default:
       }
