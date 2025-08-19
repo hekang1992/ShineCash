@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
+import 'package:shinecash/common/http/http_toast.dart';
 import 'package:shinecash/features/apphead/app_head_view.dart';
 import 'package:shinecash/features/auth/certificationlist/app_common_footer_view.dart';
 import 'package:shinecash/features/auth/imageface/progress_list_view.dart';
+import 'package:shinecash/features/auth/personalinfo/auth_one_enum_view.dart';
 import 'package:shinecash/features/auth/personalinfo/input_click_view.dart';
 import 'package:shinecash/features/auth/personalinfo/personal_controller.dart';
 
@@ -81,6 +83,23 @@ class PersonalView extends GetView<PersonalController> {
                                       enable: enable,
                                       controller:
                                           controller.textControllers[index],
+                                      onTap: () {
+                                        FocusManager.instance.primaryFocus
+                                            ?.unfocus();
+                                        Get.bottomSheet(
+                                          isDismissible: false,
+                                          enableDrag: false,
+                                          AuthOneEnumView(
+                                            onTap: () {
+                                              Get.back();
+                                            },
+                                            model: model,
+                                            listModel: model.sincerely ?? [],
+                                            controller: controller,
+                                            fatherIndex: index,
+                                          ),
+                                        );
+                                      },
                                     );
                                   },
                                 );
