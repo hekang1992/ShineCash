@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
-import 'package:shinecash/common/http/http_request.dart';
 import 'package:shinecash/common/http/http_toast.dart';
+import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/common/tabbar/tabbar_controller.dart';
 import 'package:shinecash/common/utils/image_pop.dart';
 import 'package:shinecash/features/apphead/app_head_view.dart';
+import 'package:shinecash/features/auth/certificationlist/certification_list_controller.dart';
 import 'package:shinecash/features/web/web_controller.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -34,7 +35,21 @@ class WebView extends GetView<WebController> {
                       if (await controller.webcontroller.canGoBack()) {
                         controller.webcontroller.goBack();
                       } else {
-                        Get.back();
+                        Get.until((route) {
+                          final currentRoute = route.settings.name
+                              ?.split('?')
+                              .first;
+                          if (currentRoute == ShineAppRouter.tab ||
+                              currentRoute == ShineAppRouter.authList) {
+                            return true;
+                          } else {
+                            return false;
+                          }
+                        });
+                        if (Get.isRegistered<CertificationListController>()) {
+                          final cerVc = Get.find<CertificationListController>();
+                          await cerVc.initAuthListInfo(cerVc.productID);
+                        }
                       }
                     },
                   ),

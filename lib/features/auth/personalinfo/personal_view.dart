@@ -186,3 +186,26 @@ class PersonalView extends GetView<PersonalController> {
     );
   }
 }
+
+class Relation {
+  static String backRelation({required String type}) {
+    switch (type) {
+      case '1':
+        return 'Parent';
+      case '2':
+        return 'Spouse';
+      case '3':
+        return 'Child';
+      case '4':
+        return 'Sibling';
+      case '5':
+        return 'Friend';
+      case '6':
+        return 'Colleague';
+      case '7':
+        return 'other';
+      default:
+        return '';
+    }
+  }
+}

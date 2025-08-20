@@ -91,14 +91,15 @@ class PhoneListView extends GetView<PhoneListController> {
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) {
                                     final model = model1.expect?.oily?[index];
-                                    final relation = model?.discovery ?? '';
-                                    final relationStr =
-                                        model?.relationStr ?? '';
+                                    final relation = Relation.backRelation(
+                                      type: model?.discovery ?? '',
+                                    );
+                                    final relationStr = relation;
                                     final phone = model?.sane ?? '';
                                     final name = model?.pens ?? '';
                                     final phoneName = '$name-$phone';
                                     return PhoneCellView(
-                                      incColor1: relationStr.isEmpty
+                                      incColor1: relation.isEmpty
                                           ? 0xff888888
                                           : 0xff7262EC,
                                       incColor2: phoneName == '-'
@@ -203,5 +204,28 @@ class PhoneListView extends GetView<PhoneListController> {
         ),
       ),
     );
+  }
+}
+
+class Relation {
+  static String backRelation({required String type}) {
+    switch (type) {
+      case '1':
+        return 'Parent';
+      case '2':
+        return 'Spouse';
+      case '3':
+        return 'Child';
+      case '4':
+        return 'Sibling';
+      case '5':
+        return 'Friend';
+      case '6':
+        return 'Colleague';
+      case '7':
+        return 'other';
+      default:
+        return '';
+    }
   }
 }
