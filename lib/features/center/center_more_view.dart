@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
 import 'package:shinecash/common/http/http_toast.dart';
+import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/features/center/center_controller.dart';
 
 class CenterMoreView extends GetView<CenterController> {
@@ -44,11 +45,21 @@ class CenterMoreView extends GetView<CenterController> {
               ),
               itemBuilder: (context, index) {
                 final name = model.expect?.centuries?[index].acquainted ?? '';
+                final finished = model.expect?.centuries?[index].finished ?? '';
+                final cautiously =
+                    model.expect?.centuries?[index].cautiously ?? '';
                 return listItemView(
-                  oneStr: 'All Orders',
+                  oneStr: finished,
                   twoStr: name,
                   onTap: () {
-                    ToastManager.showToast(name);
+                    if (cautiously.contains(settingSchemeUrl)) {
+                      Get.toNamed(ShineAppRouter.setting);
+                    } else {
+                      Get.toNamed(
+                        ShineAppRouter.web,
+                        arguments: {'pageUrl': cautiously},
+                      );
+                    }
                   },
                 );
               },
@@ -76,8 +87,8 @@ Widget listItemView({
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(
-            'assets/images/$oneStr.png',
+          Image.network(
+            oneStr ?? '',
             width: 48.w,
             height: 48.h,
             fit: BoxFit.contain,

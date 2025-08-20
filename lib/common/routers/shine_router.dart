@@ -10,6 +10,10 @@ import 'package:shinecash/features/auth/personalinfo/personal_controller.dart';
 import 'package:shinecash/features/auth/personalinfo/personal_view.dart';
 import 'package:shinecash/features/auth/work/workinfo_controller.dart';
 import 'package:shinecash/features/auth/work/workinfo_view.dart';
+import 'package:shinecash/features/center/delete_controller.dart';
+import 'package:shinecash/features/center/delete_view.dart';
+import 'package:shinecash/features/center/setting_controller.dart';
+import 'package:shinecash/features/center/setting_view.dart';
 import 'package:shinecash/features/guide/guide_view.dart';
 import 'package:shinecash/features/login/login_controller.dart';
 import 'package:shinecash/features/login/login_view.dart';
@@ -49,6 +53,12 @@ class ShineAppRouter {
 
   ///work
   static const String work = '/work';
+
+  ///setting
+  static const String setting = '/setting';
+
+  ///delete
+  static const String delete = '/delete';
 
   static final routes = [
     GetPage(
@@ -122,6 +132,22 @@ class ShineAppRouter {
       page: () => WorkinfoView(),
       binding: BindingsBuilder(() {
         Get.lazyPut(() => WorkinfoController());
+      }),
+    ),
+
+    GetPage(
+      name: setting,
+      page: () => SettingView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => SettingController());
+      }),
+    ),
+
+    GetPage(
+      name: delete,
+      page: () => DeleteView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => DeleteController());
       }),
     ),
   ];
