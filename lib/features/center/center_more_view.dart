@@ -92,7 +92,20 @@ Widget listItemView({
             width: 48.w,
             height: 48.h,
             fit: BoxFit.contain,
+            errorBuilder: (context, error, stackTrace) {
+              return Container(
+                width: 48.w,
+                height: 48.h,
+                color: const Color.fromARGB(255, 216, 194, 239), // 红色背景
+                child: Icon(
+                  Icons.error_outline,
+                  color: Colors.white,
+                  size: 24.w,
+                ),
+              );
+            },
           ),
+
           SizedBox(height: 12.h),
           Text(
             '$twoStr',

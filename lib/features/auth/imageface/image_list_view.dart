@@ -377,6 +377,18 @@ Widget imageClickView({
                     : null,
               );
             },
+            errorBuilder: (context, error, stackTrace) {
+              return Container(
+                width: 264.w,
+                height: 176.h,
+                color: const Color.fromARGB(255, 216, 194, 239), // 红色背景
+                child: Icon(
+                  Icons.error_outline,
+                  color: Colors.white,
+                  size: 24.w,
+                ),
+              );
+            },
           )
         else
           Image.asset(

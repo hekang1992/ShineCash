@@ -172,7 +172,10 @@ extension HomeVc on HomeController {
           Get.toNamed(ShineAppRouter.work, arguments: {'productID': productID});
           break;
         case 'Cleopatra':
-          ToastManager.showToast('Cleopatra');
+          Get.toNamed(
+            ShineAppRouter.phonelist,
+            arguments: {'productID': productID},
+          );
           break;
         case 'desertion':
           ToastManager.showToast('desertion');

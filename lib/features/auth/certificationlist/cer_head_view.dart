@@ -64,6 +64,18 @@ class CerHeadView extends StatelessWidget {
                           : null,
                     );
                   },
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      width: 72.w,
+                      height: 72.h,
+                      color: const Color.fromARGB(255, 216, 194, 239),
+                      child: Icon(
+                        Icons.error_outline,
+                        color: Colors.white,
+                        size: 24.w,
+                      ),
+                    );
+                  },
                 ),
               ),
             SizedBox(width: 12.w),

@@ -42,6 +42,18 @@ class CerReallistView extends StatelessWidget {
                       : null,
                 );
               },
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  width: 68.w,
+                  height: 68.h,
+                  color: const Color.fromARGB(255, 216, 194, 239), // 红色背景
+                  child: Icon(
+                    Icons.error_outline,
+                    color: Colors.white,
+                    size: 24.w,
+                  ),
+                );
+              },
             ),
             SizedBox(width: 12.w),
             Container(

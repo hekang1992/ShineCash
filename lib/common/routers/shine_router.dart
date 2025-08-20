@@ -8,6 +8,8 @@ import 'package:shinecash/features/auth/listpage/tin_list_controller.dart';
 import 'package:shinecash/features/auth/listpage/tin_list_view.dart';
 import 'package:shinecash/features/auth/personalinfo/personal_controller.dart';
 import 'package:shinecash/features/auth/personalinfo/personal_view.dart';
+import 'package:shinecash/features/auth/phonelist/phone_list_controller.dart';
+import 'package:shinecash/features/auth/phonelist/phone_list_view.dart';
 import 'package:shinecash/features/auth/work/workinfo_controller.dart';
 import 'package:shinecash/features/auth/work/workinfo_view.dart';
 import 'package:shinecash/features/center/delete_controller.dart';
@@ -59,6 +61,9 @@ class ShineAppRouter {
 
   ///delete
   static const String delete = '/delete';
+
+  ///delete
+  static const String phonelist = '/phonelist';
 
   static final routes = [
     GetPage(
@@ -148,6 +153,14 @@ class ShineAppRouter {
       page: () => DeleteView(),
       binding: BindingsBuilder(() {
         Get.lazyPut(() => DeleteController());
+      }),
+    ),
+
+    GetPage(
+      name: phonelist,
+      page: () => PhoneListView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => PhoneListController());
       }),
     ),
   ];
