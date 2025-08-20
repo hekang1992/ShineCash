@@ -285,15 +285,16 @@ class DiedModel {
 
 class AllowModel {
   String? sitting;
+  String? cautiously;
 
-  AllowModel({this.sitting});
+  AllowModel({this.sitting, this.cautiously});
 
   factory AllowModel.fromJson(Map<String, dynamic> json) {
-    return AllowModel(sitting: json['sitting']);
+    return AllowModel(sitting: json['sitting'], cautiously: json['cautiously']);
   }
 
   Map<String, dynamic> toJson() {
-    return {'sitting': sitting};
+    return {'sitting': sitting, 'cautiously': cautiously};
   }
 }
 
@@ -520,18 +521,23 @@ class OilyModel {
   String? perceive;
   String? sane;
   String? skilled;
+  String? relationStr;
   List<Sincerely1Model>? sincerely;
+
+  int? selectIndex;
 
   OilyModel({
     this.acquainted,
-    this.discovery,
+    this.discovery, //关系
     this.diseases,
     this.mental,
-    this.pens,
+    this.pens, //名字
     this.perceive,
-    this.sane,
+    this.sane, //电话
     this.skilled,
     this.sincerely,
+    this.selectIndex,
+    this.relationStr,
   });
 
   factory OilyModel.fromJson(Map<String, dynamic> json) {
@@ -544,6 +550,8 @@ class OilyModel {
       perceive: json['perceive'],
       sane: json['sane'],
       skilled: json['skilled'],
+      selectIndex: json['selectIndex'],
+      relationStr: json['relationStr'],
       sincerely:
           (json['sincerely'] as List?)
               ?.map((item) => Sincerely1Model.fromJson(item ?? {}))
@@ -562,6 +570,8 @@ class OilyModel {
       'perceive': perceive,
       'sane': sane,
       'skilled': skilled,
+      'selectIndex': selectIndex,
+      'relationStr': relationStr,
       'sincerely': sincerely?.map((model) => model.toJson()).toList(),
     };
   }

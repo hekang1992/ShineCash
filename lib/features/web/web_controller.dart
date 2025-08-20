@@ -3,7 +3,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class WebController extends GetxController {
   late final WebViewController webcontroller;
-
+  RxString title = ''.obs;
   @override
   void onInit() {
     // TODO: implement onInit

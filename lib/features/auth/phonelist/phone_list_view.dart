@@ -1,14 +1,17 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
 import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/common/routers/shine_router.dart';
+import 'package:shinecash/common/utils/image_pop.dart';
 import 'package:shinecash/features/apphead/app_head_view.dart';
 import 'package:shinecash/features/auth/certificationlist/app_common_footer_view.dart';
 import 'package:shinecash/features/auth/certificationlist/certification_list_controller.dart';
 import 'package:shinecash/features/auth/imageface/progress_list_view.dart';
 import 'package:shinecash/features/auth/phonelist/phone_cell_view.dart';
+import 'package:shinecash/features/auth/phonelist/phone_enum_list.dart';
 import 'package:shinecash/features/auth/phonelist/phone_list_controller.dart';
 
 class PhoneListView extends GetView<PhoneListController> {
@@ -77,22 +80,79 @@ class PhoneListView extends GetView<PhoneListController> {
                                 ),
                               ),
                               child: Obx(() {
-                                final model = controller.model.value;
+                                final model1 = controller.model.value;
                                 return ListView.builder(
                                   padding: EdgeInsets.only(
                                     top: 12.sp,
                                     left: 12.sp,
                                     right: 12.sp,
                                   ),
-                                  itemCount: model.expect?.oily?.length ?? 0,
+                                  itemCount: model1.expect?.oily?.length ?? 0,
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) {
-                                    final listModel =
-                                        model.expect?.oily?[index];
+                                    final model = model1.expect?.oily?[index];
+                                    final relation = model?.discovery ?? '';
+                                    final relationStr =
+                                        model?.relationStr ?? '';
+                                    final phone = model?.sane ?? '';
+                                    final name = model?.pens ?? '';
+                                    final phoneName = '$name-$phone';
                                     return PhoneCellView(
-                                      one: listModel?.acquainted ?? '',
-                                      two: listModel?.diseases ?? '',
-                                      three: listModel?.skilled ?? '',
+                                      incColor1: relationStr.isEmpty
+                                          ? 0xff888888
+                                          : 0xff7262EC,
+                                      incColor2: phoneName == '-'
+                                          ? 0xff888888
+                                          : 0xff7262EC,
+                                      one: model?.acquainted ?? '',
+                                      two: relationStr.isEmpty
+                                          ? (model?.diseases ?? '')
+                                          : relationStr,
+                                      three: phoneName == '-'
+                                          ? (model?.skilled ?? '')
+                                          : phoneName,
+                                      onTap1: () {
+                                        Get.bottomSheet(
+                                          isDismissible: false,
+                                          enableDrag: false,
+                                          PhoneEnumList(
+                                            model: model ?? OilyModel(),
+                                            listModel: model?.sincerely ?? [],
+                                            controller: controller,
+                                            fatherIndex: index,
+                                            onTap: () {
+                                              Get.back();
+                                            },
+                                          ),
+                                        );
+                                      },
+                                      onTap2: () async {
+                                        final contact =
+                                            await PhoneNameChannel.pickContact();
+                                        model?.pens = contact?.pens;
+                                        model?.sane = contact?.ever;
+                                        controller.model.refresh();
+                                        if (contact == null) {
+                                          return;
+                                        }
+                                        final allList =
+                                            await PhoneNameChannel.getAllContacts();
+                                        print('allList🤢--------$allList');
+                                        List listArray =
+                                            <Map<String, dynamic>>[];
+                                        for (var model in allList) {
+                                          listArray.add({
+                                            'ever': model.ever,
+                                            'pens': model.pens,
+                                          });
+                                        }
+                                        String jsonString = jsonEncode(
+                                          listArray,
+                                        );
+                                        await controller.uploadAllInfo(
+                                          expect: jsonString,
+                                        );
+                                      },
                                     );
                                   },
                                 );
@@ -113,22 +173,22 @@ class PhoneListView extends GetView<PhoneListController> {
                             child: AppCommonFooterView(
                               title: 'Next',
                               onTap: () async {
-                                Map<String, dynamic> dict = {
-                                  'nodded': controller.productID,
-                                };
-                                for (TemporaryModel model
-                                    in controller
-                                            .model
-                                            .value
-                                            .expect
-                                            ?.temporary ??
+                                List<Map<String, dynamic>> dictArray = [];
+                                for (OilyModel model
+                                    in controller.model.value.expect?.oily ??
                                         []) {
                                   final listDict = {
-                                    model.beautiful ?? '': model.angrily ?? '',
+                                    'pens': model.pens ?? '',
+                                    'discovery': model.discovery ?? '',
+                                    'sane': model.sane ?? '',
                                   };
-                                  dict.addAll(listDict);
+                                  dictArray.add(listDict);
                                 }
-                                print('dict🤢--------$dict');
+                                final expect = jsonEncode(dictArray);
+                                await controller.saveAllInfo(
+                                  expect: expect,
+                                  productID: controller.productID,
+                                );
                               },
                             ),
                           ),

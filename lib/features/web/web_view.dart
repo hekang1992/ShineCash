@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
+import 'package:shinecash/common/http/http_request.dart';
+import 'package:shinecash/common/http/http_toast.dart';
+import 'package:shinecash/common/tabbar/tabbar_controller.dart';
+import 'package:shinecash/common/utils/image_pop.dart';
 import 'package:shinecash/features/apphead/app_head_view.dart';
 import 'package:shinecash/features/web/web_controller.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -22,18 +26,20 @@ class WebView extends GetView<WebController> {
           color: AppColor.bgColor,
           child: Stack(
             children: [
-              SafeArea(
-                child: AppHeadView(
-                  title: 'title',
-                  onTap: () async {
-                    if (await controller.webcontroller.canGoBack()) {
-                      controller.webcontroller.goBack();
-                    } else {
-                      Get.back();
-                    }
-                  },
-                ),
-              ),
+              Obx(() {
+                return SafeArea(
+                  child: AppHeadView(
+                    title: controller.title.value,
+                    onTap: () async {
+                      if (await controller.webcontroller.canGoBack()) {
+                        controller.webcontroller.goBack();
+                      } else {
+                        Get.back();
+                      }
+                    },
+                  ),
+                );
+              }),
               Padding(
                 padding: EdgeInsets.only(
                   top: MediaQuery.of(context).padding.top + 52.h,
@@ -47,19 +53,53 @@ class WebView extends GetView<WebController> {
                       ) // 启用 JavaScript
                       ..setNavigationDelegate(
                         NavigationDelegate(
-                          onPageStarted: (url) => print('开始加载: $url'),
-                          onPageFinished: (url) => print('加载完成: $url'),
-                          onWebResourceError: (error) =>
-                              print('错误: ${error.description}'),
-                          onNavigationRequest: (request) {
-                            if (request.url.contains('ads.com')) {
-                              return NavigationDecision.prevent; // 拦截广告链接
-                            }
-                            return NavigationDecision.navigate; // 允许其他链接
+                          onPageStarted: (url) {
+                            ToastManager.showLoading();
+                          },
+                          onPageFinished: (url) async {
+                            ToastManager.hideLoading();
+                            final title =
+                                await controller.webcontroller.getTitle() ?? '';
+                            controller.title.value = title;
+                          },
+                          onWebResourceError: (error) {
+                            ToastManager.hideLoading();
                           },
                         ),
                       )
-                      ..loadRequest(Uri.parse(pageUrl)), // 加载 URL
+                      ..addJavaScriptChannel(
+                        'mistake',
+                        onMessageReceived: (message) async {
+                          Get.back();
+                        },
+                      )
+                      ..addJavaScriptChannel(
+                        'live',
+                        onMessageReceived: (message) async {
+                          ToAppStoreChannel.toAppChanel();
+                        },
+                      )
+                      ..addJavaScriptChannel(
+                        'lived',
+                        onMessageReceived: (message) async {},
+                      )
+                      ..addJavaScriptChannel(
+                        'five',
+                        onMessageReceived: (message) async {},
+                      )
+                      ..addJavaScriptChannel(
+                        'hundred',
+                        onMessageReceived: (message) async {},
+                      )
+                      ..addJavaScriptChannel(
+                        'composedly',
+                        onMessageReceived: (message) async {
+                          Get.back();
+                          final tab = Get.find<TabbarController>();
+                          tab.changeIndex(0);
+                        },
+                      )
+                      ..loadRequest(Uri.parse(pageUrl)),
                   ),
                 ),
               ),

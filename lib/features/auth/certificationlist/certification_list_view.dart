@@ -68,6 +68,7 @@ class CertificationListView extends GetView<CertificationListController> {
                                 authStr: sitting,
                                 productID: controller.productID,
                                 type: '1',
+                                cautiously: '',
                               );
                             } else {
                               homeVc.getProductDetaiPageInfo(

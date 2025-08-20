@@ -98,8 +98,14 @@ extension HomeVc on HomeController {
       if (model.beautiful == '0' || model.beautiful == '00') {
         detailModel.value = model;
         final sitting = model.expect?.allow?.sitting ?? '';
+        final cautiously = model.expect?.allow?.cautiously ?? '';
         if (sitting.isNotEmpty) {
-          pushToPage(authStr: sitting, productID: productID, type: type);
+          pushToPage(
+            authStr: sitting,
+            productID: productID,
+            type: type,
+            cautiously: cautiously,
+          );
         } else {
           ToastManager.showToast('我我我我哦我我我我我我----h5');
         }
@@ -154,7 +160,8 @@ extension HomeVc on HomeController {
     required String authStr,
     required String productID,
     required String type,
-  }) {
+    required String cautiously,
+  }) async {
     if (type == '0') {
       Get.toNamed(ShineAppRouter.authList, arguments: {'productID': productID});
     } else {
@@ -178,7 +185,8 @@ extension HomeVc on HomeController {
           );
           break;
         case 'desertion':
-          ToastManager.showToast('desertion');
+          final pageUrl = await ApiUrlManager.getApiUrl(cautiously);
+          Get.toNamed(ShineAppRouter.web, arguments: {'pageUrl': pageUrl});
           break;
         default:
       }

@@ -27,8 +27,7 @@ class CerReallistView extends StatelessWidget {
           children: [
             SizedBox(width: 12.sp),
             Image.network(
-              'http://ph01-dc.oss-ap-southeast-6.aliyuncs.com/202412/20241209174307_ticoy07qwy.png?OSSAccessKeyId=LTAI5tQ4Eqf4UjPtizyvPNBG&Expires=1922953387&Signature=NUgglJ6I9wtwZUognW2CLeCt3Mk%3D',
-              // model.gentlemen ?? '',
+              model.gentlemen ?? '',
               width: 68.w,
               height: 68.h,
               fit: BoxFit.contain,

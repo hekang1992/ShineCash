@@ -15,6 +15,7 @@
 		7317D3E42E4B8E9E00A9EA3C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7317D3E32E4B8E9E00A9EA3C /* Launch Screen.storyboard */; };
 		731E877C2E50C6090055DED7 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731E877B2E50C6090055DED7 /* CameraManager.swift */; };
 		731E877E2E50C6200055DED7 /* PhotoLibraryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731E877D2E50C6200055DED7 /* PhotoLibraryManager.swift */; };
+		73E121A82E559D40003EAB25 /* ContactPickerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E121A72E559D40003EAB25 /* ContactPickerHandler.swift */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
@@ -56,6 +57,7 @@
 		7317D3E32E4B8E9E00A9EA3C /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		731E877B2E50C6090055DED7 /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
 		731E877D2E50C6200055DED7 /* PhotoLibraryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryManager.swift; sourceTree = "<group>"; };
+		73E121A72E559D40003EAB25 /* ContactPickerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactPickerHandler.swift; sourceTree = "<group>"; };
 		73F0236B2E41FEEA007F4675 /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				74858FAE1ED2DC5600515810 /* AppDelegate.swift */,
 				731E877B2E50C6090055DED7 /* CameraManager.swift */,
 				731E877D2E50C6200055DED7 /* PhotoLibraryManager.swift */,
+				73E121A72E559D40003EAB25 /* ContactPickerHandler.swift */,
 				1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */,
 				1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */,
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
@@ -405,6 +408,7 @@
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				731E877C2E50C6090055DED7 /* CameraManager.swift in Sources */,
 				731E877E2E50C6200055DED7 /* PhotoLibraryManager.swift in Sources */,
+				73E121A82E559D40003EAB25 /* ContactPickerHandler.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

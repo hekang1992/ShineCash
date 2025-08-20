@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:shinecash/common/constants/constant.dart';
 
 const String websiteUrl = 'http://47.84.60.25:8520';
@@ -107,17 +106,11 @@ class ShineHttpRequest {
     int minHeight = 850,
   }) async {
     // Read and compress the image first
-    Uint8List? compressedData = await FlutterImageCompress.compressWithList(
-      originalData,
-      minHeight: minHeight,
-      minWidth: minWidth,
-      quality: quality.clamp(0, 100), // Ensure quality is between 0-100
-    );
 
     // Create form data
     FormData formData = FormData.fromMap({
       fileField: MultipartFile.fromBytes(
-        compressedData,
+        originalData,
         filename: 'image',
         contentType: DioMediaType("image", "jpeg"),
       ),

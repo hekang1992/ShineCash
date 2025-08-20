@@ -23,7 +23,7 @@ extension AppDelegate {
         let controller : FlutterViewController = window?.rootViewController as! FlutterViewController
         let channel = FlutterMethodChannel(name: "shineapp_info",
                                            binaryMessenger: controller.binaryMessenger)
-        
+        let contactHandler = ContactHandler()
         channel.setMethodCallHandler({
             (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
             if call.method == "getPlatformLanguage" {
@@ -51,8 +51,15 @@ extension AppDelegate {
                         result(FlutterStandardTypedData(bytes: imageData))
                     }
                 }
-            }
-            else {
+            }else if call.method == "getAllContacts" {
+                contactHandler.getAllContacts(result: result)
+            }else if call.method == "pickSingleContact" {
+                contactHandler.pickSingleContact(result: result)
+            }else if call.method == "to_appstroe" {
+                if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+                    SKStoreReviewController.requestReview(in: scene)
+                }
+            }else {
                 result(FlutterMethodNotImplemented)
             }
         })
