@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
+import 'package:shinecash/common/http/http_request.dart';
+import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/features/apphead/app_head_view.dart';
 import 'package:shinecash/features/auth/certificationlist/app_common_footer_view.dart';
 import 'package:shinecash/features/auth/certificationlist/cer_head_view.dart';
@@ -71,12 +73,23 @@ class CertificationListView extends GetView<CertificationListController> {
                             final sitting = model.sitting ?? '';
                             final listening = model.listening ?? 0;
                             if (listening == 1) {
-                              homeVc.pushToPage(
-                                authStr: sitting,
-                                productID: controller.productID,
-                                type: '1',
-                                cautiously: '',
-                              );
+                              if (sitting != 'desertion') {
+                                homeVc.pushToPage(
+                                  authStr: sitting,
+                                  productID: controller.productID,
+                                  type: '1',
+                                  cautiously: '',
+                                );
+                              } else {
+                                final cautiously = model.cautiously ?? '';
+                                final pageUrl = await ApiUrlManager.getApiUrl(
+                                  cautiously,
+                                );
+                                Get.toNamed(
+                                  ShineAppRouter.web,
+                                  arguments: {'pageUrl': pageUrl},
+                                );
+                              }
                             } else {
                               homeVc.getProductDetaiPageInfo(
                                 productID: controller.productID,

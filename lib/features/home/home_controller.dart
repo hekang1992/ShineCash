@@ -74,8 +74,10 @@ extension HomeVc on HomeController {
         if (cautiously.contains(productDetailSchemeUrl)) {
           final dict = GetQueryParametersAll.getQueryParametersAll(cautiously);
           final productID = dict['nodded']?.first ?? '';
-          await getProductDetaiPageInfo(productID: productID, type: '0');
-          print('dict--------$dict');
+          Get.toNamed(
+            ShineAppRouter.authList,
+            arguments: {'productID': productID},
+          );
         }
       }
       ToastManager.hideLoading();

@@ -506,6 +506,34 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"z\"",
+					"-framework",
+					"\"FBAEMKit\"",
+					"-framework",
+					"\"FBSDKCoreKit\"",
+					"-framework",
+					"\"FBSDKCoreKit_Basics\"",
+					"-framework",
+					"\"advertising_id\"",
+					"-framework",
+					"\"app_tracking_transparency\"",
+					"-framework",
+					"\"connectivity_plus\"",
+					"-framework",
+					"\"device_info_plus\"",
+					"-framework",
+					"\"flutter_secure_storage\"",
+					"-framework",
+					"\"path_provider_foundation\"",
+					"-framework",
+					"\"permission_handler_apple\"",
+					"-framework",
+					"\"webview_flutter_wkwebview\"",
+					"-Wl,-sectcreate,_RESTRICT,_restrict,/dev/null",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hkdev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -701,6 +729,34 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"z\"",
+					"-framework",
+					"\"FBAEMKit\"",
+					"-framework",
+					"\"FBSDKCoreKit\"",
+					"-framework",
+					"\"FBSDKCoreKit_Basics\"",
+					"-framework",
+					"\"advertising_id\"",
+					"-framework",
+					"\"app_tracking_transparency\"",
+					"-framework",
+					"\"connectivity_plus\"",
+					"-framework",
+					"\"device_info_plus\"",
+					"-framework",
+					"\"flutter_secure_storage\"",
+					"-framework",
+					"\"path_provider_foundation\"",
+					"-framework",
+					"\"permission_handler_apple\"",
+					"-framework",
+					"\"webview_flutter_wkwebview\"",
+					"-Wl,-sectcreate,_RESTRICT,_restrict,/dev/null",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hkdev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -736,6 +792,34 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"z\"",
+					"-framework",
+					"\"FBAEMKit\"",
+					"-framework",
+					"\"FBSDKCoreKit\"",
+					"-framework",
+					"\"FBSDKCoreKit_Basics\"",
+					"-framework",
+					"\"advertising_id\"",
+					"-framework",
+					"\"app_tracking_transparency\"",
+					"-framework",
+					"\"connectivity_plus\"",
+					"-framework",
+					"\"device_info_plus\"",
+					"-framework",
+					"\"flutter_secure_storage\"",
+					"-framework",
+					"\"path_provider_foundation\"",
+					"-framework",
+					"\"permission_handler_apple\"",
+					"-framework",
+					"\"webview_flutter_wkwebview\"",
+					"-Wl,-sectcreate,_RESTRICT,_restrict,/dev/null",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hkdev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

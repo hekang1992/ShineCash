@@ -425,6 +425,7 @@ class SorryModel {
   int? listening; //0 1 是否完成
   String? sitting;
   String? unread;
+  String? cautiously;
 
   SorryModel({
     this.acquainted,
@@ -432,6 +433,7 @@ class SorryModel {
     this.listening,
     this.sitting,
     this.unread,
+    this.cautiously,
   });
 
   factory SorryModel.fromJson(Map<String, dynamic> json) {
@@ -441,6 +443,7 @@ class SorryModel {
       listening: json['listening'],
       sitting: json['sitting'],
       unread: json['unread'],
+      cautiously: json['cautiously'],
     );
   }
 
@@ -451,6 +454,7 @@ class SorryModel {
       'listening': listening,
       'sitting': sitting,
       'unread': unread,
+      'cautiously': cautiously,
     };
   }
 }
