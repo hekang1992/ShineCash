@@ -19,6 +19,8 @@ import 'package:shinecash/features/center/setting_view.dart';
 import 'package:shinecash/features/guide/guide_view.dart';
 import 'package:shinecash/features/login/login_controller.dart';
 import 'package:shinecash/features/login/login_view.dart';
+import 'package:shinecash/features/order/order_controller.dart';
+import 'package:shinecash/features/order/order_view.dart';
 import 'package:shinecash/features/web/web_controller.dart';
 import 'package:shinecash/features/web/web_view.dart';
 import 'package:shinecash/features/splash/splash_controller.dart';
@@ -64,6 +66,9 @@ class ShineAppRouter {
 
   ///delete
   static const String phonelist = '/phonelist';
+
+  ///delete
+  static const String orderlist = '/orderlist';
 
   static final routes = [
     GetPage(
@@ -161,6 +166,14 @@ class ShineAppRouter {
       page: () => PhoneListView(),
       binding: BindingsBuilder(() {
         Get.lazyPut(() => PhoneListController());
+      }),
+    ),
+
+    GetPage(
+      name: orderlist,
+      page: () => OrderView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => OrderController());
       }),
     ),
   ];

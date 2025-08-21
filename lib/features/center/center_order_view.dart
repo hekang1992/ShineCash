@@ -3,14 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
 import 'package:shinecash/common/http/http_toast.dart';
+import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/features/center/center_controller.dart';
+import 'package:shinecash/features/order/order_controller.dart';
 
 class CenterOrderView extends GetView<CenterController> {
   const CenterOrderView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Padding(
       padding: EdgeInsets.only(left: 24.sp, right: 24.sp),
       child: Container(
@@ -35,7 +36,20 @@ class CenterOrderView extends GetView<CenterController> {
                 oneStr: name,
                 twoStr: name,
                 onTap: () {
-                  ToastManager.showToast(name);
+                  final orderVc = Get.find<OrderController>();
+                  if (name == 'All Orders') {
+                    Get.toNamed(ShineAppRouter.orderlist);
+                    orderVc.isShowBack.value = true;
+                    orderVc.makeChage(changeIndex: 0);
+                  } else if (name == 'Repaying') {
+                    Get.toNamed(ShineAppRouter.orderlist);
+                    orderVc.isShowBack.value = true;
+                    orderVc.makeChage(changeIndex: 2);
+                  } else if (name == 'Completed') {
+                    Get.toNamed(ShineAppRouter.orderlist);
+                    orderVc.isShowBack.value = true;
+                    orderVc.makeChage(changeIndex: 3);
+                  }
                 },
               );
             },

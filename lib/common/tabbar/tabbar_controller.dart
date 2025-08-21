@@ -6,7 +6,6 @@ import 'package:shinecash/features/order/order_controller.dart';
 class TabbarController extends GetxController {
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     Get.put(HomeController());
     Get.put(OrderController());
@@ -22,6 +21,7 @@ class TabbarController extends GetxController {
       vc.initHomeInfo();
     } else if (index == 1) {
       final vc = Get.find<OrderController>();
+      vc.isShowBack.value = false;
       vc.makeChage(changeIndex: vc.currentIndex.value);
     } else {
       final vc = Get.find<CenterController>();

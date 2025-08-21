@@ -5,6 +5,9 @@ import 'package:shinecash/common/http/http_toast.dart';
 
 class OrderController extends GetxController {
   var currentIndex = 0.obs;
+
+  var isShowBack = false.obs;
+
   final model = BaseModel().obs;
 
   makeChage({required int changeIndex}) {
@@ -24,6 +27,9 @@ class OrderController extends GetxController {
   void onInit() {
     super.onInit();
     makeChage(changeIndex: 0);
+    if (Get.arguments != null && Get.arguments.containsKey('isShowBack')) {
+      isShowBack.value = Get.arguments['isShowBack'];
+    }
   }
 }
 
