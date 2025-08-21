@@ -8,6 +8,7 @@ import 'package:shinecash/features/auth/certificationlist/cer_head_view.dart';
 import 'package:shinecash/features/auth/certificationlist/cer_list_view.dart';
 import 'package:shinecash/features/auth/certificationlist/certification_list_controller.dart';
 import 'package:shinecash/features/home/home_controller.dart';
+import 'package:shinecash/features/order/order_controller.dart';
 
 class CertificationListView extends GetView<CertificationListController> {
   CertificationListView({super.key}) {
@@ -28,8 +29,14 @@ class CertificationListView extends GetView<CertificationListController> {
                 child: AppHeadView(
                   title: 'Certification List',
                   onTap: () {
-                    Get.back();
+                    Get.back(result: {'type': 'order_list'});
                     FindHomeVc.getHomeVc();
+                    if (Get.isRegistered<OrderController>()) {
+                      final orderVc = Get.find<OrderController>();
+                      orderVc.makeChage(
+                        changeIndex: orderVc.currentIndex.value,
+                      );
+                    }
                   },
                 ),
               ),
