@@ -3,7 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
 import 'package:shinecash/common/http/http_model.dart';
+import 'package:shinecash/common/http/http_request.dart';
+import 'package:shinecash/common/http/http_toast.dart';
+import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/features/apphead/app_head_view.dart';
+import 'package:shinecash/features/home/home_controller.dart';
 import 'package:shinecash/features/order/order_controller.dart';
 import 'package:shinecash/features/order/order_list_view.dart';
 
@@ -98,7 +102,31 @@ class OrderView extends GetView<OrderController> {
                             final listModel =
                                 model.expect?.centuries?[index] ??
                                 CenturiesModel();
-                            return OrderListView(listModel: listModel);
+                            return OrderListView(
+                              listModel: listModel,
+                              onTap: () async {
+                                final ends = listModel.ends ?? '';
+                                if (ends.contains(productDetailSchemeUrl)) {
+                                  final dict =
+                                      GetQueryParametersAll.getQueryParametersAll(
+                                        ends,
+                                      );
+                                  final productID = dict['nodded']?.first ?? '';
+                                  Get.toNamed(
+                                    ShineAppRouter.authList,
+                                    arguments: {'productID': productID},
+                                  );
+                                } else {
+                                  final pageUrl = await ApiUrlManager.getApiUrl(
+                                    ends,
+                                  );
+                                  Get.toNamed(
+                                    ShineAppRouter.web,
+                                    arguments: {'pageUrl': pageUrl},
+                                  );
+                                }
+                              },
+                            );
                           },
                         ),
                       );

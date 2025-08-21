@@ -187,6 +187,9 @@ class CenturiesModel {
   String? imaginary;
   String? correspondent;
   String? appeal;
+  String? perceived;
+  List<ContainedModel>? contained;
+  String? ends;
   CenturiesModel({
     this.acquainted,
     this.cautiously,
@@ -198,6 +201,9 @@ class CenturiesModel {
     this.imaginary,
     this.correspondent,
     this.appeal,
+    this.perceived,
+    this.contained,
+    this.ends,
   });
 
   factory CenturiesModel.fromJson(Map<String, dynamic> json) {
@@ -209,6 +215,8 @@ class CenturiesModel {
       imaginary: json['imaginary'],
       correspondent: json['correspondent'],
       appeal: json['appeal'],
+      perceived: json['perceived'],
+      ends: json['ends'],
       died:
           (json['died'] as List?)
               ?.map((item) => DiedModel.fromJson(item ?? {}))
@@ -218,6 +226,11 @@ class CenturiesModel {
       centuries:
           (json['centuries'] as List?)
               ?.map((item) => CenturiesModel.fromJson(item ?? {}))
+              .toList() ??
+          [],
+      contained:
+          (json['contained'] as List?)
+              ?.map((item) => ContainedModel.fromJson(item ?? {}))
               .toList() ??
           [],
     );
@@ -233,8 +246,11 @@ class CenturiesModel {
       'correspondent': correspondent,
       'imaginary': imaginary,
       'appeal': appeal,
+      'perceived': perceived,
+      'ends': ends,
       'died': died?.map((model) => model.toJson()).toList(),
       'centuries': centuries?.map((model) => model.toJson()).toList(),
+      'contained': contained?.map((model) => model.toJson()).toList(),
     };
   }
 }
@@ -601,5 +617,23 @@ class Sincerely1Model {
 
   Map<String, dynamic> toJson() {
     return {'many': many, 'pens': pens};
+  }
+}
+
+class ContainedModel {
+  String? acquainted;
+  String? significant;
+
+  ContainedModel({this.acquainted, this.significant});
+
+  factory ContainedModel.fromJson(Map<String, dynamic> json) {
+    return ContainedModel(
+      acquainted: json['acquainted'],
+      significant: json['significant'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'acquainted': acquainted, 'significant': significant};
   }
 }
