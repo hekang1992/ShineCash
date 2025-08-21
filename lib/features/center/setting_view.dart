@@ -5,6 +5,7 @@ import 'package:shinecash/common/constants/constant.dart';
 import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/features/apphead/app_head_view.dart';
 import 'package:shinecash/features/auth/certificationlist/app_common_footer_view.dart';
+import 'package:shinecash/features/center/log_out_view.dart';
 import 'package:shinecash/features/center/setting_controller.dart';
 
 class SettingView extends GetView<SettingController> {
@@ -166,7 +167,18 @@ class SettingView extends GetView<SettingController> {
                       width: double.infinity,
                       child: AppCommonFooterView(
                         title: 'Log Out',
-                        onTap: () {},
+                        onTap: () {
+                          Get.dialog(
+                            Container(
+                              color: Colors.transparent,
+                              child: LogOutView(
+                                onTap: () async {
+                                  await controller.logOutInfo();
+                                },
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ],

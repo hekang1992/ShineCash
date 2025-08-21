@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:shinecash/features/center/center_controller.dart';
 import 'package:shinecash/features/home/home_controller.dart';
+import 'package:shinecash/features/order/order_controller.dart';
 
 class TabbarController extends GetxController {
   @override
@@ -8,8 +9,8 @@ class TabbarController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     Get.put(HomeController());
+    Get.put(OrderController());
     Get.put(CenterController());
-    Get.put(HomeController());
   }
 
   var selectedIndex = 0.obs;
@@ -20,6 +21,8 @@ class TabbarController extends GetxController {
       final vc = Get.find<HomeController>();
       vc.initHomeInfo();
     } else if (index == 1) {
+      final vc = Get.find<OrderController>();
+      vc.makeChage(changeIndex: vc.currentIndex.value);
     } else {
       final vc = Get.find<CenterController>();
       vc.initCenterInfo();

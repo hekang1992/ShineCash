@@ -184,6 +184,9 @@ class CenturiesModel {
   List<DiedModel>? died;
   String? pens;
   List<CenturiesModel>? centuries;
+  String? imaginary;
+  String? correspondent;
+  String? appeal;
   CenturiesModel({
     this.acquainted,
     this.cautiously,
@@ -192,6 +195,9 @@ class CenturiesModel {
     this.died,
     this.pens,
     this.centuries,
+    this.imaginary,
+    this.correspondent,
+    this.appeal,
   });
 
   factory CenturiesModel.fromJson(Map<String, dynamic> json) {
@@ -200,6 +206,9 @@ class CenturiesModel {
       cautiously: json['cautiously'],
       finished: json['finished'],
       many: json['many'],
+      imaginary: json['imaginary'],
+      correspondent: json['correspondent'],
+      appeal: json['appeal'],
       died:
           (json['died'] as List?)
               ?.map((item) => DiedModel.fromJson(item ?? {}))
@@ -221,6 +230,9 @@ class CenturiesModel {
       'finished': finished,
       'many': many,
       'pens': pens,
+      'correspondent': correspondent,
+      'imaginary': imaginary,
+      'appeal': appeal,
       'died': died?.map((model) => model.toJson()).toList(),
       'centuries': centuries?.map((model) => model.toJson()).toList(),
     };

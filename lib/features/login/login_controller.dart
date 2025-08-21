@@ -135,8 +135,9 @@ extension LoginVc on LoginController {
       ToastManager.showToast('Please review and accept the privacy policy.');
       return;
     }
-    ToastManager.showLoading();
+
     try {
+      ToastManager.showLoading();
       final http = ShineHttpRequest();
       final respose = await http.post(
         '/wzcnrht/beautiful',

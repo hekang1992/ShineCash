@@ -5,7 +5,13 @@ import 'package:shinecash/common/constants/constant.dart';
 class AppHeadView extends StatelessWidget {
   final String title;
   final VoidCallback onTap;
-  const AppHeadView({super.key, required this.title, required this.onTap});
+  final bool? isShowBack;
+  const AppHeadView({
+    super.key,
+    required this.title,
+    required this.onTap,
+    this.isShowBack = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,15 +22,16 @@ class AppHeadView extends StatelessWidget {
       child: Row(
         children: [
           SizedBox(width: 17.w),
-          InkWell(
-            onTap: onTap,
-            child: Image.asset(
-              'assets/images/app_back_image.png',
-              width: 22.w,
-              height: 22.h,
-              fit: BoxFit.contain,
+          if (isShowBack == true)
+            InkWell(
+              onTap: onTap,
+              child: Image.asset(
+                'assets/images/app_back_image.png',
+                width: 22.w,
+                height: 22.h,
+                fit: BoxFit.contain,
+              ),
             ),
-          ),
           Expanded(
             child: Center(
               child: Text(
@@ -37,7 +44,10 @@ class AppHeadView extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: 39.sp),
+          if (isShowBack == true)
+            SizedBox(width: 39.sp)
+          else
+            SizedBox(width: 22.sp),
         ],
       ),
     );
