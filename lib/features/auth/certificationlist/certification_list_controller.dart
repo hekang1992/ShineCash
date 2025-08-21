@@ -10,23 +10,10 @@ class CertificationListController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     productID = Get.arguments['productID'];
     print('🧊productID-------$productID');
     initAuthListInfo(productID);
-  }
-
-  @override
-  void onReady() {
-    // TODO: implement onReady
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    // TODO: implement onClose
-    super.onClose();
   }
 }
 

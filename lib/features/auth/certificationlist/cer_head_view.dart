@@ -19,7 +19,6 @@ class CerHeadView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Column(
       children: [
         Row(

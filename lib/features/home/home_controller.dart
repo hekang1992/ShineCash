@@ -6,19 +6,17 @@ import 'package:shinecash/common/http/http_toast.dart';
 import 'package:shinecash/common/routers/shine_router.dart';
 
 class HomeController extends GetxController {
-  // 首页数据model
   final model = BaseModel().obs;
 
-  // 申请model
   final applyModel = BaseModel().obs;
 
-  // 产品详情model
   final detailModel = BaseModel().obs;
 
-  // 认证列表model
   final authlistModel = BaseModel().obs;
 
   final citylistModel = BaseModel().obs;
+
+  final orderInfoModel = BaseModel().obs;
 
   @override
   void onInit() {
@@ -78,6 +76,9 @@ extension HomeVc on HomeController {
             ShineAppRouter.authList,
             arguments: {'productID': productID},
           );
+        } else {
+          final pageUrl = await ApiUrlManager.getApiUrl(cautiously);
+          Get.toNamed(ShineAppRouter.web, arguments: {'pageUrl': pageUrl});
         }
       }
       ToastManager.hideLoading();
@@ -109,7 +110,7 @@ extension HomeVc on HomeController {
             cautiously: cautiously,
           );
         } else {
-          ToastManager.showToast('我我我我哦我我我我我我----h5');
+          await requestOrderIDInfo(pmodel: model);
         }
       }
       ToastManager.hideLoading();
@@ -192,6 +193,31 @@ extension HomeVc on HomeController {
           break;
         default:
       }
+    }
+  }
+
+  requestOrderIDInfo({required BaseModel pmodel}) async {
+    try {
+      ToastManager.showLoading();
+      final http = ShineHttpRequest();
+      final attire = pmodel.expect?.egyptian?.styled ?? '';
+      final wink = pmodel.expect?.egyptian?.wink ?? 0;
+      final having = pmodel.expect?.egyptian?.having ?? '';
+      final proud = pmodel.expect?.egyptian?.proud ?? '';
+      final dict = {
+        'attire': attire,
+        'wink': wink,
+        'having': having,
+        'proud': proud,
+      };
+      final response = await http.post('/wzcnrht/ever', formData: dict);
+      final model = BaseModel.fromJson(response.data);
+      if (model.beautiful == '0' || model.beautiful == '00') {
+        orderInfoModel.value = model;
+      }
+      ToastManager.hideLoading();
+    } catch (e) {
+      ToastManager.hideLoading();
     }
   }
 }

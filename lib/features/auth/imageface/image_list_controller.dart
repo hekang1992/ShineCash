@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:get/get.dart';
 import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/common/http/http_request.dart';
@@ -12,7 +11,6 @@ class ImageListController extends GetxController {
 
   @override
   void onInit() async {
-    // TODO: implement onInit
     super.onInit();
     dict = Get.arguments;
     print('dict--------$dict');

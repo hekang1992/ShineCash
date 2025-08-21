@@ -9,7 +9,6 @@ class PhoneListController extends GetxController {
   final model = BaseModel().obs;
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     productID = Get.arguments['productID'];
     getPhoneListInfo(productID: productID);

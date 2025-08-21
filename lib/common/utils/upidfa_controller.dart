@@ -9,7 +9,6 @@ class UpidfaController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     debounce<Map<String, String>>(
       idfaParams,
@@ -18,18 +17,6 @@ class UpidfaController extends GetxController {
         _postToServer(value);
       },
     );
-  }
-
-  @override
-  void onReady() {
-    // TODO: implement onReady
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    // TODO: implement onClose
-    super.onClose();
   }
 
   void setIDFAParams(Map<String, String> params) {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shinecash/common/constants/constant.dart';
 
 class HomeOneView extends StatelessWidget {
   final String name1;
@@ -19,7 +18,6 @@ class HomeOneView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [

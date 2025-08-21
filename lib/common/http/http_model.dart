@@ -353,6 +353,9 @@ class EgyptianModel {
   int? wink;
   String? symbol;
   Considering? considering;
+  String? styled;
+  String? having;
+  int? proud;
 
   EgyptianModel({
     this.glanced,
@@ -361,6 +364,9 @@ class EgyptianModel {
     this.wink,
     this.symbol,
     this.considering,
+    this.styled,
+    this.having,
+    this.proud,
   });
 
   factory EgyptianModel.fromJson(Map<String, dynamic> json) {
@@ -370,6 +376,9 @@ class EgyptianModel {
       imaginary: json['imaginary'],
       wink: json['wink'],
       symbol: json['symbol'],
+      styled: json['styled'],
+      having: json['having'],
+      proud: json['proud'],
       considering: Considering.fromJson(json['considering'] ?? {}),
     );
   }
@@ -382,6 +391,9 @@ class EgyptianModel {
       'wink': wink,
       'symbol': symbol,
       'considering': considering?.toJson(),
+      'styled': styled,
+      'having': having,
+      'proud': proud,
     };
   }
 }
