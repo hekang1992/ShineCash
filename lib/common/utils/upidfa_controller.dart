@@ -3,6 +3,7 @@ import 'package:shinecash/common/http/http_request.dart';
 import 'package:shinecash/common/devices/devices.dart';
 import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/common/utils/google_market.dart';
+import 'package:shinecash/common/utils/save_login_info.dart';
 
 class UpidfaController extends GetxController {
   final idfaParams = <String, String>{}.obs;
@@ -48,6 +49,8 @@ class UpidfaController extends GetxController {
       final response = await http.post('/wzcnrht/delusion', formData: dict);
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
+        final alert = (model.expect?.driving ?? 0).toString();
+        SaveLoginInfo.saveAlert(alert);
         final fairModel = model.expect?.fair;
         final Map<String, String> fromJson = {
           'answers': fairModel?.answers ?? '',

@@ -5,6 +5,7 @@ class SaveLoginInfo {
   static const String _phoneKey = 'user_phone';
   static const String _tokenKey = 'user_token';
   static const String _netKey = 'user_network';
+  static const String _showAlert = 'user_showAlert';
 
   static Box? _box;
 
@@ -42,6 +43,16 @@ class SaveLoginInfo {
   /// 获取用户 网络类型
   static String? getNetwork() {
     return _box?.get(_netKey);
+  }
+
+  /// 保存用户 token
+  static Future<void> saveAlert(String alert) async {
+    await _box?.put(_showAlert, alert);
+  }
+
+  /// 获取用户 token
+  static String? getAlert() {
+    return _box?.get(_showAlert);
   }
 
   /// 检查是否已登录（是否有token）

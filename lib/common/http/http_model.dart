@@ -35,6 +35,7 @@ class ExpectModel {
   PostedModel? rule;
   EgyptianModel? egyptian;
   List<SorryModel>? sorry;
+  int? driving;
 
   // 新增的属性
   List<String>? address;
@@ -64,6 +65,7 @@ class ExpectModel {
     this.favor,
     this.temporary,
     this.oily,
+    this.driving,
   });
 
   factory ExpectModel.fromJson(Map<String, dynamic> json) {
@@ -72,6 +74,7 @@ class ExpectModel {
       natural: json['natural'],
       emerging: json['emerging'],
       cautiously: json['cautiously'],
+      driving: json['driving'],
       fair: FairModel.fromJson(json['fair'] ?? {}),
       userInfo: UserInfoModel.fromJson(json['userInfo'] ?? {}),
       centuries:
@@ -130,6 +133,7 @@ class ExpectModel {
       // 新增属性的 JSON 序列化
       'address': address,
       'communicate': communicate,
+      'driving': driving,
       'favor': favor?.map((model) => model.toJson()).toList(),
       'temporary': temporary?.map((model) => model.toJson()).toList(),
     };
@@ -178,7 +182,7 @@ class UserInfoModel {
 
 class CenturiesModel {
   String? acquainted;
-  String? cautiously;
+  String? cautiously; //url
   String? finished;
   String? many;
   List<DiedModel>? died;
@@ -190,6 +194,7 @@ class CenturiesModel {
   String? perceived;
   List<ContainedModel>? contained;
   String? ends;
+  String? throne;
   CenturiesModel({
     this.acquainted,
     this.cautiously,
@@ -204,6 +209,7 @@ class CenturiesModel {
     this.perceived,
     this.contained,
     this.ends,
+    this.throne,
   });
 
   factory CenturiesModel.fromJson(Map<String, dynamic> json) {
@@ -217,6 +223,7 @@ class CenturiesModel {
       appeal: json['appeal'],
       perceived: json['perceived'],
       ends: json['ends'],
+      throne: json['throne'],
       died:
           (json['died'] as List?)
               ?.map((item) => DiedModel.fromJson(item ?? {}))
@@ -248,6 +255,7 @@ class CenturiesModel {
       'appeal': appeal,
       'perceived': perceived,
       'ends': ends,
+      'throne': throne,
       'died': died?.map((model) => model.toJson()).toList(),
       'centuries': centuries?.map((model) => model.toJson()).toList(),
       'contained': contained?.map((model) => model.toJson()).toList(),
@@ -266,6 +274,8 @@ class DiedModel {
   String? reduced;
   String? seminary;
   String? threeDes;
+  String? throne;
+  String? cautiously;
 
   DiedModel({
     this.alienated,
@@ -278,6 +288,8 @@ class DiedModel {
     this.reduced,
     this.seminary,
     this.threeDes,
+    this.throne,
+    this.cautiously,
   });
 
   factory DiedModel.fromJson(Map<String, dynamic> json) {
@@ -292,6 +304,8 @@ class DiedModel {
       reduced: json['reduced'],
       seminary: json['seminary'],
       threeDes: json['threeDes'],
+      throne: json['throne'],
+      cautiously: json['cautiously'],
     );
   }
 
@@ -307,6 +321,8 @@ class DiedModel {
       'reduced': reduced,
       'seminary': seminary,
       'threeDes': threeDes,
+      'throne': throne,
+      'cautiously': cautiously,
     };
   }
 }

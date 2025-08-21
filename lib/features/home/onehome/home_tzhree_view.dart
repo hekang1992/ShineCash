@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shinecash/common/http/http_toast.dart';
 
 class HomeTzhreeView extends StatelessWidget {
   final String name1;
@@ -22,7 +21,6 @@ class HomeTzhreeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

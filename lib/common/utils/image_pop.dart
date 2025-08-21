@@ -61,7 +61,7 @@ class Contact {
 
 class ToAppStoreChannel {
   static const MethodChannel _channel = MethodChannel('to_appstroe');
-  static Future<void> toAppChanel() async {
+  static toAppChanel() async {
     try {
       await _channel.invokeMethod('to_appstroe');
     } catch (e) {}

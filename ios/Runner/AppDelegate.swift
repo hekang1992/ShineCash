@@ -2,6 +2,7 @@ import Flutter
 import UIKit
 import NetworkExtension
 import FBSDKCoreKit
+import StoreKit
 
 @main
 @objc class AppDelegate: FlutterAppDelegate {

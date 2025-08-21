@@ -4,6 +4,7 @@ import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/common/tabbar/tabbar_controller.dart';
 import 'package:shinecash/common/utils/image_pop.dart';
 import 'package:shinecash/features/auth/certificationlist/certification_list_controller.dart';
+import 'package:shinecash/features/home/home_controller.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebController extends GetxController {
@@ -71,6 +72,10 @@ class WebController extends GetxController {
       if (Get.isRegistered<CertificationListController>()) {
         final cerVc = Get.find<CertificationListController>();
         await cerVc.initAuthListInfo(cerVc.productID);
+      }
+      if (Get.isRegistered<HomeController>()) {
+        final cerVc = Get.find<HomeController>();
+        await cerVc.initHomeInfo();
       }
     }
   }

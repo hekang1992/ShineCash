@@ -1,9 +1,12 @@
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
 import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/common/http/http_request.dart';
 import 'package:shinecash/common/http/http_toast.dart';
 import 'package:shinecash/common/routers/shine_router.dart';
+import 'package:shinecash/common/utils/app_location.dart';
+import 'package:shinecash/common/utils/save_login_info.dart';
 
 class HomeController extends GetxController {
   final model = BaseModel().obs;
@@ -18,11 +21,23 @@ class HomeController extends GetxController {
 
   final orderInfoModel = BaseModel().obs;
 
+  final listArray = <Map<String, List<DiedModel>>>[].obs;
+
   @override
   void onInit() {
     super.onInit();
     initHomeInfo();
     initCityInfo();
+  }
+
+  @override
+  void onReady() async {
+    super.onReady();
+    final alertShow = SaveLoginInfo.getAlert();
+    if (alertShow == '1') {
+      final position = await AppLocation.getDetailedLocation();
+      print('position🧊-----------$position');
+    }
   }
 }
 
@@ -60,6 +75,9 @@ extension HomeVc on HomeController {
 
   /// 申请
   applyProductWithID(String productID) async {
+    LocationPermission permission = await Geolocator.checkPermission();
+    final position = await AppLocation.getDetailedLocation();
+    print('position🧊-----------$position');
     try {
       ToastManager.showLoading();
       final http = ShineHttpRequest();
@@ -214,6 +232,9 @@ extension HomeVc on HomeController {
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
         orderInfoModel.value = model;
+        final cautiously = model.expect?.cautiously ?? '';
+        final pageUrl = await ApiUrlManager.getApiUrl(cautiously);
+        Get.toNamed(ShineAppRouter.web, arguments: {'pageUrl': pageUrl});
       }
       ToastManager.hideLoading();
     } catch (e) {
