@@ -67,5 +67,7 @@ class FindHomeVc {
   static getHomeVc() {
     final homeVc = Get.find<HomeController>();
     homeVc.initHomeInfo();
+    homeVc.uploadlocation();
+    homeVc.uploaddeviceInfo();
   }
 }

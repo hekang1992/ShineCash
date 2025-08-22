@@ -17,8 +17,10 @@ class TabbarController extends GetxController {
   void changeIndex(int index) {
     selectedIndex.value = index;
     if (index == 0) {
-      final vc = Get.find<HomeController>();
-      vc.initHomeInfo();
+      final homeVc = Get.find<HomeController>();
+      homeVc.initHomeInfo();
+      homeVc.uploadlocation();
+      homeVc.uploaddeviceInfo();
     } else if (index == 1) {
       final vc = Get.find<OrderController>();
       vc.isShowBack.value = false;

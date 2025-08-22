@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:get/get.dart';
+import 'package:shinecash/common/devices/devices.dart';
 import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/common/http/http_request.dart';
 import 'package:shinecash/common/http/http_toast.dart';
@@ -8,6 +9,9 @@ class ImageListController extends GetxController {
   late final Map<String, dynamic> dict;
 
   final authlistModel = BaseModel().obs;
+
+  var idStartTime = '';
+  var faceStartTime = '';
 
   @override
   void onInit() async {
@@ -61,6 +65,14 @@ extension ImageListVc on ImageListController {
       ToastManager.showToast(model.captive ?? '');
       ToastManager.hideLoading();
       if (model.beautiful == '0' || model.beautiful == '00') {
+        if (many == 10) {
+          await PointTouchChannel.upLoadPoint(
+            step: '4',
+            startTime: faceStartTime,
+            endTime: DateTime.now().millisecondsSinceEpoch.toString(),
+            orderID: '',
+          );
+        }
         return model;
       }
     } catch (e) {
@@ -91,6 +103,14 @@ extension ImageListVc on ImageListController {
       if (model.beautiful == '0' || model.beautiful == '00') {
         Get.back();
         judgeMentThat(productID: this.dict['productID'], type: '1');
+        if (many == '11') {
+          await PointTouchChannel.upLoadPoint(
+            step: '3',
+            startTime: idStartTime,
+            endTime: DateTime.now().millisecondsSinceEpoch.toString(),
+            orderID: '',
+          );
+        }
       }
       ToastManager.showToast(model.captive ?? '');
     } catch (e) {

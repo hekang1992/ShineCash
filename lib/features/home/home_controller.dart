@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
+import 'package:shinecash/common/constants/deviceinfo.dart';
 import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/common/http/http_request.dart';
 import 'package:shinecash/common/http/http_toast.dart';
@@ -35,9 +37,9 @@ class HomeController extends GetxController {
     super.onReady();
     final alertShow = SaveLoginInfo.getAlert();
     if (alertShow == '1') {
-      final position = await AppLocation.getDetailedLocation();
-      print('position🧊-----------$position');
+      await uploadlocation();
     }
+    await uploaddeviceInfo();
   }
 }
 
@@ -236,11 +238,33 @@ extension HomeVc on HomeController {
         orderInfoModel.value = model;
         final cautiously = model.expect?.cautiously ?? '';
         final pageUrl = await ApiUrlManager.getApiUrl(cautiously);
-        Get.toNamed(ShineAppRouter.web, arguments: {'pageUrl': pageUrl});
+        Get.toNamed(
+          ShineAppRouter.web,
+          arguments: {'pageUrl': pageUrl, 'orderID': attire},
+        );
       }
       ToastManager.hideLoading();
     } catch (e) {
       ToastManager.hideLoading();
     }
+  }
+
+  uploadlocation() async {
+    try {
+      final position = await AppLocation.getDetailedLocation();
+      final http = ShineHttpRequest();
+      final _ = await http.post('/wzcnrht/supposes', formData: position);
+    } catch (e) {}
+  }
+
+  uploaddeviceInfo() async {
+    try {
+      final deviceInfoDict = await DeviceinfoManager.backDictAll();
+      final deviceJsonStr = jsonEncode(deviceInfoDict);
+      print('deviceJsonStr---------${jsonEncode(deviceInfoDict)}');
+      final http = ShineHttpRequest();
+      final dict = {'expect': deviceJsonStr};
+      final _ = await http.post('/wzcnrht/concealment', formData: dict);
+    } catch (e) {}
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_pickers/style/picker_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
+import 'package:shinecash/common/devices/devices.dart';
 import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/common/http/http_request.dart';
 import 'package:shinecash/common/http/http_toast.dart';
@@ -15,11 +16,16 @@ class WorkinfoController extends BaseController {
   final model = BaseModel().obs;
   List<TextEditingController> textControllers =
       []; // 存储所有的 TextEditingController
+
+  var startTime = '';
+  var endTime = '';
+
   @override
   void onInit() {
     super.onInit();
     productID = Get.arguments['productID'];
     findWorkInfo(productID: productID);
+    startTime = DateTime.now().millisecondsSinceEpoch.toString();
   }
 }
 
@@ -134,6 +140,12 @@ extension PersonalVc on WorkinfoController {
       if (model.beautiful == '0' || model.beautiful == '00') {
         final homeVc = Get.find<HomeController>();
         homeVc.getProductDetaiPageInfo(productID: productID, type: '1');
+        await PointTouchChannel.upLoadPoint(
+          step: '6',
+          startTime: startTime,
+          endTime: DateTime.now().millisecondsSinceEpoch.toString(),
+          orderID: '',
+        );
       }
       ToastManager.showToast(model.captive ?? '');
       ToastManager.hideLoading();

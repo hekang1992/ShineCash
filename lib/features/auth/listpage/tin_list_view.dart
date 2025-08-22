@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
+import 'package:shinecash/common/devices/devices.dart';
 import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/features/apphead/app_head_view.dart';
 import 'package:shinecash/features/auth/certificationlist/certification_list_controller.dart';
@@ -10,7 +11,9 @@ import 'package:shinecash/features/auth/listpage/tin_list_controller.dart';
 import 'package:shinecash/features/home/home_controller.dart';
 
 class TinListView extends GetView<TinListController> {
-  const TinListView({super.key});
+  TinListView({super.key}) {
+    final _ = Get.put(TinListController());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +61,7 @@ class TinListView extends GetView<TinListController> {
                           child: OneListView(
                             title: 'Recommended ID Type',
                             address: model.expect?.address ?? [],
-                            onTap: (title) {
+                            onTap: (title) async {
                               final dict = {
                                 'title': title,
                                 'productID': productID,
@@ -66,6 +69,13 @@ class TinListView extends GetView<TinListController> {
                               Get.toNamed(
                                 ShineAppRouter.imagePhoto,
                                 arguments: dict,
+                              );
+                              await PointTouchChannel.upLoadPoint(
+                                step: '2',
+                                startTime: controller.startTime,
+                                endTime: DateTime.now().millisecondsSinceEpoch
+                                    .toString(),
+                                orderID: '',
                               );
                             },
                           ),
@@ -83,7 +93,7 @@ class TinListView extends GetView<TinListController> {
                           child: OneListView(
                             title: 'Other Options',
                             address: model.expect?.communicate ?? [],
-                            onTap: (title) {
+                            onTap: (title) async {
                               final dict = {
                                 'title': title,
                                 'productID': productID,
@@ -91,6 +101,13 @@ class TinListView extends GetView<TinListController> {
                               Get.toNamed(
                                 ShineAppRouter.imagePhoto,
                                 arguments: dict,
+                              );
+                              await PointTouchChannel.upLoadPoint(
+                                step: '2',
+                                startTime: controller.startTime,
+                                endTime: DateTime.now().millisecondsSinceEpoch
+                                    .toString(),
+                                orderID: '',
                               );
                             },
                           ),

@@ -87,6 +87,9 @@ class ImageListView extends GetView<ImageListController> {
                                           ? false
                                           : true,
                                       onTap: () {
+                                        controller.idStartTime = DateTime.now()
+                                            .millisecondsSinceEpoch
+                                            .toString();
                                         Get.bottomSheet(
                                           isDismissible: false,
                                           enableDrag: false,
@@ -242,6 +245,10 @@ class ImageListView extends GetView<ImageListController> {
                                           ? false
                                           : true,
                                       onTap: () {
+                                        controller.faceStartTime =
+                                            DateTime.now()
+                                                .millisecondsSinceEpoch
+                                                .toString();
                                         Get.bottomSheet(
                                           isDismissible: false,
                                           enableDrag: false,

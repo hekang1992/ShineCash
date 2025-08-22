@@ -3,6 +3,8 @@ import UIKit
 import NetworkExtension
 import FBSDKCoreKit
 import StoreKit
+import Foundation
+
 
 @main
 @objc class AppDelegate: FlutterAppDelegate {
@@ -60,6 +62,9 @@ extension AppDelegate {
                 if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
                     SKStoreReviewController.requestReview(in: scene)
                 }
+            }else if call.method == "getSystemInfo" {
+                let systemInfo = self.getSystemInfo()
+                result(systemInfo)
             }else {
                 result(FlutterMethodNotImplemented)
             }
@@ -88,6 +93,42 @@ extension AppDelegate {
         } else {
             
         }
+    }
+    
+    func getSystemInfo() -> [String: String] {
+        var result = [String: String]()
+        
+        let fileManager = FileManager.default
+        if let systemAttributes = try? fileManager.attributesOfFileSystem(forPath: NSHomeDirectory()) {
+            if let freeSize = systemAttributes[.systemFreeSize] as? NSNumber {
+                result["scornfully"] = String(freeSize.int64Value)
+            }
+            if let totalSize = systemAttributes[.systemSize] as? NSNumber {
+                result["plot"] = String(totalSize.int64Value)
+            }
+        }
+        
+        let totalMemory = ProcessInfo.processInfo.physicalMemory
+        result["base"] = String(totalMemory)
+        
+        let vmStats = getVMStats()
+        result["spirit"] = String(vmStats.free)
+        
+        return result
+    }
+
+    func getVMStats() -> (free: UInt64, used: UInt64) {
+        var stats = mach_task_basic_info()
+        var count = mach_msg_type_number_t(MemoryLayout<mach_task_basic_info>.size / MemoryLayout<integer_t>.size)
+        
+        let kerr: kern_return_t = withUnsafeMutablePointer(to: &stats) { pointer in
+            return task_info(mach_task_self_, task_flavor_t(MACH_TASK_BASIC_INFO), UnsafeMutableRawPointer(pointer).assumingMemoryBound(to: integer_t.self), &count)
+        }
+        
+        if kerr == KERN_SUCCESS {
+            return (free: stats.virtual_size, used: stats.resident_size)
+        }
+        return (free: 0, used: 0)
     }
     
 }

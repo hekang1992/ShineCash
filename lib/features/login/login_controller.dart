@@ -4,6 +4,7 @@ import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shinecash/common/devices/devices.dart';
 import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/common/http/http_request.dart';
 import 'package:shinecash/common/http/http_toast.dart';
@@ -25,9 +26,16 @@ class LoginController extends GetxController {
 
   final RxInt seconds = 0.obs;
 
+  var startTime = '';
+  var endTime = '';
+
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
   @override
   void onReady() {
-    // TODO: implement onReady
     super.onReady();
     startPolling();
   }
@@ -50,6 +58,7 @@ extension LoginVc on LoginController {
 
   /// 点击获取验证码
   void getCode(String phone, {String? type}) async {
+    startTime = DateTime.now().millisecondsSinceEpoch.toString();
     if (phone.isEmpty) {
       ToastManager.showToast('Please enter your mobile number.');
       return;
@@ -156,6 +165,13 @@ extension LoginVc on LoginController {
         SaveLoginInfo.saveToken(token);
         Future.delayed(Duration(microseconds: 500));
         Get.offAllNamed(ShineAppRouter.tab);
+
+        PointTouchChannel.upLoadPoint(
+          step: '1',
+          startTime: startTime,
+          endTime: DateTime.now().millisecondsSinceEpoch.toString(),
+          orderID: '',
+        );
       }
       ToastManager.hideLoading();
     } catch (e) {

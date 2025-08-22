@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:shinecash/common/devices/devices.dart';
 import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/common/http/http_request.dart';
 import 'package:shinecash/common/http/http_toast.dart';
@@ -7,11 +8,16 @@ import 'package:shinecash/features/home/home_controller.dart';
 class PhoneListController extends GetxController {
   late final String productID;
   final model = BaseModel().obs;
+
+  var startTime = '';
+  var endTime = '';
+
   @override
   void onInit() {
     super.onInit();
     productID = Get.arguments['productID'];
     getPhoneListInfo(productID: productID);
+    startTime = DateTime.now().millisecondsSinceEpoch.toString();
   }
 }
 
@@ -52,6 +58,12 @@ extension PhoneListVc on PhoneListController {
       if (model.beautiful == '0' || model.beautiful == '00') {
         final homeVc = Get.find<HomeController>();
         homeVc.getProductDetaiPageInfo(productID: productID, type: '1');
+        await PointTouchChannel.upLoadPoint(
+          step: '7',
+          startTime: startTime,
+          endTime: DateTime.now().millisecondsSinceEpoch.toString(),
+          orderID: '',
+        );
       }
       ToastManager.showToast(model.captive ?? '');
       ToastManager.hideLoading();

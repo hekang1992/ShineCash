@@ -32,6 +32,8 @@ class HomeView extends GetView<HomeController> {
               child: RefreshIndicator(
                 onRefresh: () async {
                   await controller.initHomeInfo();
+                  controller.uploadlocation();
+                  controller.uploaddeviceInfo();
                 },
                 child: SafeArea(
                   child: SingleChildScrollView(
