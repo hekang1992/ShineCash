@@ -276,6 +276,9 @@ class DiedModel {
   String? threeDes;
   String? throne;
   String? cautiously;
+  String? disappointment;
+
+  List<String>? teacher;
 
   DiedModel({
     this.alienated,
@@ -290,6 +293,8 @@ class DiedModel {
     this.threeDes,
     this.throne,
     this.cautiously,
+    this.disappointment,
+    this.teacher,
   });
 
   factory DiedModel.fromJson(Map<String, dynamic> json) {
@@ -306,6 +311,10 @@ class DiedModel {
       threeDes: json['threeDes'],
       throne: json['throne'],
       cautiously: json['cautiously'],
+      disappointment: json['disappointment'],
+      teacher: (json['teacher'] as List?)
+          ?.map((item) => item as String)
+          .toList(),
     );
   }
 
@@ -323,6 +332,8 @@ class DiedModel {
       'threeDes': threeDes,
       'throne': throne,
       'cautiously': cautiously,
+      'disappointment': disappointment,
+      'teacher': teacher,
     };
   }
 }

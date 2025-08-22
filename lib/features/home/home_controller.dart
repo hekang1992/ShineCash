@@ -98,6 +98,8 @@ extension HomeVc on HomeController {
           final pageUrl = await ApiUrlManager.getApiUrl(cautiously);
           Get.toNamed(ShineAppRouter.web, arguments: {'pageUrl': pageUrl});
         }
+      } else {
+        ToastManager.showToast(model.captive ?? '');
       }
       ToastManager.hideLoading();
     } catch (e) {
