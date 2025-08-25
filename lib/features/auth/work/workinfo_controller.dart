@@ -87,7 +87,7 @@ extension PersonalVc on WorkinfoController {
           String provinceName = selected[0] ?? '';
           String cityName = selected[1] ?? '';
           String districtName = selected[2] ?? '';
-          cityBlock('$provinceName-$cityName-$districtName');
+          cityBlock('$provinceName|$cityName|$districtName');
         } catch (e) {
           print("failure====: $e");
         }

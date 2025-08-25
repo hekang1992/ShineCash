@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
 import 'package:shinecash/common/constants/deviceinfo.dart';
@@ -77,9 +76,6 @@ extension HomeVc on HomeController {
 
   /// 申请
   applyProductWithID(String productID) async {
-    // LocationPermission permission = await Geolocator.checkPermission();
-    final position = await AppLocation.getDetailedLocation();
-    // print('position🧊-----------$position');
     try {
       ToastManager.showLoading();
       final http = ShineHttpRequest();

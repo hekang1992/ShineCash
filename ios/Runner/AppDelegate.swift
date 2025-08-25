@@ -42,7 +42,7 @@ extension AppDelegate {
             }else if call.method == "openCamera" {
                 if let args = call.arguments as? [String: Any],
                    let type = args["type"] as? String {
-                    CameraManager.shared.presentCamera(from: controller) { imageData in
+                    CameraManager.shared.presentCamera(from: controller, type: type) { imageData in
                         if let imageData = imageData {
                             result(FlutterStandardTypedData(bytes: imageData))
                         }

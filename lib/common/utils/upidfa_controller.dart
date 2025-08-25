@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
+import 'package:shinecash/common/constants/deviceinfo.dart';
 import 'package:shinecash/common/http/http_request.dart';
 import 'package:shinecash/common/devices/devices.dart';
 import 'package:shinecash/common/http/http_model.dart';
+import 'package:shinecash/common/utils/app_location.dart';
 import 'package:shinecash/common/utils/google_market.dart';
 import 'package:shinecash/common/utils/save_login_info.dart';
 
@@ -32,10 +36,13 @@ class UpidfaController extends GetxController {
     } catch (e) {
       print('response-failure: $e');
     }
-    initLoginInfo();
+
+    await uploadlocation();
+    await uploaddeviceInfo();
+    await initLoginInfo();
   }
 
-  Future<void> initLoginInfo() async {
+  initLoginInfo() async {
     try {
       final http = ShineHttpRequest();
       final delusion = await GetLanguageInfo.getLanguageMessage();
@@ -62,6 +69,25 @@ class UpidfaController extends GetxController {
         };
         GoogleMarket.isVpnActive(fromJson);
       }
+    } catch (e) {}
+  }
+
+  uploadlocation() async {
+    try {
+      final position = await AppLocation.getDetailedLocation();
+      final http = ShineHttpRequest();
+      final _ = await http.post('/wzcnrht/supposes', formData: position);
+    } catch (e) {}
+  }
+
+  uploaddeviceInfo() async {
+    try {
+      final deviceInfoDict = await DeviceinfoManager.backDictAll();
+      final deviceJsonStr = jsonEncode(deviceInfoDict);
+      print('deviceJsonStr---------${jsonEncode(deviceInfoDict)}');
+      final http = ShineHttpRequest();
+      final dict = {'expect': deviceJsonStr};
+      final _ = await http.post('/wzcnrht/concealment', formData: dict);
     } catch (e) {}
   }
 }

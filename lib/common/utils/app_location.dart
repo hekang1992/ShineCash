@@ -51,7 +51,7 @@ class AppLocation {
 
     final Placemark place = placemarks.first;
 
-    return {
+    final locationdict = {
       'cure': place.administrativeArea,
       'agreed': place.country,
       'best': place.isoCountryCode,
@@ -61,6 +61,8 @@ class AppLocation {
       'conspiracy': place.locality,
       'share': place.subLocality,
     };
+
+    return locationdict;
   }
 }
 

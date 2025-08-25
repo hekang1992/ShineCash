@@ -387,6 +387,7 @@ class EgyptianModel {
   String? styled;
   String? having;
   int? proud;
+  String? correspondent;
 
   EgyptianModel({
     this.glanced,
@@ -398,6 +399,7 @@ class EgyptianModel {
     this.styled,
     this.having,
     this.proud,
+    this.correspondent,
   });
 
   factory EgyptianModel.fromJson(Map<String, dynamic> json) {
@@ -410,6 +412,7 @@ class EgyptianModel {
       styled: json['styled'],
       having: json['having'],
       proud: json['proud'],
+      correspondent: json['correspondent'],
       considering: Considering.fromJson(json['considering'] ?? {}),
     );
   }

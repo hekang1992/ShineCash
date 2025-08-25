@@ -32,12 +32,15 @@ class LoginController extends GetxController {
 
   @override
   void onInit() async {
+    // TODO: implement onInit
     super.onInit();
-    try {
-      final position = await AppLocation.getDetailedLocation();
-      final http = ShineHttpRequest();
-      final _ = await http.post('/wzcnrht/supposes', formData: position);
-    } catch (e) {}
+    final position = await AppLocation.getDetailedLocation();
+    print('position---------$position');
+    // try {
+    //   final http = ShineHttpRequest();
+    //   final _ = await http.post('/wzcnrht/supposes', formData: position);
+    // } catch (e) {}
+    startTime = DateTime.now().millisecondsSinceEpoch.toString();
   }
 
   @override

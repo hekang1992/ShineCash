@@ -28,19 +28,22 @@ class CertificationListView extends GetView<CertificationListController> {
           child: Stack(
             children: [
               SafeArea(
-                child: AppHeadView(
-                  title: 'Certification List',
-                  onTap: () {
-                    Get.back(result: {'type': 'order_list'});
-                    FindHomeVc.getHomeVc();
-                    if (Get.isRegistered<OrderController>()) {
-                      final orderVc = Get.find<OrderController>();
-                      orderVc.makeChage(
-                        changeIndex: orderVc.currentIndex.value,
-                      );
-                    }
-                  },
-                ),
+                child: Obx(() {
+                  final model = controller.model.value;
+                  return AppHeadView(
+                    title: model.expect?.egyptian?.correspondent ?? '',
+                    onTap: () {
+                      Get.back(result: {'type': 'order_list'});
+                      FindHomeVc.getHomeVc();
+                      if (Get.isRegistered<OrderController>()) {
+                        final orderVc = Get.find<OrderController>();
+                        orderVc.makeChage(
+                          changeIndex: orderVc.currentIndex.value,
+                        );
+                      }
+                    },
+                  );
+                }),
               ),
               Padding(
                 padding: EdgeInsets.only(

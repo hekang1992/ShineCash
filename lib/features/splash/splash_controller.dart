@@ -1,7 +1,9 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:shinecash/common/http/http_request.dart';
 import 'package:shinecash/common/routers/shine_router.dart';
+import 'package:shinecash/common/utils/app_location.dart';
 import 'package:shinecash/common/utils/network_monitoring.dart';
 import 'package:shinecash/common/utils/save_idfv_info.dart';
 import 'package:shinecash/common/utils/save_login_info.dart';
@@ -14,12 +16,9 @@ class SplashController extends GetxController {
     super.onInit();
 
     await Future.delayed(Duration(milliseconds: 500));
-
     // 检查网络
     NetworkMonitoring.isConnected().then((connected) {
-      if (kDebugMode) {
-        print(connected ? '有网络' : '无网络');
-      }
+      print(connected ? '有网络' : '无网络');
     });
     // 监听网络变化
     NetworkMonitoring.onNetworkChanged.listen((results) {
