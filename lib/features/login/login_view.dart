@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
 import 'package:shinecash/common/http/http_request.dart';
 import 'package:shinecash/common/routers/shine_router.dart';
+import 'package:shinecash/common/utils/save_login_info.dart';
 import 'package:shinecash/features/login/customer_btn.dart';
 import 'package:shinecash/features/login/login_controller.dart';
 
@@ -107,6 +108,7 @@ Widget _loginView(LoginController controller) {
                   controller.getCode(
                     controller.phoneController.text,
                     type: 'code',
+                    apiUrl: '/wzcnrht/feeling',
                   );
                 },
               ),
@@ -125,7 +127,10 @@ Widget _loginView(LoginController controller) {
               SizedBox(height: 20.h),
               InkWell(
                 onTap: () {
-                  controller.getCode(controller.phoneController.text);
+                  controller.getCode(
+                    controller.phoneController.text,
+                    apiUrl: '/wzcnrht/proudly',
+                  );
                 },
                 child: Image.asset(
                   'assets/images/voice_imge.png',
@@ -156,9 +161,10 @@ Widget _loginView(LoginController controller) {
                   SizedBox(width: 6.w),
                   InkWell(
                     onTap: () {
+                      final kiss = SaveLoginInfo.getKiss() ?? '';
                       Get.toNamed(
                         ShineAppRouter.web,
-                        parameters: {'pageUrl': '$websiteUrl'},
+                        arguments: {'pageUrl': kiss},
                       );
                     },
                     child: RichText(

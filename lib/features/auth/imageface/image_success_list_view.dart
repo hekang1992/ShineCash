@@ -9,7 +9,7 @@ import 'package:shinecash/features/login/customer_btn.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 
 class ImageSuccessListView extends GetView<ImageSuccessListController> {
-  final VoidCallback onTap;
+  final void Function(ImageSuccessListController) onTap;
   final void Function(ImageSuccessListController) sureTap;
   final BaseModel model;
   ImageSuccessListView({
@@ -49,7 +49,9 @@ class ImageSuccessListView extends GetView<ImageSuccessListController> {
                 ),
                 Spacer(),
                 InkWell(
-                  onTap: onTap,
+                  onTap: () {
+                    onTap(controller);
+                  },
                   child: Image.asset(
                     'assets/images/closw_image_ac.png',
                     width: 12.w,
@@ -78,9 +80,9 @@ class ImageSuccessListView extends GetView<ImageSuccessListController> {
                 DatePicker.showDatePicker(
                   context,
                   showTitleActions: true,
-                  currentTime: DateFormat('dd-MM-yyyy').parse(
+                  currentTime: DateFormat('yyyy-MM-dd').parse(
                     controller.threeVc.text.isEmpty
-                        ? (model.expect?.favor?[2].remain ?? '')
+                        ? ('1990-09-09')
                         : controller.threeVc.text,
                   ),
                   locale: LocaleType.en,

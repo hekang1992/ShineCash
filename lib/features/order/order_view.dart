@@ -10,7 +10,7 @@ import 'package:shinecash/features/order/order_controller.dart';
 import 'package:shinecash/features/order/order_list_view.dart';
 
 class OrderView extends GetView<OrderController> {
-  final tabs = ['All', 'Under Review', 'Repaying', 'Completed'];
+  final tabs = ['All', 'Applying', 'Repaying', 'Completed'];
 
   OrderView({super.key});
 

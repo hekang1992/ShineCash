@@ -112,7 +112,8 @@ class WebController extends GetxController {
           return currentRoute == ShineAppRouter.tab;
         } else {
           return currentRoute == ShineAppRouter.tab ||
-              currentRoute == ShineAppRouter.authList;
+              currentRoute == ShineAppRouter.authList ||
+              currentRoute == ShineAppRouter.login;
         }
       });
       if (Get.isRegistered<CertificationListController>()) {

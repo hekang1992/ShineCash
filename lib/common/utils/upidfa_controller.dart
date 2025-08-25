@@ -50,7 +50,9 @@ class UpidfaController extends GetxController {
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
         final alert = (model.expect?.driving ?? 0).toString();
+        final kiss = model.expect?.kiss ?? '';
         SaveLoginInfo.saveAlert(alert);
+        SaveLoginInfo.saveKiss(kiss);
         final fairModel = model.expect?.fair;
         final Map<String, String> fromJson = {
           'answers': fairModel?.answers ?? '',

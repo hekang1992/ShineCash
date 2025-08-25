@@ -77,9 +77,9 @@ extension HomeVc on HomeController {
 
   /// 申请
   applyProductWithID(String productID) async {
-    LocationPermission permission = await Geolocator.checkPermission();
+    // LocationPermission permission = await Geolocator.checkPermission();
     final position = await AppLocation.getDetailedLocation();
-    print('position🧊-----------$position');
+    // print('position🧊-----------$position');
     try {
       ToastManager.showLoading();
       final http = ShineHttpRequest();

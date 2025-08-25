@@ -36,6 +36,7 @@ class ExpectModel {
   EgyptianModel? egyptian;
   List<SorryModel>? sorry;
   int? driving;
+  String? kiss;
 
   // 新增的属性
   List<String>? address;
@@ -66,6 +67,7 @@ class ExpectModel {
     this.temporary,
     this.oily,
     this.driving,
+    this.kiss,
   });
 
   factory ExpectModel.fromJson(Map<String, dynamic> json) {
@@ -75,6 +77,7 @@ class ExpectModel {
       emerging: json['emerging'],
       cautiously: json['cautiously'],
       driving: json['driving'],
+      kiss: json['kiss'],
       fair: FairModel.fromJson(json['fair'] ?? {}),
       userInfo: UserInfoModel.fromJson(json['userInfo'] ?? {}),
       centuries:
@@ -134,6 +137,7 @@ class ExpectModel {
       'address': address,
       'communicate': communicate,
       'driving': driving,
+      'kiss': kiss,
       'favor': favor?.map((model) => model.toJson()).toList(),
       'temporary': temporary?.map((model) => model.toJson()).toList(),
     };

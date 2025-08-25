@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
+import 'package:shinecash/common/http/http_toast.dart';
 import 'package:shinecash/common/utils/image_pop.dart';
 import 'package:shinecash/features/apphead/app_head_view.dart';
 import 'package:shinecash/features/auth/certificationlist/app_common_footer_view.dart';
@@ -139,8 +140,20 @@ class ImageListView extends GetView<ImageListController> {
                                                               true,
                                                           ImageSuccessListView(
                                                             model: model,
-                                                            onTap: () {
+                                                            onTap: (controller) {
                                                               Get.back();
+                                                              controller
+                                                                      .oneVc
+                                                                      .text =
+                                                                  '';
+                                                              controller
+                                                                      .twoVc
+                                                                      .text =
+                                                                  '';
+                                                              controller
+                                                                      .threeVc
+                                                                      .text =
+                                                                  '';
                                                             },
                                                             sureTap: (controller) async {
                                                               await this.controller.saveTinInfo(
@@ -193,8 +206,20 @@ class ImageListView extends GetView<ImageListController> {
                                                               true,
                                                           ImageSuccessListView(
                                                             model: model,
-                                                            onTap: () {
+                                                            onTap: (controller) {
                                                               Get.back();
+                                                              controller
+                                                                      .oneVc
+                                                                      .text =
+                                                                  '';
+                                                              controller
+                                                                      .twoVc
+                                                                      .text =
+                                                                  '';
+                                                              controller
+                                                                      .threeVc
+                                                                      .text =
+                                                                  '';
                                                             },
                                                             sureTap: (controller) async {
                                                               await this.controller.saveTinInfo(
@@ -259,65 +284,33 @@ class ImageListView extends GetView<ImageListController> {
                                               await Future.delayed(
                                                 Duration(milliseconds: 250),
                                               );
-                                              Get.bottomSheet(
-                                                backgroundColor: Colors.white,
-                                                isDismissible: false,
-                                                enableDrag: false,
-                                                Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    ListTile(
-                                                      leading: Icon(
-                                                        Icons.camera,
-                                                      ),
-                                                      title: Text('Camera'),
-                                                      onTap: () async {
-                                                        Get.back(); // 返回1表示选择相机
-                                                        final originalData =
-                                                            await ImageChannel.openCamera(
-                                                              '1',
-                                                            );
-                                                        final model = await controller
-                                                            .uploadImageWithType(
-                                                              type:
-                                                                  controller
-                                                                      .authlistModel
-                                                                      .value
-                                                                      .expect
-                                                                      ?.rule
-                                                                      ?.read ??
-                                                                  '',
-                                                              many: 10,
-                                                              ink: 1,
-                                                              originalData:
-                                                                  originalData,
-                                                            );
-                                                        if (model == null) {
-                                                          return;
-                                                        }
-                                                        final homeVc =
-                                                            Get.find<
-                                                              HomeController
-                                                            >();
-                                                        homeVc.getProductDetaiPageInfo(
-                                                          productID: controller
-                                                              .dict['productID'],
-                                                          type: '1',
-                                                        );
-                                                      },
-                                                    ),
-                                                    ListTile(
-                                                      leading: Icon(
-                                                        Icons.cancel,
-                                                      ),
-                                                      title: Text('Cancel'),
-                                                      onTap: () => Get.back(
-                                                        result: 0,
-                                                      ), // 返回0表示取消
-                                                    ),
-                                                  ],
-                                                ),
+                                              final originalData =
+                                                  await ImageChannel.openCamera(
+                                                    '1',
+                                                  );
+                                              final model = await controller
+                                                  .uploadImageWithType(
+                                                    type:
+                                                        controller
+                                                            .authlistModel
+                                                            .value
+                                                            .expect
+                                                            ?.rule
+                                                            ?.read ??
+                                                        '',
+                                                    many: 10,
+                                                    ink: 1,
+                                                    originalData: originalData,
+                                                  );
+                                              if (model == null) {
+                                                return;
+                                              }
+                                              final homeVc =
+                                                  Get.find<HomeController>();
+                                              homeVc.getProductDetaiPageInfo(
+                                                productID: controller
+                                                    .dict['productID'],
+                                                type: '1',
                                               );
                                             },
                                           ),
@@ -342,6 +335,21 @@ class ImageListView extends GetView<ImageListController> {
                 child: AppCommonFooterView(
                   title: 'Next',
                   onTap: () {
+                    final model = controller.authlistModel.value;
+                    final imageStr = model.expect?.rule?.cautiously ?? '';
+                    final faceimageStr = model.expect?.posted?.cautiously ?? '';
+                    if (imageStr.isEmpty) {
+                      ToastManager.showToast(
+                        'Please upload a photo of your ID first.',
+                      );
+                      return;
+                    }
+                    if (faceimageStr.isEmpty) {
+                      ToastManager.showToast(
+                        'Please upload a facial photo first.',
+                      );
+                      return;
+                    }
                     final homeVc = Get.find<HomeController>();
                     homeVc.getProductDetaiPageInfo(
                       productID: controller.dict['productID'],

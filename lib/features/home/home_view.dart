@@ -13,6 +13,7 @@ import 'package:shinecash/features/home/home_controller.dart';
 import 'package:shinecash/features/home/onehome/home_one_view.dart';
 import 'package:shinecash/features/home/onehome/home_tzhree_view.dart';
 import 'package:shinecash/features/home/onehome/home_two_view.dart';
+import 'package:shinecash/features/order/order_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
@@ -94,7 +95,10 @@ class HomeView extends GetView<HomeController> {
                               name3: 'home_three3_image.png',
                               name4: 'home_three4_image.png',
                               onTap1: () {
-                                ToastManager.showToast('msg1');
+                                final orderVc = Get.find<OrderController>();
+                                Get.toNamed(ShineAppRouter.orderlist);
+                                orderVc.isShowBack.value = true;
+                                orderVc.makeChage(changeIndex: 0);
                               },
                               onTap2: () {
                                 Get.toNamed(ShineAppRouter.guide);

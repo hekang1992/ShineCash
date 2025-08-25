@@ -9,6 +9,7 @@ import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/common/http/http_request.dart';
 import 'package:shinecash/common/http/http_toast.dart';
 import 'package:shinecash/common/routers/shine_router.dart';
+import 'package:shinecash/common/utils/app_location.dart';
 import 'package:shinecash/common/utils/save_idfv_info.dart';
 import 'package:shinecash/common/utils/save_login_info.dart';
 
@@ -22,7 +23,7 @@ class LoginController extends GetxController {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController codeController = TextEditingController();
 
-  final RxBool isclickAgreement = false.obs;
+  final RxBool isclickAgreement = true.obs;
 
   final RxInt seconds = 0.obs;
 
@@ -30,8 +31,13 @@ class LoginController extends GetxController {
   var endTime = '';
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    try {
+      final position = await AppLocation.getDetailedLocation();
+      final http = ShineHttpRequest();
+      final _ = await http.post('/wzcnrht/supposes', formData: position);
+    } catch (e) {}
   }
 
   @override
@@ -57,7 +63,7 @@ extension LoginVc on LoginController {
   }
 
   /// 点击获取验证码
-  void getCode(String phone, {String? type}) async {
+  void getCode(String phone, {String? type, required String apiUrl}) async {
     startTime = DateTime.now().millisecondsSinceEpoch.toString();
     if (phone.isEmpty) {
       ToastManager.showToast('Please enter your mobile number.');
@@ -67,7 +73,7 @@ extension LoginVc on LoginController {
     try {
       final http = ShineHttpRequest();
       final dict = {'ever': phone, 'feeling': '1'};
-      final respose = await http.post('/wzcnrht/feeling', formData: dict);
+      final respose = await http.post(apiUrl, formData: dict);
       print('respose---------${respose.data}');
       final model = BaseModel.fromJson(respose.data);
       final String beautiful = model.beautiful ?? '';

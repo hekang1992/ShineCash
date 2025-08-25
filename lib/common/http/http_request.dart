@@ -37,7 +37,7 @@ class ShineHttpRequest {
       ),
     );
 
-    _configureProxy();
+    // _configureProxy();
   }
 
   // 配置代理
