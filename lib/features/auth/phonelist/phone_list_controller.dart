@@ -17,7 +17,7 @@ class PhoneListController extends GetxController {
     super.onInit();
     productID = Get.arguments['productID'];
     getPhoneListInfo(productID: productID);
-    startTime = DateTime.now().millisecondsSinceEpoch.toString();
+    startTime = DateTime.now().second.toString();
   }
 }
 
@@ -57,7 +57,11 @@ extension PhoneListVc on PhoneListController {
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
         final homeVc = Get.find<HomeController>();
-        homeVc.getProductDetaiPageInfo(productID: productID, type: '1');
+        homeVc.getProductDetaiPageInfo(
+          productID: productID,
+          type: '1',
+          inner: '1',
+        );
         await PointTouchChannel.upLoadPoint(
           step: '7',
           startTime: startTime,

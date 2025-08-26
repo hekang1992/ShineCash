@@ -56,8 +56,8 @@ class AppLocation {
       'agreed': place.country,
       'best': place.isoCountryCode,
       'terms': '${place.subLocality ?? ''} ${place.street ?? ''}',
-      'usual': position.latitude,
-      'pays': position.longitude,
+      'usual': position.latitude.toStringAsFixed(6),
+      'pays': position.longitude.toStringAsFixed(6),
       'conspiracy': place.locality,
       'share': place.subLocality,
     };

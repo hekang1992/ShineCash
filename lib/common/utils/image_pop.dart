@@ -60,7 +60,7 @@ class Contact {
 }
 
 class ToAppStoreChannel {
-  static const MethodChannel _channel = MethodChannel('to_appstroe');
+  static const MethodChannel _channel = MethodChannel('shineapp_info');
   static toAppChanel() async {
     try {
       await _channel.invokeMethod('to_appstroe');

@@ -27,335 +27,336 @@ class ImageListView extends GetView<ImageListController> {
       canPop: false,
       child: Scaffold(
         body: Container(
+          height: MediaQuery.of(context).size.height,
           color: AppColor.bgColor,
-          width: double.infinity,
           child: Stack(
-            alignment: AlignmentDirectional.topCenter,
             children: [
-              SafeArea(
-                child: AppHeadView(
-                  title: 'Identity Authentication',
-                  onTap: () async {
-                    Get.back(result: 'refresh');
-                    await cerVc.initAuthListInfo(dict['productID']);
-                  },
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).padding.top + 52.h,
-                ),
-                child: Column(
-                  children: [
-                    ProgressListView(pix: 0.2),
-                    SizedBox(height: 15.h),
-                    Stack(
-                      alignment: AlignmentDirectional.topCenter,
-                      children: [
-                        Image.asset(
-                          'assets/images/cycle_auth_image.png',
-                          width: 37.w,
-                          height: 23.h,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 12.sp),
-                          child: Container(
-                            width: 351.w,
-                            height: 496.h,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(9.sp),
-                              ),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.only(top: 24.sp),
-                              child: Obx(() {
-                                final model = controller.authlistModel.value;
-                                final imageStr =
-                                    model.expect?.rule?.cautiously ?? '';
-                                final faceimageStr =
-                                    model.expect?.posted?.cautiously ?? '';
-                                return Column(
-                                  children: [
-                                    imageClickView(
-                                      title: 'Upload ID Photos',
-                                      imageStr: imageStr.isEmpty
-                                          ? 'photo_imge.png'
-                                          : imageStr,
-                                      isClick:
-                                          model.expect?.rule?.listening == 1
-                                          ? false
-                                          : true,
-                                      onTap: () {
-                                        controller.idStartTime = DateTime.now()
-                                            .millisecondsSinceEpoch
-                                            .toString();
-                                        Get.bottomSheet(
-                                          isDismissible: false,
-                                          enableDrag: false,
-                                          ImageSheetView(
-                                            imageStr: 'de_list_image.png',
-                                            onTap: () async {
-                                              Get.back();
-                                              await Future.delayed(
-                                                Duration(milliseconds: 250),
-                                              );
-                                              Get.bottomSheet(
-                                                backgroundColor: Colors.white,
-                                                isDismissible: false,
-                                                enableDrag: false,
-                                                Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    ListTile(
-                                                      leading: Icon(
-                                                        Icons.camera,
-                                                      ),
-                                                      title: Text('Camera'),
-                                                      onTap: () async {
-                                                        Get.back();
-
-                                                        final originalData =
-                                                            await ImageChannel.openCamera(
-                                                              '0',
-                                                            );
-                                                        final model = await controller
-                                                            .uploadImageWithType(
-                                                              type: controller
-                                                                  .dict['title'],
-                                                              many: 11,
-                                                              ink: 1,
-                                                              originalData:
-                                                                  originalData,
-                                                            );
-                                                        if (model == null) {
-                                                          return;
-                                                        }
-                                                        Get.bottomSheet(
-                                                          isDismissible: false,
-                                                          enableDrag: false,
-                                                          isScrollControlled:
-                                                              true,
-                                                          ImageSuccessListView(
-                                                            model: model,
-                                                            onTap: (controller) {
-                                                              Get.back();
-                                                              controller
-                                                                      .oneVc
-                                                                      .text =
-                                                                  '';
-                                                              controller
-                                                                      .twoVc
-                                                                      .text =
-                                                                  '';
-                                                              controller
-                                                                      .threeVc
-                                                                      .text =
-                                                                  '';
-                                                            },
-                                                            sureTap: (controller) async {
-                                                              await this.controller.saveTinInfo(
-                                                                name: controller
-                                                                    .oneVc
-                                                                    .text,
-                                                                id: controller
-                                                                    .twoVc
-                                                                    .text,
-                                                                time: controller
-                                                                    .threeVc
-                                                                    .text,
-                                                                many: '11',
-                                                                read: this
-                                                                    .controller
-                                                                    .dict['title'],
-                                                              );
-                                                            },
-                                                          ),
-                                                        );
-                                                      }, // 返回1表示选择相机
-                                                    ),
-                                                    ListTile(
-                                                      leading: Icon(
-                                                        Icons.photo_library,
-                                                      ),
-                                                      title: Text(
-                                                        'Photo Gallery',
-                                                      ),
-                                                      onTap: () async {
-                                                        Get.back();
-                                                        final originalData =
-                                                            await ImageChannel.openGallery();
-                                                        final model = await controller
-                                                            .uploadImageWithType(
-                                                              type: controller
-                                                                  .dict['title'],
-                                                              many: 11,
-                                                              ink: 2,
-                                                              originalData:
-                                                                  originalData,
-                                                            );
-                                                        if (model == null) {
-                                                          return;
-                                                        }
-                                                        Get.bottomSheet(
-                                                          isDismissible: false,
-                                                          enableDrag: false,
-                                                          isScrollControlled:
-                                                              true,
-                                                          ImageSuccessListView(
-                                                            model: model,
-                                                            onTap: (controller) {
-                                                              Get.back();
-                                                              controller
-                                                                      .oneVc
-                                                                      .text =
-                                                                  '';
-                                                              controller
-                                                                      .twoVc
-                                                                      .text =
-                                                                  '';
-                                                              controller
-                                                                      .threeVc
-                                                                      .text =
-                                                                  '';
-                                                            },
-                                                            sureTap: (controller) async {
-                                                              await this.controller.saveTinInfo(
-                                                                name: controller
-                                                                    .oneVc
-                                                                    .text,
-                                                                id: controller
-                                                                    .twoVc
-                                                                    .text,
-                                                                time: controller
-                                                                    .threeVc
-                                                                    .text,
-                                                                many: '11',
-                                                                read: this
-                                                                    .controller
-                                                                    .dict['title'],
-                                                              );
-                                                            },
-                                                          ),
-                                                        );
-                                                      }, // 返回2表示选择相册
-                                                    ),
-                                                    ListTile(
-                                                      leading: Icon(
-                                                        Icons.cancel,
-                                                      ),
-                                                      title: Text('Cancel'),
-                                                      onTap: () => Get.back(
-                                                        result: 0,
-                                                      ), // 返回0表示取消
-                                                    ),
-                                                  ],
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                    SizedBox(height: 24.h),
-                                    imageClickView(
-                                      title: 'Facial Recognition',
-                                      imageStr: faceimageStr.isEmpty
-                                          ? 'face_image.png'
-                                          : faceimageStr,
-                                      isClick:
-                                          model.expect?.posted?.listening == 1
-                                          ? false
-                                          : true,
-                                      onTap: () {
-                                        controller.faceStartTime =
-                                            DateTime.now()
-                                                .millisecondsSinceEpoch
-                                                .toString();
-                                        Get.bottomSheet(
-                                          isDismissible: false,
-                                          enableDrag: false,
-                                          ImageSheetView(
-                                            imageStr: 'faca_de_image.png',
-                                            onTap: () async {
-                                              Get.back();
-                                              await Future.delayed(
-                                                Duration(milliseconds: 250),
-                                              );
-                                              final originalData =
-                                                  await ImageChannel.openCamera(
-                                                    '1',
-                                                  );
-                                              final model = await controller
-                                                  .uploadImageWithType(
-                                                    type:
-                                                        controller
-                                                            .authlistModel
-                                                            .value
-                                                            .expect
-                                                            ?.rule
-                                                            ?.read ??
-                                                        '',
-                                                    many: 10,
-                                                    ink: 1,
-                                                    originalData: originalData,
-                                                  );
-                                              if (model == null) {
-                                                return;
-                                              }
-                                              final homeVc =
-                                                  Get.find<HomeController>();
-                                              homeVc.getProductDetaiPageInfo(
-                                                productID: controller
-                                                    .dict['productID'],
-                                                type: '1',
-                                              );
-                                            },
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ],
-                                );
-                              }),
+              Column(
+                children: [
+                  SafeArea(
+                    child: AppHeadView(
+                      title: 'Identity Authentication',
+                      onTap: () async {
+                        Get.back(result: 'refresh');
+                        await cerVc.initAuthListInfo(dict['productID']);
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 16.sp),
+                  ProgressListView(pix: 0.2),
+                  SizedBox(height: 15.h),
+                  Stack(
+                    alignment: AlignmentDirectional.topCenter,
+                    children: [
+                      Image.asset(
+                        'assets/images/cycle_auth_image.png',
+                        width: 37.w,
+                        height: 23.h,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 12.sp),
+                        child: Container(
+                          width: 351.w,
+                          height: 496.h,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(9.sp),
                             ),
                           ),
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 24.sp),
+                            child: Obx(() {
+                              final model = controller.authlistModel.value;
+                              final imageStr =
+                                  model.expect?.rule?.cautiously ?? '';
+                              final faceimageStr =
+                                  model.expect?.posted?.cautiously ?? '';
+                              return Column(
+                                children: [
+                                  imageClickView(
+                                    title: 'Upload ID Photos',
+                                    imageStr: imageStr.isEmpty
+                                        ? 'photo_imge.png'
+                                        : imageStr,
+                                    isClick: model.expect?.rule?.listening == 1
+                                        ? false
+                                        : true,
+                                    onTap: () {
+                                      controller.idStartTime = DateTime.now()
+                                          .millisecondsSinceEpoch
+                                          .toString();
+                                      Get.bottomSheet(
+                                        isDismissible: false,
+                                        enableDrag: false,
+                                        ImageSheetView(
+                                          imageStr: 'de_list_image.png',
+                                          onTap: () async {
+                                            Get.back();
+                                            await Future.delayed(
+                                              Duration(milliseconds: 250),
+                                            );
+                                            Get.bottomSheet(
+                                              backgroundColor: Colors.white,
+                                              isDismissible: false,
+                                              enableDrag: false,
+                                              Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  ListTile(
+                                                    leading: Icon(Icons.camera),
+                                                    title: Text('Camera'),
+                                                    onTap: () async {
+                                                      Get.back();
+
+                                                      final originalData =
+                                                          await ImageChannel.openCamera(
+                                                            '0',
+                                                          );
+                                                      final model = await controller
+                                                          .uploadImageWithType(
+                                                            type: controller
+                                                                .dict['title'],
+                                                            many: 11,
+                                                            ink: 1,
+                                                            originalData:
+                                                                originalData,
+                                                          );
+                                                      if (model == null) {
+                                                        return;
+                                                      }
+                                                      Get.bottomSheet(
+                                                        isDismissible: false,
+                                                        enableDrag: false,
+                                                        isScrollControlled:
+                                                            true,
+                                                        ImageSuccessListView(
+                                                          model: model,
+                                                          onTap: (controller) {
+                                                            Get.back();
+                                                            controller
+                                                                    .oneVc
+                                                                    .text =
+                                                                '';
+                                                            controller
+                                                                    .twoVc
+                                                                    .text =
+                                                                '';
+                                                            controller
+                                                                    .threeVc
+                                                                    .text =
+                                                                '';
+                                                          },
+                                                          sureTap: (controller) async {
+                                                            await this
+                                                                .controller
+                                                                .saveTinInfo(
+                                                                  name:
+                                                                      controller
+                                                                          .oneVc
+                                                                          .text,
+                                                                  id: controller
+                                                                      .twoVc
+                                                                      .text,
+                                                                  time: controller
+                                                                      .threeVc
+                                                                      .text,
+                                                                  many: '11',
+                                                                  read: this
+                                                                      .controller
+                                                                      .dict['title'],
+                                                                );
+                                                          },
+                                                        ),
+                                                      );
+                                                    }, // 返回1表示选择相机
+                                                  ),
+                                                  ListTile(
+                                                    leading: Icon(
+                                                      Icons.photo_library,
+                                                    ),
+                                                    title: Text(
+                                                      'Photo Gallery',
+                                                    ),
+                                                    onTap: () async {
+                                                      Get.back();
+                                                      final originalData =
+                                                          await ImageChannel.openGallery();
+                                                      final model = await controller
+                                                          .uploadImageWithType(
+                                                            type: controller
+                                                                .dict['title'],
+                                                            many: 11,
+                                                            ink: 2,
+                                                            originalData:
+                                                                originalData,
+                                                          );
+                                                      if (model == null) {
+                                                        return;
+                                                      }
+                                                      Get.bottomSheet(
+                                                        isDismissible: false,
+                                                        enableDrag: false,
+                                                        isScrollControlled:
+                                                            true,
+                                                        ImageSuccessListView(
+                                                          model: model,
+                                                          onTap: (controller) {
+                                                            Get.back();
+                                                            controller
+                                                                    .oneVc
+                                                                    .text =
+                                                                '';
+                                                            controller
+                                                                    .twoVc
+                                                                    .text =
+                                                                '';
+                                                            controller
+                                                                    .threeVc
+                                                                    .text =
+                                                                '';
+                                                          },
+                                                          sureTap: (controller) async {
+                                                            await this
+                                                                .controller
+                                                                .saveTinInfo(
+                                                                  name:
+                                                                      controller
+                                                                          .oneVc
+                                                                          .text,
+                                                                  id: controller
+                                                                      .twoVc
+                                                                      .text,
+                                                                  time: controller
+                                                                      .threeVc
+                                                                      .text,
+                                                                  many: '11',
+                                                                  read: this
+                                                                      .controller
+                                                                      .dict['title'],
+                                                                );
+                                                          },
+                                                        ),
+                                                      );
+                                                    }, // 返回2表示选择相册
+                                                  ),
+                                                  ListTile(
+                                                    leading: Icon(Icons.cancel),
+                                                    title: Text('Cancel'),
+                                                    onTap: () => Get.back(
+                                                      result: 0,
+                                                    ), // 返回0表示取消
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                  SizedBox(height: 24.h),
+                                  imageClickView(
+                                    title: 'Facial Recognition',
+                                    imageStr: faceimageStr.isEmpty
+                                        ? 'face_image.png'
+                                        : faceimageStr,
+                                    isClick:
+                                        model.expect?.posted?.listening == 1
+                                        ? false
+                                        : true,
+                                    onTap: () {
+                                      controller.faceStartTime = DateTime.now()
+                                          .millisecondsSinceEpoch
+                                          .toString();
+                                      Get.bottomSheet(
+                                        isDismissible: false,
+                                        enableDrag: false,
+                                        ImageSheetView(
+                                          imageStr: 'faca_de_image.png',
+                                          onTap: () async {
+                                            Get.back();
+                                            await Future.delayed(
+                                              Duration(milliseconds: 250),
+                                            );
+                                            final originalData =
+                                                await ImageChannel.openCamera(
+                                                  '1',
+                                                );
+                                            final model = await controller
+                                                .uploadImageWithType(
+                                                  type:
+                                                      controller
+                                                          .authlistModel
+                                                          .value
+                                                          .expect
+                                                          ?.rule
+                                                          ?.read ??
+                                                      '',
+                                                  many: 10,
+                                                  ink: 1,
+                                                  originalData: originalData,
+                                                );
+                                            if (model == null) {
+                                              return;
+                                            }
+                                            final homeVc =
+                                                Get.find<HomeController>();
+                                            homeVc.getProductDetaiPageInfo(
+                                              productID:
+                                                  controller.dict['productID'],
+                                              type: '1',
+                                              inner: '1',
+                                            );
+                                          },
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              );
+                            }),
+                          ),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
               Positioned(
-                bottom: 0,
                 left: 0,
                 right: 0,
-                child: AppCommonFooterView(
-                  title: 'Next',
-                  onTap: () {
-                    final model = controller.authlistModel.value;
-                    final imageStr = model.expect?.rule?.cautiously ?? '';
-                    final faceimageStr = model.expect?.posted?.cautiously ?? '';
-                    if (imageStr.isEmpty) {
-                      ToastManager.showToast(
-                        'Please upload a photo of your ID first.',
+                bottom: 0,
+                child: SizedBox(
+                  height: 100.h,
+                  width: double.infinity,
+                  child: AppCommonFooterView(
+                    title: 'Next',
+                    onTap: () {
+                      final model = controller.authlistModel.value;
+                      final imageStr = model.expect?.rule?.cautiously ?? '';
+                      final faceimageStr =
+                          model.expect?.posted?.cautiously ?? '';
+                      if (imageStr.isEmpty) {
+                        ToastManager.showToast(
+                          'Please upload a photo of your ID first.',
+                        );
+                        return;
+                      }
+                      if (faceimageStr.isEmpty) {
+                        ToastManager.showToast(
+                          'Please upload a facial photo first.',
+                        );
+                        return;
+                      }
+                      final homeVc = Get.find<HomeController>();
+                      homeVc.getProductDetaiPageInfo(
+                        productID: controller.dict['productID'],
+                        type: '1',
+                        inner: '1',
                       );
-                      return;
-                    }
-                    if (faceimageStr.isEmpty) {
-                      ToastManager.showToast(
-                        'Please upload a facial photo first.',
-                      );
-                      return;
-                    }
-                    final homeVc = Get.find<HomeController>();
-                    homeVc.getProductDetaiPageInfo(
-                      productID: controller.dict['productID'],
-                      type: '1',
-                    );
-                  },
+                    },
+                  ),
                 ),
               ),
             ],

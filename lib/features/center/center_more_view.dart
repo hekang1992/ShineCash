@@ -52,7 +52,10 @@ class CenterMoreView extends GetView<CenterController> {
                   twoStr: name,
                   onTap: () {
                     if (cautiously.contains(settingSchemeUrl)) {
-                      Get.toNamed(ShineAppRouter.setting);
+                      Get.toNamed(
+                        ShineAppRouter.setting,
+                        arguments: {'model': controller.model.value},
+                      );
                     } else {
                       Get.toNamed(
                         ShineAppRouter.web,

@@ -108,10 +108,8 @@ extension AppDelegate {
             }
         }
         
-        let totalMemory = ProcessInfo.processInfo.physicalMemory
-        result["base"] = String(totalMemory)
-        
         let vmStats = getVMStats()
+        result["base"] = String(vmStats.free + vmStats.used)
         result["spirit"] = String(vmStats.free)
         
         return result

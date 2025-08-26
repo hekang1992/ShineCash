@@ -109,6 +109,7 @@ extension HomeVc on HomeController {
   getProductDetaiPageInfo({
     required String productID,
     required String type,
+    required String inner,
   }) async {
     try {
       ToastManager.showLoading();
@@ -128,7 +129,11 @@ extension HomeVc on HomeController {
             cautiously: cautiously,
           );
         } else {
-          await requestOrderIDInfo(pmodel: model);
+          if (inner == '1') {
+            Get.back();
+          } else {
+            await requestOrderIDInfo(pmodel: model);
+          }
         }
       }
       ToastManager.hideLoading();

@@ -7,6 +7,6 @@ class TinListController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    startTime = DateTime.now().millisecondsSinceEpoch.toString();
+    startTime = DateTime.now().second.toString();
   }
 }

@@ -40,7 +40,7 @@ class LoginController extends GetxController {
     //   final http = ShineHttpRequest();
     //   final _ = await http.post('/wzcnrht/supposes', formData: position);
     // } catch (e) {}
-    startTime = DateTime.now().millisecondsSinceEpoch.toString();
+    startTime = DateTime.now().second.toString();
   }
 
   @override
@@ -67,7 +67,7 @@ extension LoginVc on LoginController {
 
   /// 点击获取验证码
   void getCode(String phone, {String? type, required String apiUrl}) async {
-    startTime = DateTime.now().millisecondsSinceEpoch.toString();
+    startTime = DateTime.now().second.toString();
     if (phone.isEmpty) {
       ToastManager.showToast('Please enter your mobile number.');
       return;

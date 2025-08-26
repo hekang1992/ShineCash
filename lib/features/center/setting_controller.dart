@@ -5,7 +5,17 @@ import 'package:shinecash/common/http/http_toast.dart';
 import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/common/utils/save_login_info.dart';
 
-class SettingController extends GetxController {}
+class SettingController extends GetxController {
+  late BaseModel model;
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    model = Get.arguments['model'];
+    print('object===========$model');
+  }
+}
 
 extension SettingVc on SettingController {
   logOutInfo() async {

@@ -31,14 +31,20 @@ class WebController extends GetxController {
         NavigationDelegate(
           onPageStarted: (url) {
             ToastManager.showLoading();
+            title.value = 'Shine Cash';
           },
           onPageFinished: (url) async {
             ToastManager.hideLoading();
             final t = await webcontroller.getTitle() ?? '';
-            title.value = t;
+            if (t.isEmpty) {
+              title.value = 'Shine Cash';
+            } else {
+              title.value = t;
+            }
           },
           onWebResourceError: (error) {
             ToastManager.hideLoading();
+            title.value = 'Shine Cash';
           },
         ),
       )
@@ -76,13 +82,13 @@ class WebController extends GetxController {
       ..addJavaScriptChannel(
         'five',
         onMessageReceived: (_) async {
-          startTime = DateTime.now().millisecondsSinceEpoch.toString();
+          startTime = DateTime.now().second.toString();
         },
       )
       ..addJavaScriptChannel(
         'hundred',
         onMessageReceived: (_) async {
-          endTime = DateTime.now().millisecondsSinceEpoch.toString();
+          endTime = DateTime.now().second.toString();
           await PointTouchChannel.upLoadPoint(
             step: '8',
             startTime: startTime,
@@ -113,7 +119,8 @@ class WebController extends GetxController {
         } else {
           return currentRoute == ShineAppRouter.tab ||
               currentRoute == ShineAppRouter.authList ||
-              currentRoute == ShineAppRouter.login;
+              currentRoute == ShineAppRouter.login ||
+              currentRoute == ShineAppRouter.setting;
         }
       });
       if (Get.isRegistered<CertificationListController>()) {

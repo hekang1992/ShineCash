@@ -9,7 +9,9 @@ import 'package:shinecash/features/center/log_out_view.dart';
 import 'package:shinecash/features/center/setting_controller.dart';
 
 class SettingView extends GetView<SettingController> {
-  const SettingView({super.key});
+  SettingView({super.key}) {
+    final _ = Get.put(SettingController());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +73,6 @@ class SettingView extends GetView<SettingController> {
                     SizedBox(height: 10.sp),
                     Container(
                       width: 351.w,
-                      height: 105.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(9.sp)),
                         color: Colors.white,
@@ -79,50 +80,80 @@ class SettingView extends GetView<SettingController> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Row(
-                            children: [
-                              SizedBox(width: 12.sp),
-                              Text(
-                                'Loan Agreement',
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColor.blackColor,
+                          if ((controller.model.expect?.waive ?? '').isNotEmpty)
+                            SizedBox(
+                              height: 52.h,
+                              child: InkWell(
+                                onTap: () {
+                                  Get.toNamed(
+                                    ShineAppRouter.web,
+                                    arguments: {
+                                      'pageUrl':
+                                          controller.model.expect?.waive ?? '',
+                                    },
+                                  );
+                                },
+                                child: Row(
+                                  children: [
+                                    SizedBox(width: 12.sp),
+                                    Text(
+                                      'Loan Agreement',
+                                      style: TextStyle(
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColor.blackColor,
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    Image.asset(
+                                      'assets/images/next_btn_image.png',
+                                      width: 7.sp,
+                                      height: 12.h,
+                                    ),
+                                    SizedBox(width: 12.sp),
+                                  ],
                                 ),
                               ),
-                              Spacer(),
-                              Image.asset(
-                                'assets/images/next_btn_image.png',
-                                width: 7.sp,
-                                height: 12.h,
+                            ),
+                          if ((controller.model.expect?.waive ?? '').isNotEmpty)
+                            Container(
+                              color: Color(0XFF666666),
+                              width: 320.w,
+                              height: 1.h,
+                            ),
+                          SizedBox(
+                            height: 52.h,
+                            child: InkWell(
+                              onTap: () {
+                                Get.toNamed(
+                                  ShineAppRouter.web,
+                                  arguments: {
+                                    'pageUrl':
+                                        controller.model.expect?.kiss ?? '',
+                                  },
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  SizedBox(width: 12.sp),
+                                  Text(
+                                    'Privacy Policy',
+                                    style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColor.blackColor,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Image.asset(
+                                    'assets/images/next_btn_image.png',
+                                    width: 7.sp,
+                                    height: 12.h,
+                                  ),
+                                  SizedBox(width: 12.sp),
+                                ],
                               ),
-                              SizedBox(width: 12.sp),
-                            ],
-                          ),
-                          Container(
-                            color: Color(0XFF666666),
-                            width: 320.w,
-                            height: 1.h,
-                          ),
-                          Row(
-                            children: [
-                              SizedBox(width: 12.sp),
-                              Text(
-                                'Privacy Policy',
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColor.blackColor,
-                                ),
-                              ),
-                              Spacer(),
-                              Image.asset(
-                                'assets/images/next_btn_image.png',
-                                width: 7.sp,
-                                height: 12.h,
-                              ),
-                              SizedBox(width: 12.sp),
-                            ],
+                            ),
                           ),
                         ],
                       ),

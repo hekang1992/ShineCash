@@ -156,62 +156,62 @@ class HomeView extends GetView<HomeController> {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            SizedBox(height: 12.sp),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                left: 12.sp,
-                                right: 12.sp,
-                              ),
-                              child: CarouselSlider(
-                                options: CarouselOptions(
-                                  height: 84.0,
-                                  enableInfiniteScroll: listModel1.length > 1
-                                      ? true
-                                      : false,
-                                  autoPlay: listModel1.length > 1
-                                      ? true
-                                      : false,
-                                  autoPlayInterval: Duration(seconds: 3),
-                                  viewportFraction: 1,
-                                ),
-                                items: listModel1.map((model) {
-                                  return InkWell(
-                                    onTap: () async {
-                                      final cautiously = model.cautiously ?? '';
-                                      if (cautiously.isEmpty) {
-                                        return;
-                                      } else {
-                                        final pageUrl =
-                                            await ApiUrlManager.getApiUrl(
-                                              cautiously,
-                                            );
-                                        Get.toNamed(
-                                          ShineAppRouter.web,
-                                          arguments: {'pageUrl': pageUrl},
-                                        );
-                                      }
-                                    },
-                                    child: Image.network(
-                                      model.throne ?? '',
-                                      width: double.infinity,
-                                      height: 84.h,
-                                      fit: BoxFit.fill,
-                                      errorBuilder:
-                                          (context, error, stackTrace) {
-                                            return Container(
-                                              color: Colors.white,
-                                              child: Icon(
-                                                Icons.error_outline,
-                                                size: 375.w,
-                                              ),
-                                            );
-                                          },
-                                    ),
-                                  );
-                                }).toList(),
-                              ),
-                            ),
-                            SizedBox(height: 16.sp),
+                            // SizedBox(height: 12.sp),
+                            // Padding(
+                            //   padding: EdgeInsets.only(
+                            //     left: 12.sp,
+                            //     right: 12.sp,
+                            //   ),
+                            //   child: CarouselSlider(
+                            //     options: CarouselOptions(
+                            //       height: 84.0,
+                            //       enableInfiniteScroll: listModel1.length > 1
+                            //           ? true
+                            //           : false,
+                            //       autoPlay: listModel1.length > 1
+                            //           ? true
+                            //           : false,
+                            //       autoPlayInterval: Duration(seconds: 3),
+                            //       viewportFraction: 1,
+                            //     ),
+                            //     items: listModel1.map((model) {
+                            //       return InkWell(
+                            //         onTap: () async {
+                            //           final cautiously = model.cautiously ?? '';
+                            //           if (cautiously.isEmpty) {
+                            //             return;
+                            //           } else {
+                            //             final pageUrl =
+                            //                 await ApiUrlManager.getApiUrl(
+                            //                   cautiously,
+                            //                 );
+                            //             Get.toNamed(
+                            //               ShineAppRouter.web,
+                            //               arguments: {'pageUrl': pageUrl},
+                            //             );
+                            //           }
+                            //         },
+                            //         child: Image.network(
+                            //           model.throne ?? '',
+                            //           width: double.infinity,
+                            //           height: 84.h,
+                            //           fit: BoxFit.fill,
+                            //           errorBuilder:
+                            //               (context, error, stackTrace) {
+                            //                 return Container(
+                            //                   color: Colors.white,
+                            //                   child: Icon(
+                            //                     Icons.error_outline,
+                            //                     size: 375.w,
+                            //                   ),
+                            //                 );
+                            //               },
+                            //         ),
+                            //       );
+                            //     }).toList(),
+                            //   ),
+                            // ),
+                            // SizedBox(height: 16.sp),
                             InkWell(
                               onTap: () async {
                                 final productID = (listModel2.first.hasten ?? 0)

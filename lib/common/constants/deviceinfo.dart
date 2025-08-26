@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:battery_plus/battery_plus.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -106,7 +107,7 @@ class ImperativelyModel {
     final awaited =
         '${DateTime.now().timeZoneName}${DateTime.now().timeZoneOffset.isNegative ? "-" : "+"}${DateTime.now().timeZoneOffset.inHours.abs()}';
     final pay = await SaveIdfvInfo.getOrCreateIDFV();
-    final delusion = Intl.getCurrentLocale().split('_')[0];
+    final delusion = PlatformDispatcher.instance.locales.first.languageCode;
     final terrible = SaveLoginInfo.getNetwork();
     final motives = await AppTrackingTransparency.getAdvertisingIdentifier();
     return {

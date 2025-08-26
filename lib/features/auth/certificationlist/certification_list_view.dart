@@ -97,6 +97,7 @@ class CertificationListView extends GetView<CertificationListController> {
                               homeVc.getProductDetaiPageInfo(
                                 productID: controller.productID,
                                 type: '1',
+                                inner: '1',
                               );
                             }
 
@@ -107,42 +108,55 @@ class CertificationListView extends GetView<CertificationListController> {
                         );
                       }),
                       SizedBox(height: 16.h),
-                      SizedBox(
-                        width: 351.w,
-                        child: RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'Please go through the ',
-                                style: TextStyle(
-                                  color: AppColor.whiteColor,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12.sp,
-                                ),
+                      if ((controller.model.value.expect?.after?.waive ?? '')
+                          .isNotEmpty)
+                        SizedBox(
+                          width: 351.w,
+                          child: InkWell(
+                            onTap: () {
+                              final pageUrl =
+                                  controller.model.value.expect?.after?.waive ??
+                                  '';
+                              Get.toNamed(
+                                ShineAppRouter.web,
+                                arguments: {'pageUrl': pageUrl},
+                              );
+                            },
+                            child: RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'Please go through the ',
+                                    style: TextStyle(
+                                      color: AppColor.whiteColor,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12.sp,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: 'Loan Agreement',
+                                    style: TextStyle(
+                                      color: AppColor.whiteColor,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 12.sp,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        ' Your personal details are kept strictly confidential as required by data laws.',
+                                    style: TextStyle(
+                                      color: AppColor.whiteColor,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12.sp,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              TextSpan(
-                                text: 'Loan Agreement',
-                                style: TextStyle(
-                                  color: AppColor.whiteColor,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 12.sp,
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
-                              TextSpan(
-                                text:
-                                    ' Your personal details are kept strictly confidential as required by data laws.',
-                                style: TextStyle(
-                                  color: AppColor.whiteColor,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12.sp,
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
                         ),
-                      ),
                       SizedBox(height: 16.h),
                     ],
                   ),
@@ -152,15 +166,19 @@ class CertificationListView extends GetView<CertificationListController> {
                 bottom: 0,
                 left: 0,
                 right: 0,
-                child: AppCommonFooterView(
-                  title: 'Proceed to certification',
-                  onTap: () {
-                    final homeVc = Get.find<HomeController>();
-                    homeVc.getProductDetaiPageInfo(
-                      productID: controller.productID,
-                      type: '1',
-                    );
-                  },
+                child: SizedBox(
+                  height: 80.h,
+                  child: AppCommonFooterView(
+                    title: 'Proceed to certification',
+                    onTap: () {
+                      final homeVc = Get.find<HomeController>();
+                      homeVc.getProductDetaiPageInfo(
+                        productID: controller.productID,
+                        type: '1',
+                        inner: '1',
+                      );
+                    },
+                  ),
                 ),
               ),
             ],

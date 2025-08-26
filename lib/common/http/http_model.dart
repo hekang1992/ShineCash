@@ -37,6 +37,7 @@ class ExpectModel {
   List<SorryModel>? sorry;
   int? driving;
   String? kiss;
+  String? waive;
 
   // 新增的属性
   List<String>? address;
@@ -47,6 +48,8 @@ class ExpectModel {
   List<TemporaryModel>? temporary;
 
   List<OilyModel>? oily;
+
+  AfterModel? after;
 
   ExpectModel({
     this.satisfactory,
@@ -68,6 +71,8 @@ class ExpectModel {
     this.oily,
     this.driving,
     this.kiss,
+    this.after,
+    this.waive,
   });
 
   factory ExpectModel.fromJson(Map<String, dynamic> json) {
@@ -78,7 +83,9 @@ class ExpectModel {
       cautiously: json['cautiously'],
       driving: json['driving'],
       kiss: json['kiss'],
+      waive: json['waive'],
       fair: FairModel.fromJson(json['fair'] ?? {}),
+      after: AfterModel.fromJson(json['after'] ?? {}),
       userInfo: UserInfoModel.fromJson(json['userInfo'] ?? {}),
       centuries:
           (json['centuries'] as List?)
@@ -126,6 +133,7 @@ class ExpectModel {
       'emerging': emerging,
       'cautiously': cautiously,
       'fair': fair?.toJson(),
+      'after': after?.toJson(),
       'userInfo': userInfo?.toJson(),
       'centuries': centuries?.map((model) => model.toJson()).toList(),
       'allow': allow?.toJson(),
@@ -138,6 +146,7 @@ class ExpectModel {
       'communicate': communicate,
       'driving': driving,
       'kiss': kiss,
+      'waive': waive,
       'favor': favor?.map((model) => model.toJson()).toList(),
       'temporary': temporary?.map((model) => model.toJson()).toList(),
     };
@@ -534,6 +543,7 @@ class TemporaryModel {
   String? necessity;
   List<SincerelyModel>? sincerely;
   int? selectIndex;
+  int? prejudice;
 
   TemporaryModel({
     this.acquainted,
@@ -544,6 +554,7 @@ class TemporaryModel {
     this.necessity,
     this.sincerely,
     this.selectIndex,
+    this.prejudice,
   });
 
   factory TemporaryModel.fromJson(Map<String, dynamic> json) {
@@ -554,6 +565,7 @@ class TemporaryModel {
       regrets: json['regrets'],
       angrily: json['angrily'],
       necessity: json['necessity'],
+      prejudice: json['prejudice'],
       sincerely: (json['sincerely'] as List?)
           ?.map((item) => SincerelyModel.fromJson(item ?? {}))
           .toList(),
@@ -571,6 +583,7 @@ class TemporaryModel {
       'necessity': necessity,
       'sincerely': sincerely?.map((model) => model.toJson()).toList(),
       'selectIndex': selectIndex,
+      'prejudice': prejudice,
     };
   }
 }
@@ -685,5 +698,20 @@ class ContainedModel {
 
   Map<String, dynamic> toJson() {
     return {'acquainted': acquainted, 'significant': significant};
+  }
+}
+
+class AfterModel {
+  String? acquainted;
+  String? waive;
+
+  AfterModel({this.acquainted, this.waive});
+
+  factory AfterModel.fromJson(Map<String, dynamic> json) {
+    return AfterModel(acquainted: json['acquainted'], waive: json['waive']);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'acquainted': acquainted, 'waive': waive};
   }
 }

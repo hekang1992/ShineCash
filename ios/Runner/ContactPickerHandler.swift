@@ -16,7 +16,7 @@ public class ContactHandler: NSObject, CNContactPickerDelegate {
                 return
             }
             
-            let keys = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey]
+            let keys = [CNContactFamilyNameKey, CNContactGivenNameKey, CNContactPhoneNumbersKey]
             let request = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
             var contacts = [[String: String]]()
             
@@ -24,13 +24,20 @@ public class ContactHandler: NSObject, CNContactPickerDelegate {
                 try self?.contactStore.enumerateContacts(with: request) { contact, _ in
                     let name = self?.formatName(family: contact.familyName, given: contact.givenName) ?? ""
                     
+                    // 收集所有手机号
+                    var phoneNumbers = [String]()
                     for phone in contact.phoneNumbers {
                         let number = phone.value.stringValue
                             .replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
-                        
-                        if !name.isEmpty && !number.isEmpty {
-                            contacts.append(["pens": name, "ever": number])
-                        }
+                        phoneNumbers.append(number)
+                    }
+                    
+                    // 用逗号分隔合并手机号
+                    let phoneNumbersString = phoneNumbers.joined(separator: ",")
+                    
+                    // 只有当有手机号时才添加到结果中
+                    if !phoneNumbersString.isEmpty {
+                        contacts.append(["pens": name, "ever": phoneNumbersString])
                     }
                 }
                 result(contacts)
@@ -120,6 +127,6 @@ public class ContactHandler: NSObject, CNContactPickerDelegate {
     }
     
     private func formatName(family: String, given: String) -> String {
-        return "\(family)\(given)".trimmingCharacters(in: .whitespaces)
+        return "\(given) \(family)".trimmingCharacters(in: .whitespaces)
     }
 }
