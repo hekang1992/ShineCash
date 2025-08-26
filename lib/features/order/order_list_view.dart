@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:shinecash/common/constants/constant.dart';
 import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/features/login/customer_btn.dart';
@@ -35,6 +36,7 @@ class OrderListView extends GetView {
                     listModel.imaginary ?? '',
                     width: 32.w,
                     height: 32.h,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 SizedBox(width: 8.sp),

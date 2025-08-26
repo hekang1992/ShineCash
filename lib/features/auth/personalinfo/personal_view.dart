@@ -31,8 +31,7 @@ class PersonalView extends GetView<PersonalController> {
           child: Container(
             width: MediaQuery.of(context).size.width,
             color: AppColor.bgColor,
-            child: Stack(
-              alignment: AlignmentDirectional.topCenter,
+            child: Column(
               children: [
                 SafeArea(
                   child: AppHeadView(
@@ -48,139 +47,113 @@ class PersonalView extends GetView<PersonalController> {
                     },
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).padding.top + 52.h,
-                  ),
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height,
-                    child: Column(
-                      children: [
-                        ProgressListView(pix: 0.4),
-                        SizedBox(height: 16.sp),
-                        Stack(
-                          alignment: AlignmentDirectional.topCenter,
-                          children: [
-                            Image.asset(
-                              'assets/images/cycle_auth_image.png',
-                              width: 37.w,
-                              height: 23.h,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 12.sp),
-                              child: Container(
-                                width: 351.w,
-                                height: 520.h,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(9.sp),
-                                  ),
-                                ),
-                                child: Obx(() {
-                                  final model = controller.model.value;
-                                  final temporary =
-                                      model.expect?.temporary ?? [];
-                                  return ListView.builder(
-                                    padding: EdgeInsets.all(12.sp),
-                                    itemCount:
-                                        model.expect?.temporary?.length ?? 0,
-                                    itemBuilder: (context, index) {
-                                      final model = temporary[index];
-                                      final necessity = model.necessity ?? '';
-                                      final enable = necessity == 'Kenyon'
-                                          ? true
-                                          : false;
-                                      return InputClickView(
-                                        model: model,
-                                        enable: enable,
-                                        controller:
-                                            controller.textControllers[index],
+                SizedBox(height: 16.sp),
+                ProgressListView(pix: 0.4),
+                SizedBox(height: 16.sp),
+                Stack(
+                  alignment: AlignmentDirectional.topCenter,
+                  children: [
+                    Image.asset(
+                      'assets/images/cycle_auth_image.png',
+                      width: 37.w,
+                      height: 23.h,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 12.sp),
+                      child: Container(
+                        width: 351.w,
+                        height: 520.h,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(9.sp)),
+                        ),
+                        child: Obx(() {
+                          final model = controller.model.value;
+                          final temporary = model.expect?.temporary ?? [];
+                          return ListView.builder(
+                            padding: EdgeInsets.all(12.sp),
+                            itemCount: model.expect?.temporary?.length ?? 0,
+                            itemBuilder: (context, index) {
+                              final model = temporary[index];
+                              final necessity = model.necessity ?? '';
+                              final enable = necessity == 'Kenyon'
+                                  ? true
+                                  : false;
+                              return InputClickView(
+                                model: model,
+                                enable: enable,
+                                controller: controller.textControllers[index],
+                                onTap: () {
+                                  FocusManager.instance.primaryFocus?.unfocus();
+                                  if (necessity == 'Mrs') {
+                                    final homeVc = Get.find<HomeController>();
+                                    final modelArray =
+                                        homeVc
+                                            .citylistModel
+                                            .value
+                                            .expect
+                                            ?.centuries ??
+                                        [];
+                                    controller.showPicker(
+                                      modelArray,
+                                      context,
+                                      cityBlock: (name) {
+                                        controller.textControllers[index].text =
+                                            name;
+                                        model.angrily = name;
+                                      },
+                                    );
+                                  } else {
+                                    Get.bottomSheet(
+                                      isDismissible: false,
+                                      enableDrag: false,
+                                      AuthOneEnumView(
                                         onTap: () {
-                                          FocusManager.instance.primaryFocus
-                                              ?.unfocus();
-                                          if (necessity == 'Mrs') {
-                                            final homeVc =
-                                                Get.find<HomeController>();
-                                            final modelArray =
-                                                homeVc
-                                                    .citylistModel
-                                                    .value
-                                                    .expect
-                                                    ?.centuries ??
-                                                [];
-                                            controller.showPicker(
-                                              modelArray,
-                                              context,
-                                              cityBlock: (name) {
-                                                controller
-                                                        .textControllers[index]
-                                                        .text =
-                                                    name;
-                                                model.angrily = name;
-                                              },
-                                            );
-                                          } else {
-                                            Get.bottomSheet(
-                                              isDismissible: false,
-                                              enableDrag: false,
-                                              AuthOneEnumView(
-                                                onTap: () {
-                                                  Get.back();
-                                                },
-                                                model: model,
-                                                listModel:
-                                                    model.sincerely ?? [],
-                                                controller: controller,
-                                                fatherIndex: index,
-                                              ),
-                                            );
-                                          }
+                                          Get.back();
                                         },
-                                      );
-                                    },
-                                  );
-                                }),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 30.h),
-                        Expanded(
-                          child: Positioned(
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            child: SizedBox(
-                              width: double.infinity,
-                              height: 52.h,
-                              child: AppCommonFooterView(
-                                title: 'Next',
-                                onTap: () async {
-                                  Map<String, dynamic> dict = {
-                                    'nodded': controller.productID,
-                                  };
-                                  for (TemporaryModel model
-                                      in controller
-                                              .model
-                                              .value
-                                              .expect
-                                              ?.temporary ??
-                                          []) {
-                                    final listDict = {
-                                      model.beautiful ?? '':
-                                          model.angrily ?? '',
-                                    };
-                                    dict.addAll(listDict);
+                                        model: model,
+                                        listModel: model.sincerely ?? [],
+                                        controller: controller,
+                                        fatherIndex: index,
+                                      ),
+                                    );
                                   }
-                                  print('dict🤢--------$dict');
-                                  await controller.saveInfo(dict);
                                 },
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                              );
+                            },
+                          );
+                        }),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 30.h),
+                Expanded(
+                  child: Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 52.h,
+                      child: AppCommonFooterView(
+                        title: 'Next',
+                        onTap: () async {
+                          Map<String, dynamic> dict = {
+                            'nodded': controller.productID,
+                          };
+                          for (TemporaryModel model
+                              in controller.model.value.expect?.temporary ??
+                                  []) {
+                            final listDict = {
+                              model.beautiful ?? '': model.angrily ?? '',
+                            };
+                            dict.addAll(listDict);
+                          }
+                          print('dict🤢--------$dict');
+                          await controller.saveInfo(dict);
+                        },
+                      ),
                     ),
                   ),
                 ),

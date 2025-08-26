@@ -15,7 +15,6 @@ class AppCommonFooterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 98.h,
       decoration: BoxDecoration(
         color: AppColor.whiteColor,
         borderRadius: BorderRadius.only(
@@ -28,7 +27,7 @@ class AppCommonFooterView extends StatelessWidget {
           top: 12.sp,
           left: 12.sp,
           right: 12.sp,
-          bottom: 34.sp,
+          bottom: 20.sp,
         ),
         child: CustomBtn(fontSize: 15.sp, text: title, onPressed: onTap),
       ),

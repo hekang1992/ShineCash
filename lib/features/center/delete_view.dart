@@ -65,7 +65,7 @@ class DeleteView extends GetView<DeleteController> {
                             padding: EdgeInsets.only(top: 12),
                             child: Container(
                               width: 351.w,
-                              height: 481.h,
+                              height: 541.h,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.all(

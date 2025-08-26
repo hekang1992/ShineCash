@@ -17,7 +17,7 @@ class LogOutView extends StatelessWidget {
             'assets/images/log_out_imge.png',
             width: 263.w,
             height: 230.h,
-            fit: BoxFit.cover,
+            fit: BoxFit.contain,
           ),
 
           // 左下角方块
