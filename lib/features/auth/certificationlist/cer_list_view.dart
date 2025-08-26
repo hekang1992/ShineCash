@@ -23,7 +23,7 @@ class CerListView extends StatelessWidget {
           padding: EdgeInsets.only(top: 10.sp),
           child: Container(
             width: 351.w,
-            height: 525.h,
+            height: 540.h,
             decoration: BoxDecoration(
               color: AppColor.whiteColor,
               borderRadius: BorderRadius.all(Radius.circular(16.sp)),

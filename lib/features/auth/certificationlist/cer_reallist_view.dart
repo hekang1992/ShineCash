@@ -66,7 +66,7 @@ class CerReallistView extends StatelessWidget {
                   Text(
                     model.acquainted ?? '',
                     style: TextStyle(
-                      fontSize: 16.sp,
+                      fontSize: 14.sp,
                       color: AppColor.blackColor,
                       fontWeight: FontWeight.w600,
                     ),

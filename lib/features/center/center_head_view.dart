@@ -34,9 +34,10 @@ class CenterHeadView extends GetView<CenterController> {
         }),
         Column(
           children: [
+            SizedBox(height: 2.sp),
             Image.asset(
               'assets/images/center_head_iamge.png',
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
               width: 120.w,
               height: 120.h,
             ),
