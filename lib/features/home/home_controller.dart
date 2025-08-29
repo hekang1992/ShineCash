@@ -135,6 +135,8 @@ extension HomeVc on HomeController {
             await requestOrderIDInfo(pmodel: model);
           }
         }
+      } else {
+        ToastManager.showToast(model.captive ?? '');
       }
       ToastManager.hideLoading();
     } catch (e) {

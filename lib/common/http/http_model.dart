@@ -543,7 +543,7 @@ class TemporaryModel {
   String? necessity;
   List<SincerelyModel>? sincerely;
   int? selectIndex;
-  int? prejudice;
+  String? selectStr;
 
   TemporaryModel({
     this.acquainted,
@@ -554,7 +554,7 @@ class TemporaryModel {
     this.necessity,
     this.sincerely,
     this.selectIndex,
-    this.prejudice,
+    this.selectStr,
   });
 
   factory TemporaryModel.fromJson(Map<String, dynamic> json) {
@@ -565,7 +565,7 @@ class TemporaryModel {
       regrets: json['regrets'],
       angrily: json['angrily'],
       necessity: json['necessity'],
-      prejudice: json['prejudice'],
+      selectStr: json['selectStr'],
       sincerely: (json['sincerely'] as List?)
           ?.map((item) => SincerelyModel.fromJson(item ?? {}))
           .toList(),
@@ -583,7 +583,7 @@ class TemporaryModel {
       'necessity': necessity,
       'sincerely': sincerely?.map((model) => model.toJson()).toList(),
       'selectIndex': selectIndex,
-      'prejudice': prejudice,
+      'selectStr': selectStr,
     };
   }
 }

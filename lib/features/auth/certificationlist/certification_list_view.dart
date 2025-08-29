@@ -175,7 +175,7 @@ class CertificationListView extends GetView<CertificationListController> {
                       homeVc.getProductDetaiPageInfo(
                         productID: controller.productID,
                         type: '1',
-                        inner: '1',
+                        inner: '0',
                       );
                     },
                   ),

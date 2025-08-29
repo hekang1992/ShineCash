@@ -4,6 +4,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/utils/upidfa_controller.dart';
+import 'package:shinecash/features/login/login_controller.dart';
 
 class SaveIdfvInfo {
   static const _storageKey = 'idfv_storage_key';
@@ -60,13 +61,27 @@ class SaveIdfvInfo {
 }
 
 class GetIDFVInfo {
-  static Future<void> requestIDFA() async {
+  static Future<void> requestIDFA(LoginController loginVc) async {
     // 检查追踪权限状态
     TrackingStatus status =
         await AppTrackingTransparency.trackingAuthorizationStatus;
     if (status == TrackingStatus.notDetermined) {
       // 请求权限
       status = await AppTrackingTransparency.requestTrackingAuthorization();
+    }
+
+    if (status == TrackingStatus.restricted) {
+      print('status==============$status');
+    }
+
+    if (status == TrackingStatus.denied) {
+      print('status==============$status');
+      String? idfa = await AppTrackingTransparency.getAdvertisingIdentifier();
+      final controller = Get.put(UpidfaController());
+      final pay = await SaveIdfvInfo.getOrCreateIDFV() ?? '';
+      final dict = {'pay': pay, 'motives': idfa};
+      controller.setIDFAParams(dict);
+      loginVc.dispose1();
     }
 
     if (status == TrackingStatus.authorized) {

@@ -114,7 +114,7 @@ class WebController extends GetxController {
     } else {
       Get.until((route) {
         final currentRoute = route.settings.name?.split('?').first;
-        if (isLoan == true) {
+        if (isLoan == true || orderID.isNotEmpty) {
           return currentRoute == ShineAppRouter.tab;
         } else {
           return currentRoute == ShineAppRouter.tab ||

@@ -103,8 +103,8 @@ class AuthOneEnumView extends StatelessWidget {
                   v2Controller.textControllers[fatherIndex].text =
                       selectedItem.pens ?? '';
                 }
-
-                model.angrily = (selectedItem.many ?? 0).toString();
+                model.selectStr = (selectedItem.many ?? 0).toString();
+                // model.angrily = (selectedItem.many ?? 0).toString();
                 Get.back();
               },
             ),

@@ -44,8 +44,9 @@ class ShineHttpRequest {
   _configureProxy() {
     // String proxyIP = '10.1.1.84';
     // String proxyIP = '192.168.71.22';
-    String proxyIP = '192.168.0.70';
-    String proxyPort = "8888";
+    // String proxyIP = '192.168.0.70';
+    String proxyIP = '192.168.1.243';
+    String proxyPort = "9090";
 
     if (proxyIP.isNotEmpty) {
       (_dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {

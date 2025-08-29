@@ -87,7 +87,7 @@ class ImageSuccessListView extends GetView<ImageSuccessListController> {
                   ),
                   locale: LocaleType.en,
                   onConfirm: (date) {
-                    final selectdate = DateFormat('dd-MM-yyyy').format(date);
+                    final selectdate = DateFormat('yyyy-MM-dd').format(date);
                     controller.threeVc.text = selectdate;
                   },
                 );

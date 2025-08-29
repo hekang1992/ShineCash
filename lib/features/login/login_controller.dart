@@ -12,6 +12,7 @@ import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/common/utils/app_location.dart';
 import 'package:shinecash/common/utils/save_idfv_info.dart';
 import 'package:shinecash/common/utils/save_login_info.dart';
+import 'package:shinecash/common/utils/upidfa_controller.dart';
 
 class LoginController extends GetxController {
   /// idfa轮询
@@ -111,30 +112,17 @@ extension LoginVc on LoginController {
   void startPolling() {
     fetchData();
 
-    _timer = Timer.periodic(Duration(milliseconds: 500), (timer) {
+    _timer = Timer.periodic(Duration(milliseconds: 1000), (timer) {
       fetchData();
     });
   }
 
   void fetchData() async {
-    final deviceInfo = DeviceInfoPlugin();
-    if (Platform.isIOS) {
-      final iosInfo = await deviceInfo.iosInfo;
-      final isPhysicalDevice = iosInfo.isPhysicalDevice != true;
-      if (!isPhysicalDevice) {
-        String? idfa = await AppTrackingTransparency.getAdvertisingIdentifier();
-        await GetIDFVInfo.requestIDFA();
-        if (idfa != '00000000-0000-0000-0000-000000000000') {
-          dispose();
-        }
-      }
-    } else {
-      dispose();
-    }
+    await GetIDFVInfo.requestIDFA(this);
   }
 
   /// 记得在不再需要时取消定时器（如在dispose中）
-  void dispose() {
+  void dispose1() {
     _timer?.cancel();
     _timer = null;
   }

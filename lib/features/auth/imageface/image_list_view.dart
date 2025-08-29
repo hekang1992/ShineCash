@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
+import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/common/http/http_toast.dart';
-import 'package:shinecash/common/utils/image_pop.dart';
+import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/features/apphead/app_head_view.dart';
 import 'package:shinecash/features/auth/certificationlist/app_common_footer_view.dart';
 import 'package:shinecash/features/auth/certificationlist/certification_list_controller.dart';
 import 'package:shinecash/features/auth/imageface/image_list_controller.dart';
-import 'package:shinecash/features/auth/imageface/image_sheet_view.dart';
-import 'package:shinecash/features/auth/imageface/image_success_list_view.dart';
 import 'package:shinecash/features/auth/imageface/progress_list_view.dart';
-import 'package:shinecash/features/home/home_controller.dart';
 
 class ImageListView extends GetView<ImageListController> {
   ImageListView({super.key}) {
@@ -21,7 +19,6 @@ class ImageListView extends GetView<ImageListController> {
 
   @override
   Widget build(BuildContext context) {
-    final cerVc = Get.find<CertificationListController>();
     final dict = controller.dict;
     return PopScope(
       canPop: false,
@@ -34,13 +31,28 @@ class ImageListView extends GetView<ImageListController> {
               Column(
                 children: [
                   SafeArea(
-                    child: AppHeadView(
-                      title: 'Identity Authentication',
-                      onTap: () async {
-                        Get.back(result: 'refresh');
-                        await cerVc.initAuthListInfo(dict['productID']);
-                      },
-                    ),
+                    child: Obx(() {
+                      final model = controller.authlistModel.value;
+                      final imageStr = model.expect?.rule?.cautiously ?? '';
+                      return AppHeadView(
+                        title: 'Identity Authentication',
+                        onTap: () async {
+                          if (imageStr.isEmpty) {
+                            Get.back(result: 'refresh');
+                          } else {
+                            Get.until((route) {
+                              final currentRoute = route.settings.name
+                                  ?.split('?')
+                                  .first;
+                              return currentRoute == ShineAppRouter.authList;
+                            });
+                            final cerVc =
+                                Get.find<CertificationListController>();
+                            await cerVc.initAuthListInfo(dict['productID']);
+                          }
+                        },
+                      );
+                    }),
                   ),
                   SizedBox(height: 16.sp),
                   ProgressListView(pix: 0.2),
@@ -74,245 +86,9 @@ class ImageListView extends GetView<ImageListController> {
                                   model.expect?.posted?.cautiously ?? '';
                               return Column(
                                 children: [
-                                  imageClickView(
-                                    title: 'Upload ID Photos',
-                                    imageStr: imageStr.isEmpty
-                                        ? 'photo_imge.png'
-                                        : imageStr,
-                                    isClick: model.expect?.rule?.listening == 1
-                                        ? false
-                                        : true,
-                                    onTap: () {
-                                      controller.idStartTime = DateTime.now()
-                                          .millisecondsSinceEpoch
-                                          .toString();
-                                      Get.bottomSheet(
-                                        isDismissible: false,
-                                        enableDrag: false,
-                                        ImageSheetView(
-                                          imageStr: 'de_list_image.png',
-                                          onTap: () async {
-                                            Get.back();
-                                            await Future.delayed(
-                                              Duration(milliseconds: 250),
-                                            );
-                                            Get.bottomSheet(
-                                              backgroundColor: Colors.white,
-                                              isDismissible: false,
-                                              enableDrag: false,
-                                              Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  ListTile(
-                                                    leading: Icon(Icons.camera),
-                                                    title: Text('Camera'),
-                                                    onTap: () async {
-                                                      Get.back();
-
-                                                      final originalData =
-                                                          await ImageChannel.openCamera(
-                                                            '0',
-                                                          );
-                                                      final model = await controller
-                                                          .uploadImageWithType(
-                                                            type: controller
-                                                                .dict['title'],
-                                                            many: 11,
-                                                            ink: 1,
-                                                            originalData:
-                                                                originalData,
-                                                          );
-                                                      if (model == null) {
-                                                        return;
-                                                      }
-                                                      Get.bottomSheet(
-                                                        isDismissible: false,
-                                                        enableDrag: false,
-                                                        isScrollControlled:
-                                                            true,
-                                                        ImageSuccessListView(
-                                                          model: model,
-                                                          onTap: (controller) {
-                                                            Get.back();
-                                                            controller
-                                                                    .oneVc
-                                                                    .text =
-                                                                '';
-                                                            controller
-                                                                    .twoVc
-                                                                    .text =
-                                                                '';
-                                                            controller
-                                                                    .threeVc
-                                                                    .text =
-                                                                '';
-                                                          },
-                                                          sureTap: (controller) async {
-                                                            await this
-                                                                .controller
-                                                                .saveTinInfo(
-                                                                  name:
-                                                                      controller
-                                                                          .oneVc
-                                                                          .text,
-                                                                  id: controller
-                                                                      .twoVc
-                                                                      .text,
-                                                                  time: controller
-                                                                      .threeVc
-                                                                      .text,
-                                                                  many: '11',
-                                                                  read: this
-                                                                      .controller
-                                                                      .dict['title'],
-                                                                );
-                                                          },
-                                                        ),
-                                                      );
-                                                    }, // 返回1表示选择相机
-                                                  ),
-                                                  ListTile(
-                                                    leading: Icon(
-                                                      Icons.photo_library,
-                                                    ),
-                                                    title: Text(
-                                                      'Photo Gallery',
-                                                    ),
-                                                    onTap: () async {
-                                                      Get.back();
-                                                      final originalData =
-                                                          await ImageChannel.openGallery();
-                                                      final model = await controller
-                                                          .uploadImageWithType(
-                                                            type: controller
-                                                                .dict['title'],
-                                                            many: 11,
-                                                            ink: 2,
-                                                            originalData:
-                                                                originalData,
-                                                          );
-                                                      if (model == null) {
-                                                        return;
-                                                      }
-                                                      Get.bottomSheet(
-                                                        isDismissible: false,
-                                                        enableDrag: false,
-                                                        isScrollControlled:
-                                                            true,
-                                                        ImageSuccessListView(
-                                                          model: model,
-                                                          onTap: (controller) {
-                                                            Get.back();
-                                                            controller
-                                                                    .oneVc
-                                                                    .text =
-                                                                '';
-                                                            controller
-                                                                    .twoVc
-                                                                    .text =
-                                                                '';
-                                                            controller
-                                                                    .threeVc
-                                                                    .text =
-                                                                '';
-                                                          },
-                                                          sureTap: (controller) async {
-                                                            await this
-                                                                .controller
-                                                                .saveTinInfo(
-                                                                  name:
-                                                                      controller
-                                                                          .oneVc
-                                                                          .text,
-                                                                  id: controller
-                                                                      .twoVc
-                                                                      .text,
-                                                                  time: controller
-                                                                      .threeVc
-                                                                      .text,
-                                                                  many: '11',
-                                                                  read: this
-                                                                      .controller
-                                                                      .dict['title'],
-                                                                );
-                                                          },
-                                                        ),
-                                                      );
-                                                    }, // 返回2表示选择相册
-                                                  ),
-                                                  ListTile(
-                                                    leading: Icon(Icons.cancel),
-                                                    title: Text('Cancel'),
-                                                    onTap: () => Get.back(
-                                                      result: 0,
-                                                    ), // 返回0表示取消
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      );
-                                    },
-                                  ),
+                                  newMethodImageClickView(imageStr, model),
                                   SizedBox(height: 24.h),
-                                  imageClickView(
-                                    title: 'Facial Recognition',
-                                    imageStr: faceimageStr.isEmpty
-                                        ? 'face_image.png'
-                                        : faceimageStr,
-                                    isClick:
-                                        model.expect?.posted?.listening == 1
-                                        ? false
-                                        : true,
-                                    onTap: () {
-                                      controller.faceStartTime = DateTime.now()
-                                          .millisecondsSinceEpoch
-                                          .toString();
-                                      Get.bottomSheet(
-                                        isDismissible: false,
-                                        enableDrag: false,
-                                        ImageSheetView(
-                                          imageStr: 'faca_de_image.png',
-                                          onTap: () async {
-                                            Get.back();
-                                            await Future.delayed(
-                                              Duration(milliseconds: 250),
-                                            );
-                                            final originalData =
-                                                await ImageChannel.openCamera(
-                                                  '1',
-                                                );
-                                            final model = await controller
-                                                .uploadImageWithType(
-                                                  type:
-                                                      controller
-                                                          .authlistModel
-                                                          .value
-                                                          .expect
-                                                          ?.rule
-                                                          ?.read ??
-                                                      '',
-                                                  many: 10,
-                                                  ink: 1,
-                                                  originalData: originalData,
-                                                );
-                                            if (model == null) {
-                                              return;
-                                            }
-                                            final homeVc =
-                                                Get.find<HomeController>();
-                                            homeVc.getProductDetaiPageInfo(
-                                              productID:
-                                                  controller.dict['productID'],
-                                              type: '1',
-                                              inner: '1',
-                                            );
-                                          },
-                                        ),
-                                      );
-                                    },
-                                  ),
+                                  newMethod(faceimageStr, model),
                                 ],
                               );
                             }),
@@ -349,12 +125,20 @@ class ImageListView extends GetView<ImageListController> {
                         );
                         return;
                       }
-                      final homeVc = Get.find<HomeController>();
-                      homeVc.getProductDetaiPageInfo(
-                        productID: controller.dict['productID'],
-                        type: '1',
-                        inner: '1',
-                      );
+                      Get.until((route) {
+                        final currentRoute = route.settings.name
+                            ?.split('?')
+                            .first;
+                        return currentRoute == ShineAppRouter.authList;
+                      });
+                      final cerVc = Get.find<CertificationListController>();
+                      cerVc.initAuthListInfo(cerVc.productID);
+                      // final homeVc = Get.find<HomeController>();
+                      // homeVc.getProductDetaiPageInfo(
+                      //   productID: controller.dict['productID'],
+                      //   type: '1',
+                      //   inner: '1',
+                      // );
                     },
                   ),
                 ),
@@ -363,6 +147,24 @@ class ImageListView extends GetView<ImageListController> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget newMethod(String faceimageStr, BaseModel model) {
+    return imageClickView(
+      title: 'Facial Recognition',
+      imageStr: faceimageStr.isEmpty ? 'face_image.png' : faceimageStr,
+      isClick: model.expect?.posted?.listening == 1 ? false : true,
+      onTap: controller.faceClick,
+    );
+  }
+
+  Widget newMethodImageClickView(String imageStr, BaseModel model) {
+    return imageClickView(
+      title: 'Upload ID Photos',
+      imageStr: imageStr.isEmpty ? 'photo_imge.png' : imageStr,
+      isClick: model.expect?.rule?.listening == 1 ? false : true,
+      onTap: controller.imageClick,
     );
   }
 }

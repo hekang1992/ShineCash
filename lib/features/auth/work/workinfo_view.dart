@@ -150,18 +150,28 @@ class WorkinfoView extends GetView<WorkinfoController> {
                         Map<String, dynamic> dict = {
                           'nodded': controller.productID,
                         };
-                        var sureVale = '';
+                        String? sureVale = '';
                         for (TemporaryModel model
                             in controller.model.value.expect?.temporary ?? []) {
-                          if (model.necessity == 'vain') {
-                            for (SincerelyModel element
-                                in model.sincerely ?? []) {
-                              if (element.pens == model.angrily) {
-                                sureVale = element.many.toString();
-                              }
-                            }
+                          final selectStr = model.selectStr ?? '';
+                          if (selectStr.isNotEmpty) {
+                            sureVale = selectStr;
                           } else {
-                            sureVale = model.angrily ?? '';
+                            if (model.necessity == 'vain') {
+                              // 使用 firstWhere 查找匹配项，找不到时返回 null
+                              final matchedElement = model.sincerely
+                                  ?.firstWhere(
+                                    (element) => element.pens == model.angrily,
+                                    orElse: () => SincerelyModel(),
+                                  );
+                              var many = matchedElement?.many.toString();
+                              if (many == 'null') {
+                                many = '';
+                              }
+                              sureVale = matchedElement != null ? many : '';
+                            } else {
+                              sureVale = model.angrily ?? '';
+                            }
                           }
                           final listDict = {model.beautiful ?? '': sureVale};
                           dict.addAll(listDict);
