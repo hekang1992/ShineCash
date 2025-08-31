@@ -16,10 +16,18 @@ class AppLocation {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        final alertShow = SaveLoginInfo.getAlert();
-        if (alertShow == '1') {
-          LocationAlert.alertShow();
-        }
+        // final alertShow = SaveLoginInfo.getAlert();
+        // if (alertShow == '1') {
+        //   final getTime = SaveLoginInfo.getLocationTime() ?? '';
+        //   if (getTime.isEmpty) {
+        //     LocationAlert.alertShow();
+        //   } else {
+        //     final isgrand = TimeUtil.isExpired24h(getTime);
+        //     if (isgrand) {
+        //       LocationAlert.alertShow();
+        //     }
+        //   }
+        // }
         throw Exception('location error');
       }
     }
@@ -27,9 +35,28 @@ class AppLocation {
     if (permission == LocationPermission.deniedForever) {
       final alertShow = SaveLoginInfo.getAlert();
       if (alertShow == '1') {
-        LocationAlert.alertShow();
+        final getTime = SaveLoginInfo.getLocationTime() ?? '';
+        if (getTime.isEmpty) {
+          LocationAlert.alertShow();
+        } else {
+          final isgrand = TimeUtil.isExpired24h(getTime);
+          if (isgrand) {
+            LocationAlert.reset();
+            LocationAlert.alertShow();
+          }
+        }
       }
-      throw Exception('location erroe');
+      final locationdict = {
+        'cure': '',
+        'agreed': '',
+        'best': '',
+        'terms': '',
+        'usual': 0.0,
+        'pays': 0.0,
+        'conspiracy': '',
+        'share': '',
+      };
+      return locationdict;
     }
 
     final position = await Geolocator.getCurrentPosition(
@@ -42,10 +69,6 @@ class AppLocation {
     );
 
     if (placemarks.isEmpty) {
-      final alertShow = SaveLoginInfo.getAlert();
-      if (alertShow == '1') {
-        LocationAlert.alertShow();
-      }
       throw Exception('locaton error');
     }
 
@@ -67,7 +90,10 @@ class AppLocation {
 }
 
 class LocationAlert {
+  static bool _isAlertShown = false;
   static alertShow() {
+    if (_isAlertShown) return;
+    _isAlertShown = true;
     Get.dialog(
       AlertDialog(
         title: Row(
@@ -81,12 +107,18 @@ class LocationAlert {
         actions: [
           TextButton(
             onPressed: () {
+              final time = (DateTime.now().millisecondsSinceEpoch ~/ 1000)
+                  .toString();
+              SaveLoginInfo.saveLocationTime(time);
               Get.back();
             },
             child: Text('Cancel'.tr),
           ),
           ElevatedButton(
             onPressed: () {
+              final time = (DateTime.now().millisecondsSinceEpoch ~/ 1000)
+                  .toString();
+              SaveLoginInfo.saveLocationTime(time);
               Get.back();
               openAppSettings();
             },
@@ -95,5 +127,29 @@ class LocationAlert {
         ],
       ),
     );
+  }
+
+  static void reset() {
+    _isAlertShown = false;
+  }
+}
+
+class TimeUtil {
+  static bool isExpired24h(String? savedTimestamp) {
+    if (savedTimestamp == null || savedTimestamp.isEmpty) {
+      return true;
+    }
+
+    final savedTime = int.tryParse(savedTimestamp) ?? 0;
+    final now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+
+    final diff = now - savedTime;
+    return diff >= 24 * 60 * 60;
+  }
+
+  static String saveNowTime() {
+    final time = (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString();
+    SaveLoginInfo.saveLocationTime(time);
+    return time;
   }
 }

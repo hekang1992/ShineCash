@@ -25,7 +25,8 @@ class PersonalController extends BaseController {
     super.onInit();
     productID = Get.arguments['productID'];
     findPersonalInfo(productID: productID);
-    startTime = DateTime.now().second.toString();
+    startTime = (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString();
+    ;
   }
 }
 
@@ -147,7 +148,7 @@ extension PersonalVc on PersonalController {
         await PointTouchChannel.upLoadPoint(
           step: '5',
           startTime: startTime,
-          endTime: DateTime.now().millisecondsSinceEpoch.toString(),
+          endTime: (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString(),
           orderID: '',
         );
       }

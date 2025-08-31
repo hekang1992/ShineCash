@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
 import 'package:shinecash/common/http/http_model.dart';
-import 'package:shinecash/common/http/http_toast.dart';
 import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/features/apphead/app_head_view.dart';
 import 'package:shinecash/features/auth/certificationlist/app_common_footer_view.dart';
@@ -114,15 +113,11 @@ class ImageListView extends GetView<ImageListController> {
                       final faceimageStr =
                           model.expect?.posted?.cautiously ?? '';
                       if (imageStr.isEmpty) {
-                        ToastManager.showToast(
-                          'Please upload a photo of your ID first.',
-                        );
+                        controller.imageClick();
                         return;
                       }
                       if (faceimageStr.isEmpty) {
-                        ToastManager.showToast(
-                          'Please upload a facial photo first.',
-                        );
+                        controller.faceClick();
                         return;
                       }
                       Get.until((route) {

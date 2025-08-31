@@ -168,17 +168,20 @@ class CertificationListView extends GetView<CertificationListController> {
                 right: 0,
                 child: SizedBox(
                   height: 80.h,
-                  child: AppCommonFooterView(
-                    title: 'Proceed to certification',
-                    onTap: () {
-                      final homeVc = Get.find<HomeController>();
-                      homeVc.getProductDetaiPageInfo(
-                        productID: controller.productID,
-                        type: '1',
-                        inner: '0',
-                      );
-                    },
-                  ),
+                  child: Obx(() {
+                    return AppCommonFooterView(
+                      title:
+                          controller.model.value.expect?.egyptian?.appeal ?? '',
+                      onTap: () {
+                        final homeVc = Get.find<HomeController>();
+                        homeVc.getProductDetaiPageInfo(
+                          productID: controller.productID,
+                          type: '1',
+                          inner: '0',
+                        );
+                      },
+                    );
+                  }),
                 ),
               ),
             ],

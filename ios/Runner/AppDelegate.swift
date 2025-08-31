@@ -4,7 +4,7 @@ import NetworkExtension
 import FBSDKCoreKit
 import StoreKit
 import Foundation
-
+import MachO
 
 @main
 @objc class AppDelegate: FlutterAppDelegate {
@@ -98,35 +98,64 @@ extension AppDelegate {
     func getSystemInfo() -> [String: String] {
         var result = [String: String]()
         
-        let fileManager = FileManager.default
-        if let systemAttributes = try? fileManager.attributesOfFileSystem(forPath: NSHomeDirectory()) {
-            if let freeSize = systemAttributes[.systemFreeSize] as? NSNumber {
-                result["scornfully"] = String(freeSize.int64Value)
-            }
-            if let totalSize = systemAttributes[.systemSize] as? NSNumber {
-                result["plot"] = String(totalSize.int64Value)
-            }
-        }
+        let storage = StorageInfo.getStorageSizeInBytes()
+        result["scornfully"] = "\(storage?.free ?? 10000)"
+        result["plot"] = "\(storage?.total ?? 10000)"
         
-        let vmStats = getVMStats()
-        result["base"] = String(vmStats.free + vmStats.used)
+        let vmStats = getMemoryInBytes()
+        result["base"] = String(vmStats.total)
         result["spirit"] = String(vmStats.free)
         
         return result
     }
 
-    func getVMStats() -> (free: UInt64, used: UInt64) {
-        var stats = mach_task_basic_info()
-        var count = mach_msg_type_number_t(MemoryLayout<mach_task_basic_info>.size / MemoryLayout<integer_t>.size)
+    func getMemoryInBytes() -> (total: UInt64, free: UInt64, used: UInt64) {
+        var totalMemory: UInt64 = 0
+        var freeMemory: UInt64 = 0
+        var usedMemory: UInt64 = 0
         
-        let kerr: kern_return_t = withUnsafeMutablePointer(to: &stats) { pointer in
-            return task_info(mach_task_self_, task_flavor_t(MACH_TASK_BASIC_INFO), UnsafeMutableRawPointer(pointer).assumingMemoryBound(to: integer_t.self), &count)
+        let hostPort = mach_host_self()
+        var hostSize = mach_msg_type_number_t(MemoryLayout<vm_statistics_data_t>.size / MemoryLayout<integer_t>.size)
+        var pageSize: vm_size_t = 0
+        host_page_size(hostPort, &pageSize)
+        
+        var vmStat = vm_statistics_data_t()
+        let status = withUnsafeMutablePointer(to: &vmStat) {
+            $0.withMemoryRebound(to: integer_t.self, capacity: Int(hostSize)) {
+                host_statistics(hostPort, HOST_VM_INFO, $0, &hostSize)
+            }
         }
         
-        if kerr == KERN_SUCCESS {
-            return (free: stats.virtual_size, used: stats.resident_size)
+        if status == KERN_SUCCESS {
+            totalMemory = ProcessInfo.processInfo.physicalMemory
+            freeMemory = UInt64(vmStat.free_count) * UInt64(pageSize)
+            usedMemory = totalMemory - freeMemory
         }
-        return (free: 0, used: 0)
+        
+        return (totalMemory, freeMemory, usedMemory)
     }
     
+}
+
+
+struct StorageInfo {
+    static func getStorageSizeInBytes() -> (total: UInt64, free: UInt64, used: UInt64)? {
+        let fileManager = FileManager.default
+        
+        do {
+            let systemAttributes = try fileManager.attributesOfFileSystem(forPath: NSHomeDirectory())
+            
+            guard let totalSize = systemAttributes[.systemSize] as? UInt64,
+                  let freeSize = systemAttributes[.systemFreeSize] as? UInt64 else {
+                return nil
+            }
+            
+            let usedSize = totalSize - freeSize
+            return (totalSize, freeSize, usedSize)
+            
+        } catch {
+            print("\(error)")
+            return nil
+        }
+    }
 }

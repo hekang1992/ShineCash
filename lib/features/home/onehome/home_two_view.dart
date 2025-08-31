@@ -31,7 +31,7 @@ class HomeTwoView extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 90.h),
+                SizedBox(height: 85.h),
                 Text(
                   name2,
                   style: TextStyle(
@@ -49,7 +49,7 @@ class HomeTwoView extends StatelessWidget {
                     color: AppColor.whiteColor,
                   ),
                 ),
-                SizedBox(height: 55.h),
+                SizedBox(height: 60.h),
                 Text(
                   name4,
                   style: TextStyle(

@@ -37,15 +37,14 @@ class ShineHttpRequest {
       ),
     );
 
-    _configureProxy();
+    // _configureProxy();
   }
 
   // 配置代理
   _configureProxy() {
     // String proxyIP = '10.1.1.84';
-    // String proxyIP = '192.168.71.22';
+    String proxyIP = '192.168.71.33';
     // String proxyIP = '192.168.0.70';
-    String proxyIP = '192.168.1.243';
     String proxyPort = "9090";
 
     if (proxyIP.isNotEmpty) {

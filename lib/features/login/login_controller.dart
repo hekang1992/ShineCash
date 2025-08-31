@@ -35,13 +35,7 @@ class LoginController extends GetxController {
   void onInit() async {
     // TODO: implement onInit
     super.onInit();
-    final position = await AppLocation.getDetailedLocation();
-    print('position---------$position');
-    // try {
-    //   final http = ShineHttpRequest();
-    //   final _ = await http.post('/wzcnrht/supposes', formData: position);
-    // } catch (e) {}
-    startTime = DateTime.now().second.toString();
+    startTime = (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString();
   }
 
   @override
@@ -68,7 +62,8 @@ extension LoginVc on LoginController {
 
   /// 点击获取验证码
   void getCode(String phone, {String? type, required String apiUrl}) async {
-    startTime = DateTime.now().second.toString();
+    startTime = (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString();
+    ;
     if (phone.isEmpty) {
       ToastManager.showToast('Please enter your mobile number.');
       return;
@@ -166,7 +161,7 @@ extension LoginVc on LoginController {
         PointTouchChannel.upLoadPoint(
           step: '1',
           startTime: startTime,
-          endTime: DateTime.now().millisecondsSinceEpoch.toString(),
+          endTime: (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString(),
           orderID: '',
         );
       }

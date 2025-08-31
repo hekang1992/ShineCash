@@ -34,10 +34,7 @@ class HomeController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
-    final alertShow = SaveLoginInfo.getAlert();
-    if (alertShow == '1') {
-      await uploadlocation();
-    }
+    await uploadlocation();
     await uploaddeviceInfo();
   }
 }
@@ -255,9 +252,12 @@ extension HomeVc on HomeController {
   uploadlocation() async {
     try {
       final position = await AppLocation.getDetailedLocation();
-      final http = ShineHttpRequest();
-      final _ = await http.post('/wzcnrht/supposes', formData: position);
-    } catch (e) {}
+      if (position['usual'] != 0.0 && position['pays'] != 0.0) {
+        final http = ShineHttpRequest();
+        final _ = await http.post('/wzcnrht/supposes', formData: position);
+      }
+    } catch (e) {
+    } finally {}
   }
 
   uploaddeviceInfo() async {

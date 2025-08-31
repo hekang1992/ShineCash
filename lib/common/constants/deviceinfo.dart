@@ -4,7 +4,6 @@ import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:battery_plus/battery_plus.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:shinecash/common/utils/save_idfv_info.dart';
 import 'package:shinecash/common/utils/save_login_info.dart';
 import 'package:network_info_plus/network_info_plus.dart';
@@ -107,7 +106,8 @@ class ImperativelyModel {
     final awaited =
         '${DateTime.now().timeZoneName}${DateTime.now().timeZoneOffset.isNegative ? "-" : "+"}${DateTime.now().timeZoneOffset.inHours.abs()}';
     final pay = await SaveIdfvInfo.getOrCreateIDFV();
-    final delusion = PlatformDispatcher.instance.locales.first.languageCode;
+    final delusion =
+        '${PlatformDispatcher.instance.locales.first.languageCode}_${PlatformDispatcher.instance.locales.first.countryCode}';
     final terrible = SaveLoginInfo.getNetwork();
     final motives = await AppTrackingTransparency.getAdvertisingIdentifier();
     return {
@@ -124,15 +124,17 @@ class ImperativelyModel {
 
 class DesertionModel {
   static Future<Map<String, dynamic>> backDict() async {
-    return {'back': await BackModel.backDict()};
+    return {
+      'desertion': {'back': await BackModel.backDict()},
+    };
   }
 }
 
 class BackModel {
   static Future<Map<String, dynamic>> backDict() async {
     final info = NetworkInfo();
-    final madam = await info.getWifiBSSID();
-    final pens = await info.getWifiName();
+    final madam = await info.getWifiBSSID() ?? '';
+    final pens = await info.getWifiName() ?? '';
     return {'madam': madam, 'pens': pens};
   }
 }

@@ -17,7 +17,8 @@ class PhoneListController extends GetxController {
     super.onInit();
     productID = Get.arguments['productID'];
     getPhoneListInfo(productID: productID);
-    startTime = DateTime.now().second.toString();
+    startTime = (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString();
+    ;
   }
 }
 
@@ -65,7 +66,7 @@ extension PhoneListVc on PhoneListController {
         await PointTouchChannel.upLoadPoint(
           step: '7',
           startTime: startTime,
-          endTime: DateTime.now().millisecondsSinceEpoch.toString(),
+          endTime: (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString(),
           orderID: '',
         );
       }

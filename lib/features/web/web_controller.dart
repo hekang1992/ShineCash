@@ -66,15 +66,17 @@ class WebController extends GetxController {
           isLoan = true;
           await PointTouchChannel.upLoadPoint(
             step: '9',
-            startTime: DateTime.now().millisecondsSinceEpoch.toString(),
-            endTime: DateTime.now().millisecondsSinceEpoch.toString(),
+            startTime: (DateTime.now().millisecondsSinceEpoch ~/ 1000)
+                .toString(),
+            endTime: (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString(),
             orderID: orderID,
           );
           Future.delayed(Duration(milliseconds: 500));
           await PointTouchChannel.upLoadPoint(
             step: '10',
-            startTime: DateTime.now().millisecondsSinceEpoch.toString(),
-            endTime: DateTime.now().millisecondsSinceEpoch.toString(),
+            startTime: (DateTime.now().millisecondsSinceEpoch ~/ 1000)
+                .toString(),
+            endTime: (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString(),
             orderID: orderID,
           );
         },
@@ -82,13 +84,14 @@ class WebController extends GetxController {
       ..addJavaScriptChannel(
         'five',
         onMessageReceived: (_) async {
-          startTime = DateTime.now().second.toString();
+          startTime = (DateTime.now().millisecondsSinceEpoch ~/ 1000)
+              .toString();
         },
       )
       ..addJavaScriptChannel(
         'hundred',
         onMessageReceived: (_) async {
-          endTime = DateTime.now().second.toString();
+          endTime = (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString();
           await PointTouchChannel.upLoadPoint(
             step: '8',
             startTime: startTime,

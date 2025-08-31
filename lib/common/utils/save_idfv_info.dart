@@ -90,6 +90,7 @@ class GetIDFVInfo {
       final pay = await SaveIdfvInfo.getOrCreateIDFV() ?? '';
       final dict = {'pay': pay, 'motives': idfa};
       controller.setIDFAParams(dict);
+      loginVc.dispose1();
     }
   }
 }

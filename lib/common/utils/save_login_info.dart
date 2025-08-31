@@ -7,6 +7,7 @@ class SaveLoginInfo {
   static const String _netKey = 'user_network';
   static const String _showAlert = 'user_showAlert';
   static const String _kiss = 'user_kiss';
+  static const String _deineLoacation = 'user_deineLoacation';
 
   static Box? _box;
 
@@ -53,6 +54,14 @@ class SaveLoginInfo {
 
   static String? getKiss() {
     return _box?.get(_kiss);
+  }
+
+  static Future<void> saveLocationTime(String location) async {
+    await _box?.put(_deineLoacation, location);
+  }
+
+  static String? getLocationTime() {
+    return _box?.get(_deineLoacation);
   }
 
   static bool isLogin() {

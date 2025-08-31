@@ -397,6 +397,7 @@ class EgyptianModel {
   String? having;
   int? proud;
   String? correspondent;
+  String? appeal;
 
   EgyptianModel({
     this.glanced,
@@ -409,6 +410,7 @@ class EgyptianModel {
     this.having,
     this.proud,
     this.correspondent,
+    this.appeal,
   });
 
   factory EgyptianModel.fromJson(Map<String, dynamic> json) {
@@ -421,6 +423,7 @@ class EgyptianModel {
       styled: json['styled'],
       having: json['having'],
       proud: json['proud'],
+      appeal: json['appeal'],
       correspondent: json['correspondent'],
       considering: Considering.fromJson(json['considering'] ?? {}),
     );
@@ -437,6 +440,7 @@ class EgyptianModel {
       'styled': styled,
       'having': having,
       'proud': proud,
+      'appeal': appeal,
     };
   }
 }
@@ -481,6 +485,7 @@ class SorryModel {
   String? sitting;
   String? unread;
   String? cautiously;
+  String? conversation;
 
   SorryModel({
     this.acquainted,
@@ -489,6 +494,7 @@ class SorryModel {
     this.sitting,
     this.unread,
     this.cautiously,
+    this.conversation,
   });
 
   factory SorryModel.fromJson(Map<String, dynamic> json) {
@@ -499,6 +505,7 @@ class SorryModel {
       sitting: json['sitting'],
       unread: json['unread'],
       cautiously: json['cautiously'],
+      conversation: json['conversation'],
     );
   }
 
@@ -510,6 +517,7 @@ class SorryModel {
       'sitting': sitting,
       'unread': unread,
       'cautiously': cautiously,
+      'conversation': conversation,
     };
   }
 }

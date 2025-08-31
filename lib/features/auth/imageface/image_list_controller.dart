@@ -83,7 +83,7 @@ extension ImageListVc on ImageListController {
           await PointTouchChannel.upLoadPoint(
             step: '4',
             startTime: faceStartTime,
-            endTime: DateTime.now().millisecondsSinceEpoch.toString(),
+            endTime: (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString(),
             orderID: '',
           );
         }
@@ -121,7 +121,7 @@ extension ImageListVc on ImageListController {
           await PointTouchChannel.upLoadPoint(
             step: '3',
             startTime: idStartTime,
-            endTime: DateTime.now().millisecondsSinceEpoch.toString(),
+            endTime: (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString(),
             orderID: '',
           );
         }
@@ -133,7 +133,7 @@ extension ImageListVc on ImageListController {
   }
 
   faceClick() {
-    faceStartTime = DateTime.now().millisecondsSinceEpoch.toString();
+    faceStartTime = (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString();
     Get.bottomSheet(
       isDismissible: false,
       enableDrag: false,
@@ -164,7 +164,7 @@ extension ImageListVc on ImageListController {
   }
 
   imageClick() {
-    idStartTime = DateTime.now().millisecondsSinceEpoch.toString();
+    idStartTime = (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString();
     Get.bottomSheet(
       isDismissible: false,
       enableDrag: false,

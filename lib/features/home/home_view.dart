@@ -1,12 +1,9 @@
 import 'dart:math';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
 import 'package:shinecash/common/http/http_model.dart';
-import 'package:shinecash/common/http/http_request.dart';
-import 'package:shinecash/common/http/http_toast.dart';
 import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/common/tabbar/tabbar_controller.dart';
 import 'package:shinecash/features/home/home_controller.dart';

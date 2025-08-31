@@ -73,8 +73,10 @@ class TinListView extends GetView<TinListController> {
                               await PointTouchChannel.upLoadPoint(
                                 step: '2',
                                 startTime: controller.startTime,
-                                endTime: DateTime.now().millisecondsSinceEpoch
-                                    .toString(),
+                                endTime:
+                                    (DateTime.now().millisecondsSinceEpoch ~/
+                                            1000)
+                                        .toString(),
                                 orderID: '',
                               );
                             },
@@ -105,8 +107,10 @@ class TinListView extends GetView<TinListController> {
                               await PointTouchChannel.upLoadPoint(
                                 step: '2',
                                 startTime: controller.startTime,
-                                endTime: DateTime.now().millisecondsSinceEpoch
-                                    .toString(),
+                                endTime:
+                                    (DateTime.now().millisecondsSinceEpoch ~/
+                                            1000)
+                                        .toString(),
                                 orderID: '',
                               );
                             },
