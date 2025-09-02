@@ -19,6 +19,10 @@ class ToastManager {
     );
   }
 
+  static showProgressLoading(double progerss) {
+    EasyLoading.showProgress(progerss);
+  }
+
   static hideLoading() {
     EasyLoading.dismiss();
   }

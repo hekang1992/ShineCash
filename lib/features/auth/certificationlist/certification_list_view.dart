@@ -108,55 +108,61 @@ class CertificationListView extends GetView<CertificationListController> {
                         );
                       }),
                       SizedBox(height: 16.h),
-                      if ((controller.model.value.expect?.after?.waive ?? '')
-                          .isNotEmpty)
-                        SizedBox(
-                          width: 351.w,
-                          child: InkWell(
-                            onTap: () {
-                              final pageUrl =
-                                  controller.model.value.expect?.after?.waive ??
-                                  '';
-                              Get.toNamed(
-                                ShineAppRouter.web,
-                                arguments: {'pageUrl': pageUrl},
-                              );
-                            },
-                            child: RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: 'Please go through the ',
-                                    style: TextStyle(
-                                      color: AppColor.whiteColor,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12.sp,
+
+                      Obx(() {
+                        final model = controller.model.value;
+                        final waive = model.expect?.after?.waive ?? '';
+
+                        return waive.isNotEmpty
+                            ? SizedBox(
+                                width: 351.w,
+                                child: InkWell(
+                                  onTap: () {
+                                    final pageUrl =
+                                        model.expect?.after?.waive ?? '';
+                                    Get.toNamed(
+                                      ShineAppRouter.web,
+                                      arguments: {'pageUrl': pageUrl},
+                                    );
+                                  },
+                                  child: RichText(
+                                    textAlign: TextAlign.center,
+                                    text: TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: 'Please go through the ',
+                                          style: TextStyle(
+                                            color: AppColor.whiteColor,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 12.sp,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: 'Loan Agreement',
+                                          style: TextStyle(
+                                            color: AppColor.whiteColor,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 12.sp,
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text:
+                                              ' Your personal details are kept strictly confidential as required by data laws.',
+                                          style: TextStyle(
+                                            color: AppColor.whiteColor,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 12.sp,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  TextSpan(
-                                    text: 'Loan Agreement',
-                                    style: TextStyle(
-                                      color: AppColor.whiteColor,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 12.sp,
-                                      decoration: TextDecoration.underline,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        ' Your personal details are kept strictly confidential as required by data laws.',
-                                    style: TextStyle(
-                                      color: AppColor.whiteColor,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12.sp,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+                                ),
+                              )
+                            : Container();
+                      }),
                       SizedBox(height: 16.h),
                     ],
                   ),

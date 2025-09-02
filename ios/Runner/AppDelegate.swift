@@ -134,15 +134,9 @@ extension AppDelegate {
 
         if status == KERN_SUCCESS {
             totalMemory = ProcessInfo.processInfo.physicalMemory
-
-            // 更准确的计算方式
             let free = UInt64(vmStat.free_count) * UInt64(pageSize)
             let inactive = UInt64(vmStat.inactive_count) * UInt64(pageSize)
-
-            // 可用内存 = 空闲内存 + 非活跃内存（可被系统回收）
             freeMemory = free + inactive
-
-            // 已用内存 = 活跃内存 + 有线内存
             let active = UInt64(vmStat.active_count) * UInt64(pageSize)
             let wired = UInt64(vmStat.wire_count) * UInt64(pageSize)
             usedMemory = active + wired

@@ -15,6 +15,8 @@ class WebController extends GetxController {
   var endTime = '';
   var orderID = '';
   var isLoan = false;
+  final progress = 0.0.obs;
+  final isLoading = true.obs;
 
   @override
   void onInit() {
@@ -29,12 +31,19 @@ class WebController extends GetxController {
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(
         NavigationDelegate(
+          onProgress: (progress1) {
+            progress.value = progress1 / 100;
+            isLoading.value = progress < 1.0;
+          },
           onPageStarted: (url) {
-            ToastManager.showLoading();
+            // ToastManager.showProgressLoading(_progress.value);
+            progress.value = 0;
+            isLoading.value = true;
             title.value = 'Shine Cash';
           },
           onPageFinished: (url) async {
-            ToastManager.hideLoading();
+            // ToastManager.hideLoading();
+            isLoading.value = false;
             final t = await webcontroller.getTitle() ?? '';
             if (t.isEmpty) {
               title.value = 'Shine Cash';
@@ -43,7 +52,7 @@ class WebController extends GetxController {
             }
           },
           onWebResourceError: (error) {
-            ToastManager.hideLoading();
+            isLoading.value = false;
             title.value = 'Shine Cash';
           },
         ),

@@ -22,7 +22,7 @@ class CenterHeadView extends GetView<CenterController> {
             child: Padding(
               padding: EdgeInsets.only(top: 70.sp),
               child: Container(
-                height: 530.h + listArray.length * 20.h,
+                height: 530.h + listArray.length * 24.h,
                 width: 350.w,
                 decoration: BoxDecoration(
                   color: Colors.white,

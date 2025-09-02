@@ -8,7 +8,6 @@ class CameraManager: NSObject, UIImagePickerControllerDelegate, UINavigationCont
 
     private override init() {}
 
-    /// 检查相机权限并打开相机
     func presentCamera(
         from viewController: UIViewController, type: String, completion: @escaping (Data?) -> Void
     ) {
@@ -37,10 +36,8 @@ class CameraManager: NSObject, UIImagePickerControllerDelegate, UINavigationCont
         }
     }
 
-    /// 打开相机
     private func openCamera(from viewController: UIViewController, type: String) {
         guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
-            print("相机不可用")
             completion?(nil)
             return
         }
@@ -59,7 +56,6 @@ class CameraManager: NSObject, UIImagePickerControllerDelegate, UINavigationCont
         viewController.present(picker, animated: true, completion: nil)
     }
 
-    /// 选择图片回调
     func imagePickerController(
         _ picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
@@ -79,7 +75,6 @@ class CameraManager: NSObject, UIImagePickerControllerDelegate, UINavigationCont
         completion?(nil)
     }
 
-    /// 压缩图片到 500KB 以下
     private func compressImageToUnder500KB(_ image: UIImage) -> Data? {
         var compression: CGFloat = 1.0
         let maxFileSize = 500 * 1024  // 500 KB
@@ -92,7 +87,6 @@ class CameraManager: NSObject, UIImagePickerControllerDelegate, UINavigationCont
         return imageData
     }
 
-    /// 提示去设置
     private func showSettingsAlert(from vc: UIViewController, message: String) {
         let alert = UIAlertController(title: "权限被拒绝", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))

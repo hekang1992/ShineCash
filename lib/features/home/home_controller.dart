@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
 import 'package:shinecash/common/constants/deviceinfo.dart';
@@ -34,6 +35,23 @@ class HomeController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission != LocationPermission.always ||
+        permission != LocationPermission.whileInUse) {
+      final alertShow = SaveLoginInfo.getAlert();
+      if (alertShow == '1') {
+        final getTime = SaveLoginInfo.getLocationTime() ?? '';
+        if (getTime.isEmpty) {
+          LocationAlert.alertShow();
+        } else {
+          final isgrand = TimeUtil.isExpired24h(getTime);
+          if (isgrand) {
+            LocationAlert.reset();
+            LocationAlert.alertShow();
+          }
+        }
+      }
+    }
     await uploadlocation();
     await uploaddeviceInfo();
   }

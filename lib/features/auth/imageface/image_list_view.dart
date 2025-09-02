@@ -146,19 +146,24 @@ class ImageListView extends GetView<ImageListController> {
   }
 
   Widget newMethod(String faceimageStr, BaseModel model) {
+    //face
+    final icClick = model.expect?.posted?.listening;
+    //image
+    final icImageClick = model.expect?.rule?.listening;
     return imageClickView(
       title: 'Facial Recognition',
       imageStr: faceimageStr.isEmpty ? 'face_image.png' : faceimageStr,
-      isClick: model.expect?.posted?.listening == 1 ? false : true,
-      onTap: controller.faceClick,
+      isClick: icClick == 1 ? false : true,
+      onTap: icImageClick == 0 ? controller.imageClick : controller.faceClick,
     );
   }
 
   Widget newMethodImageClickView(String imageStr, BaseModel model) {
+    final icClick = model.expect?.rule?.listening;
     return imageClickView(
       title: 'Upload ID Photos',
       imageStr: imageStr.isEmpty ? 'photo_imge.png' : imageStr,
-      isClick: model.expect?.rule?.listening == 1 ? false : true,
+      isClick: icClick == 1 ? false : true,
       onTap: controller.imageClick,
     );
   }

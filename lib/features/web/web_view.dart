@@ -36,9 +36,33 @@ class WebView extends GetView<WebController> {
                 ),
                 child: Container(
                   color: AppColor.whiteColor,
-                  child: WebViewWidget(controller: controller.webcontroller),
+                  child: Obx(
+                    () => controller.isLoading.value
+                        ? LinearProgressIndicator(
+                            value: controller.progress.value,
+                            backgroundColor: Colors.white,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              AppColor.pinkColor,
+                            ),
+                            minHeight: 2.h,
+                          )
+                        : Container(),
+                  ),
                 ),
               ),
+              Obx(() {
+                return Padding(
+                  padding: EdgeInsets.only(
+                    top: controller.isLoading.value
+                        ? MediaQuery.of(context).padding.top + 54.h
+                        : MediaQuery.of(context).padding.top + 52.h,
+                  ),
+                  child: Container(
+                    color: AppColor.whiteColor,
+                    child: WebViewWidget(controller: controller.webcontroller),
+                  ),
+                );
+              }),
             ],
           ),
         ),

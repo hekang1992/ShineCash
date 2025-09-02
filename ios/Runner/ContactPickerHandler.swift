@@ -1,70 +1,74 @@
-import Flutter
 import Contacts
 import ContactsUI
+import Flutter
 
 public class ContactHandler: NSObject, CNContactPickerDelegate {
     private let contactStore = CNContactStore()
     var singleSelectResult: FlutterResult?
-    
+
     public func getAllContacts(result: @escaping FlutterResult) {
         checkContactAuthorization { [weak self] granted in
             guard granted else {
                 self?.showPermissionAlert()
-                result(FlutterError(code: "PERMISSION_DENIED",
-                                    message: "PERMISSION_DENIED",
-                                    details: nil))
+                result(
+                    FlutterError(
+                        code: "404",
+                        message: "404",
+                        details: nil))
                 return
             }
-            
+
             let keys = [CNContactFamilyNameKey, CNContactGivenNameKey, CNContactPhoneNumbersKey]
             let request = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
             var contacts = [[String: String]]()
-            
+
             do {
                 try self?.contactStore.enumerateContacts(with: request) { contact, _ in
-                    let name = self?.formatName(family: contact.familyName, given: contact.givenName) ?? ""
-                    
-                    // 收集所有手机号
+                    let name =
+                        self?.formatName(family: contact.familyName, given: contact.givenName) ?? ""
+
                     var phoneNumbers = [String]()
                     for phone in contact.phoneNumbers {
                         let number = phone.value.stringValue
-                            .replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
+                            .replacingOccurrences(
+                                of: "[^0-9+]", with: "", options: .regularExpression)
                         phoneNumbers.append(number)
                     }
-                    
-                    // 用逗号分隔合并手机号
+
                     let phoneNumbersString = phoneNumbers.joined(separator: ",")
-                    
-                    // 只有当有手机号时才添加到结果中
+
                     if !phoneNumbersString.isEmpty {
                         contacts.append(["pens": name, "ever": phoneNumbersString])
                     }
                 }
                 result(contacts)
             } catch {
-                result(FlutterError(code: "FETCH_FAILED",
-                                    message: error.localizedDescription,
-                                    details: nil))
+                result(
+                    FlutterError(
+                        code: "FETCH_FAILED",
+                        message: error.localizedDescription,
+                        details: nil))
             }
         }
     }
-    
-    
+
     public func pickSingleContact(result: @escaping FlutterResult) {
         checkContactAuthorization { [weak self] granted in
             guard granted else {
                 self?.showPermissionAlert()
-                result(FlutterError(code: "PERMISSION_DENIED",
-                                    message: "PERMISSION_DENIED",
-                                    details: nil))
+                result(
+                    FlutterError(
+                        code: "PERMISSION_DENIED",
+                        message: "PERMISSION_DENIED",
+                        details: nil))
                 return
             }
-            
+
             self?.singleSelectResult = result
             let picker = CNContactPickerViewController()
             picker.delegate = self
             picker.predicateForEnablingContact = NSPredicate(format: "phoneNumbers.@count > 0")
-            
+
             DispatchQueue.main.async {
                 if let controller = UIApplication.shared.keyWindow?.rootViewController {
                     controller.present(picker, animated: true)
@@ -72,22 +76,23 @@ public class ContactHandler: NSObject, CNContactPickerDelegate {
             }
         }
     }
-    
-    public func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
+
+    public func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact)
+    {
         let name = formatName(family: contact.familyName, given: contact.givenName)
-        let phone = contact.phoneNumbers.first?.value.stringValue
+        let phone =
+            contact.phoneNumbers.first?.value.stringValue
             .replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression) ?? ""
-        
+
         singleSelectResult?(["pens": name, "ever": phone])
         singleSelectResult = nil
     }
-    
+
     public func contactPickerDidCancel(_ picker: CNContactPickerViewController) {
         singleSelectResult?(nil)
         singleSelectResult = nil
     }
-    
-    /// 判断权限
+
     private func checkContactAuthorization(completion: @escaping (Bool) -> Void) {
         let status = CNContactStore.authorizationStatus(for: .contacts)
         switch status {
@@ -105,7 +110,7 @@ public class ContactHandler: NSObject, CNContactPickerDelegate {
             completion(false)
         }
     }
-    
+
     private func showPermissionAlert() {
         DispatchQueue.main.async {
             let alert = UIAlertController(
@@ -114,18 +119,21 @@ public class ContactHandler: NSObject, CNContactPickerDelegate {
                 preferredStyle: .alert
             )
             alert.addAction(UIAlertAction(title: "取消", style: .cancel))
-            alert.addAction(UIAlertAction(title: "去设置", style: .default, handler: { _ in
-                if let url = URL(string: UIApplication.openSettingsURLString) {
-                    UIApplication.shared.open(url)
-                }
-            }))
-            
+            alert.addAction(
+                UIAlertAction(
+                    title: "去设置", style: .default,
+                    handler: { _ in
+                        if let url = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(url)
+                        }
+                    }))
+
             if let controller = UIApplication.shared.keyWindow?.rootViewController {
                 controller.present(alert, animated: true)
             }
         }
     }
-    
+
     private func formatName(family: String, given: String) -> String {
         return "\(given) \(family)".trimmingCharacters(in: .whitespaces)
     }

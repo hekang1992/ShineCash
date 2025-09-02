@@ -33,19 +33,6 @@ class AppLocation {
     }
 
     if (permission == LocationPermission.deniedForever) {
-      final alertShow = SaveLoginInfo.getAlert();
-      if (alertShow == '1') {
-        final getTime = SaveLoginInfo.getLocationTime() ?? '';
-        if (getTime.isEmpty) {
-          LocationAlert.alertShow();
-        } else {
-          final isgrand = TimeUtil.isExpired24h(getTime);
-          if (isgrand) {
-            LocationAlert.reset();
-            LocationAlert.alertShow();
-          }
-        }
-      }
       final locationdict = {
         'cure': '',
         'agreed': '',
