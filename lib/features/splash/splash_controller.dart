@@ -13,19 +13,12 @@ import 'package:shinecash/common/utils/save_login_info.dart';
 
 class SplashController extends GetxController {
   final connectivity = Connectivity();
-
+  final RxString netStatus = ''.obs;
   @override
   void onInit() async {
     super.onInit();
 
     await Future.delayed(Duration(milliseconds: 500));
-
-    // 检查网络
-    NetworkMonitoring.isConnected().then((connected) {
-      if (connected) {
-        initThreeInfo();
-      }
-    });
 
     // 监听网络变化
     NetworkMonitoring.onNetworkChanged.listen((results) {
@@ -34,13 +27,20 @@ class SplashController extends GetxController {
           : ConnectivityResult.none;
       if (result == ConnectivityResult.none) {
         SaveLoginInfo.saveNetwork('None');
+        netStatus.value = 'None';
       } else if (result == ConnectivityResult.mobile) {
-        SaveLoginInfo.saveNetwork('5G');
+        SaveLoginInfo.saveNetwork('4G/5G');
+        netStatus.value = '4G/5G';
       } else if (result == ConnectivityResult.wifi) {
         SaveLoginInfo.saveNetwork('WIFI');
+        netStatus.value = 'WIFI';
       } else {
         SaveLoginInfo.saveNetwork('Other');
+        netStatus.value = 'Other';
       }
+    });
+    ever(netStatus, (value) async {
+      await initThreeInfo();
     });
   }
 }
@@ -58,6 +58,7 @@ extension SplashVc on SplashController {
       if (position['usual'] != 0.0 && position['pays'] != 0.0) {
         final http = ShineHttpRequest();
         final _ = await http.post('/wzcnrht/supposes', formData: position);
+        print('position================position');
       }
     } catch (e) {
     } finally {}
@@ -67,10 +68,10 @@ extension SplashVc on SplashController {
     try {
       final deviceInfoDict = await DeviceinfoManager.backDictAll();
       final deviceJsonStr = jsonEncode(deviceInfoDict);
-      print('deviceJsonStr---------${jsonEncode(deviceInfoDict)}');
       final http = ShineHttpRequest();
       final dict = {'expect': deviceJsonStr};
       final _ = await http.post('/wzcnrht/concealment', formData: dict);
+      print('deviceJsonStr================deviceJsonStr');
     } catch (e) {}
   }
 
@@ -106,6 +107,7 @@ extension SplashVc on SplashController {
         } else {
           Get.offAllNamed(ShineAppRouter.login);
         }
+        print('initLoginInfo================initLoginInfo');
       }
     } catch (e) {}
   }
