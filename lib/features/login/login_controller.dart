@@ -33,7 +33,6 @@ class LoginController extends GetxController {
 
   @override
   void onInit() async {
-    // TODO: implement onInit
     super.onInit();
     startTime = (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString();
   }
@@ -63,7 +62,6 @@ extension LoginVc on LoginController {
   /// 点击获取验证码
   void getCode(String phone, {String? type, required String apiUrl}) async {
     startTime = (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString();
-    ;
     if (phone.isEmpty) {
       ToastManager.showToast('Please enter your mobile number.');
       return;

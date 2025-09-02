@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
@@ -8,44 +9,70 @@ import 'package:shinecash/common/http/http_request.dart';
 import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/common/utils/app_location.dart';
 import 'package:shinecash/common/utils/google_market.dart';
-import 'package:shinecash/common/utils/network_monitoring.dart';
 import 'package:shinecash/common/utils/save_login_info.dart';
 
 class SplashController extends GetxController {
   final connectivity = Connectivity();
   final RxString netStatus = ''.obs;
+
+  StreamSubscription? _networkSubscription;
+
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
 
-    await Future.delayed(Duration(milliseconds: 500));
+    print('SplashController 初始化');
 
-    // 监听网络变化
-    NetworkMonitoring.onNetworkChanged.listen((results) {
-      final result = results.isNotEmpty
-          ? results.first
-          : ConnectivityResult.none;
-      if (result == ConnectivityResult.none) {
-        SaveLoginInfo.saveNetwork('None');
-        netStatus.value = 'None';
-      } else if (result == ConnectivityResult.mobile) {
-        SaveLoginInfo.saveNetwork('4G/5G');
-        netStatus.value = '4G/5G';
-      } else if (result == ConnectivityResult.wifi) {
-        SaveLoginInfo.saveNetwork('WIFI');
-        netStatus.value = 'WIFI';
-      } else {
-        SaveLoginInfo.saveNetwork('Other');
-        netStatus.value = 'Other';
-      }
-    });
+    _initNetworkMonitoring();
+
     ever(netStatus, (value) async {
+      print('网络状态变化: $value');
       await initThreeInfo();
     });
+  }
+
+  @override
+  void onClose() {
+    _networkSubscription?.cancel();
+    super.onClose();
   }
 }
 
 extension SplashVc on SplashController {
+  void _initNetworkMonitoring() async {
+    await _checkCurrentNetworkStatus();
+
+    _networkSubscription = connectivity.onConnectivityChanged.listen((results) {
+      _updateNetStatus(results);
+    });
+  }
+
+  Future<void> _checkCurrentNetworkStatus() async {
+    try {
+      var results = await connectivity.checkConnectivity();
+      _updateNetStatus(results);
+    } catch (e) {
+      netStatus.value = 'Error';
+    }
+  }
+
+  void _updateNetStatus(List<ConnectivityResult> results) {
+    final result = results.isNotEmpty ? results.first : ConnectivityResult.none;
+    if (result == ConnectivityResult.none) {
+      SaveLoginInfo.saveNetwork('None');
+      netStatus.value = 'None';
+    } else if (result == ConnectivityResult.mobile) {
+      SaveLoginInfo.saveNetwork('4G/5G');
+      netStatus.value = '4G/5G';
+    } else if (result == ConnectivityResult.wifi) {
+      SaveLoginInfo.saveNetwork('WIFI');
+      netStatus.value = 'WIFI';
+    } else {
+      SaveLoginInfo.saveNetwork('Other');
+      netStatus.value = 'Other';
+    }
+  }
+
   initThreeInfo() async {
     await uploadlocation();
     await uploaddeviceInfo();

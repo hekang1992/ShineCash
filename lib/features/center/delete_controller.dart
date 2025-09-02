@@ -20,7 +20,7 @@ class DeleteController extends GetxController {
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
         SaveLoginInfo.clearAll();
-        Get.offAllNamed(ShineAppRouter.login);
+        Get.offAllNamed(ShineAppRouter.splash);
       }
       ToastManager.showToast(model.captive ?? '');
       ToastManager.hideLoading();

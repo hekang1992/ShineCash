@@ -101,6 +101,7 @@ class ShineAppRouter {
       binding: BindingsBuilder(() {
         Get.lazyPut(() => LoginController());
       }),
+      transition: Transition.noTransition,
     ),
 
     GetPage(name: guide, page: () => GuideView()),

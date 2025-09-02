@@ -27,7 +27,7 @@ class CenterView extends GetView<CenterController> {
                 },
                 child: SafeArea(
                   child: Padding(
-                    padding: EdgeInsets.only(top: 10.sp),
+                    padding: EdgeInsets.only(top: 10.sp, bottom: 5.sp),
                     child: SingleChildScrollView(
                       physics: const AlwaysScrollableScrollPhysics(),
                       child: CenterHeadView(),
