@@ -8,7 +8,7 @@ import 'package:shinecash/features/home/home_controller.dart';
 class PhoneListController extends GetxController {
   late final String productID;
   final model = BaseModel().obs;
-
+  final title = ''.obs;
   var startTime = '';
   var endTime = '';
 
@@ -16,6 +16,7 @@ class PhoneListController extends GetxController {
   void onInit() {
     super.onInit();
     productID = Get.arguments['productID'];
+    title.value = Get.arguments['title'];
     getPhoneListInfo(productID: productID);
     startTime = (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString();
     ;

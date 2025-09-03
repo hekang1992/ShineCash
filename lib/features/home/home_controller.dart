@@ -136,12 +136,14 @@ extension HomeVc on HomeController {
         detailModel.value = model;
         final sitting = model.expect?.allow?.sitting ?? '';
         final cautiously = model.expect?.allow?.cautiously ?? '';
+        final title = model.expect?.allow?.acquainted ?? '';
         if (sitting.isNotEmpty) {
           pushToPage(
             authStr: sitting,
             productID: productID,
             type: type,
             cautiously: cautiously,
+            title: title,
           );
         } else {
           if (inner == '1') {
@@ -204,6 +206,7 @@ extension HomeVc on HomeController {
     required String productID,
     required String type,
     required String cautiously,
+    required String title,
   }) async {
     if (type == '0') {
       Get.toNamed(ShineAppRouter.authList, arguments: {'productID': productID});
@@ -215,16 +218,19 @@ extension HomeVc on HomeController {
         case 'now':
           Get.toNamed(
             ShineAppRouter.personal,
-            arguments: {'productID': productID},
+            arguments: {'productID': productID, 'title': title},
           );
           break;
         case 'them':
-          Get.toNamed(ShineAppRouter.work, arguments: {'productID': productID});
+          Get.toNamed(
+            ShineAppRouter.work,
+            arguments: {'productID': productID, 'title': title},
+          );
           break;
         case 'Cleopatra':
           Get.toNamed(
             ShineAppRouter.phonelist,
-            arguments: {'productID': productID},
+            arguments: {'productID': productID, 'title': title},
           );
           break;
         case 'desertion':

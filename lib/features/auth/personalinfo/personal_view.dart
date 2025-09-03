@@ -36,18 +36,20 @@ class PersonalView extends GetView<PersonalController> {
                 Column(
                   children: [
                     SafeArea(
-                      child: AppHeadView(
-                        title: 'Personal Info',
-                        onTap: () async {
-                          Get.until((route) {
-                            final currentRoute = route.settings.name
-                                ?.split('?')
-                                .first;
-                            return currentRoute == ShineAppRouter.authList;
-                          });
-                          await cerVc.initAuthListInfo(controller.productID);
-                        },
-                      ),
+                      child: Obx(() {
+                        return AppHeadView(
+                          title: controller.title.value,
+                          onTap: () async {
+                            Get.until((route) {
+                              final currentRoute = route.settings.name
+                                  ?.split('?')
+                                  .first;
+                              return currentRoute == ShineAppRouter.authList;
+                            });
+                            await cerVc.initAuthListInfo(controller.productID);
+                          },
+                        );
+                      }),
                     ),
                     ProgressListView(pix: 0.4),
                     SizedBox(height: 16.sp),

@@ -13,6 +13,7 @@ import 'package:shinecash/features/home/home_controller.dart';
 
 class WorkinfoController extends BaseController {
   late final String productID;
+  final title = ''.obs;
   final model = BaseModel().obs;
   List<TextEditingController> textControllers =
       []; // 存储所有的 TextEditingController
@@ -24,6 +25,7 @@ class WorkinfoController extends BaseController {
   void onInit() {
     super.onInit();
     productID = Get.arguments['productID'];
+    title.value = Get.arguments['title'];
     findWorkInfo(productID: productID);
     startTime = (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString();
   }

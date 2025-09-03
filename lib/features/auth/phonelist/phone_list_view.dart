@@ -37,18 +37,20 @@ class PhoneListView extends GetView<PhoneListController> {
                 Column(
                   children: [
                     SafeArea(
-                      child: AppHeadView(
-                        title: 'Emergency Contact',
-                        onTap: () async {
-                          Get.until((route) {
-                            final currentRoute = route.settings.name
-                                ?.split('?')
-                                .first;
-                            return currentRoute == ShineAppRouter.authList;
-                          });
-                          await cerVc.initAuthListInfo(controller.productID);
-                        },
-                      ),
+                      child: Obx(() {
+                        return AppHeadView(
+                          title: controller.title.value,
+                          onTap: () async {
+                            Get.until((route) {
+                              final currentRoute = route.settings.name
+                                  ?.split('?')
+                                  .first;
+                              return currentRoute == ShineAppRouter.authList;
+                            });
+                            await cerVc.initAuthListInfo(controller.productID);
+                          },
+                        );
+                      }),
                     ),
                     ProgressListView(pix: 0.8),
                     SizedBox(height: 16.sp),

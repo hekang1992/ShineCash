@@ -75,6 +75,7 @@ class CertificationListView extends GetView<CertificationListController> {
                             final homeVc = Get.find<HomeController>();
                             final sitting = model.sitting ?? '';
                             final listening = model.listening ?? 0;
+                            final title = model.acquainted ?? '';
                             if (listening == 1) {
                               if (sitting != 'desertion') {
                                 homeVc.pushToPage(
@@ -82,6 +83,7 @@ class CertificationListView extends GetView<CertificationListController> {
                                   productID: controller.productID,
                                   type: '1',
                                   cautiously: '',
+                                  title: title,
                                 );
                               } else {
                                 final cautiously = model.cautiously ?? '';

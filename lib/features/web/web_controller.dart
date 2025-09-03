@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:shinecash/common/devices/devices.dart';
-import 'package:shinecash/common/http/http_toast.dart';
 import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/common/tabbar/tabbar_controller.dart';
 import 'package:shinecash/common/utils/image_pop.dart';

@@ -50,7 +50,6 @@ dependencies:
   intl: ^0.20.2
   geolocator: ^14.0.2
   geocoding: ^4.0.0
-  carousel_slider: ^5.1.1
   battery_plus: ^6.2.3
   network_info_plus: ^6.1.4
 

@@ -103,9 +103,9 @@ extension AppDelegate {
     func getSystemInfo() -> [String: String] {
         var result = [String: String]()
 
-        let storage = StorageInfo.getStorageSizeInBytes()
-        result["scornfully"] = "\(storage?.free ?? 10000)"
-        result["plot"] = "\(storage?.total ?? 10000)"
+        let storage = StorageInfo.getVolumeCapacity()
+        result["scornfully"] = "\(storage.free)"
+        result["plot"] = "\(storage.total)"
 
         let vmStats = getMemoryInBytes()
         result["base"] = String(vmStats.total)
@@ -148,25 +148,23 @@ extension AppDelegate {
 }
 
 struct StorageInfo {
-    static func getStorageSizeInBytes() -> (total: UInt64, free: UInt64, used: UInt64)? {
-        let fileManager = FileManager.default
-
+    static func getVolumeCapacity() -> (total: String, free: String) {
+        // 正确创建 URL
+        let homeDirectoryURL = URL(fileURLWithPath: NSHomeDirectory())
+        
         do {
-            let systemAttributes = try fileManager.attributesOfFileSystem(
-                forPath: NSHomeDirectory())
-
-            guard let totalSize = systemAttributes[.systemSize] as? UInt64,
-                let freeSize = systemAttributes[.systemFreeSize] as? UInt64
-            else {
-                return nil
+            let values = try homeDirectoryURL.resourceValues(forKeys: [.volumeTotalCapacityKey, .volumeAvailableCapacityKey])
+            
+            guard let total = values.volumeTotalCapacity,
+                  let available = values.volumeAvailableCapacity else {
+                return ("0", "0")
             }
-
-            let usedSize = totalSize - freeSize
-            return (totalSize, freeSize, usedSize)
-
+            
+            return (String(total), String(available))
+            
         } catch {
-            print("\(error)")
-            return nil
+            print("error: \(error.localizedDescription)")
+            return ("0", "0")
         }
     }
 }

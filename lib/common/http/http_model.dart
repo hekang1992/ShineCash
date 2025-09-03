@@ -354,15 +354,24 @@ class DiedModel {
 class AllowModel {
   String? sitting;
   String? cautiously;
+  String? acquainted;
 
-  AllowModel({this.sitting, this.cautiously});
+  AllowModel({this.sitting, this.cautiously, this.acquainted});
 
   factory AllowModel.fromJson(Map<String, dynamic> json) {
-    return AllowModel(sitting: json['sitting'], cautiously: json['cautiously']);
+    return AllowModel(
+      sitting: json['sitting'],
+      cautiously: json['cautiously'],
+      acquainted: json['acquainted'],
+    );
   }
 
   Map<String, dynamic> toJson() {
-    return {'sitting': sitting, 'cautiously': cautiously};
+    return {
+      'sitting': sitting,
+      'cautiously': cautiously,
+      'acquainted': acquainted,
+    };
   }
 }
 
