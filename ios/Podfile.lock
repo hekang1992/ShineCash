@@ -9,6 +9,8 @@ PODS:
     - Flutter
   - device_info_plus (0.0.1):
     - Flutter
+  - disk_space (0.0.1):
+    - Flutter
   - FBAEMKit (18.0.0):
     - FBSDKCoreKit_Basics (= 18.0.0)
   - FBSDKCoreKit (18.0.0):
@@ -42,6 +44,7 @@ DEPENDENCIES:
   - battery_plus (from `.symlinks/plugins/battery_plus/ios`)
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
+  - disk_space (from `.symlinks/plugins/disk_space/ios`)
   - FBSDKCoreKit
   - Flutter (from `Flutter`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
@@ -70,6 +73,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/connectivity_plus/ios"
   device_info_plus:
     :path: ".symlinks/plugins/device_info_plus/ios"
+  disk_space:
+    :path: ".symlinks/plugins/disk_space/ios"
   Flutter:
     :path: Flutter
   flutter_secure_storage:
@@ -95,6 +100,7 @@ SPEC CHECKSUMS:
   battery_plus: b42253f6d2dde71712f8c36fef456d99121c5977
   connectivity_plus: cb623214f4e1f6ef8fe7403d580fdad517d2f7dd
   device_info_plus: 21fcca2080fbcd348be798aa36c3e5ed849eefbe
+  disk_space: ccb69269e2be924154eca27eb36803f72d4772fb
   FBAEMKit: e34530df538b8eb8aeb53c35867715ba6c63ef0c
   FBSDKCoreKit: d3f479a69127acebb1c6aad91c1a33907bcf6c2f
   FBSDKCoreKit_Basics: 017b6dc2a1862024815a8229e75661e627ac1e29

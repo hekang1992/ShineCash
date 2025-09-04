@@ -103,10 +103,6 @@ extension AppDelegate {
     func getSystemInfo() -> [String: String] {
         var result = [String: String]()
 
-        let storage = StorageInfo.getVolumeCapacity()
-        result["scornfully"] = "\(storage.free)"
-        result["plot"] = "\(storage.total)"
-
         let vmStats = getMemoryInBytes()
         result["base"] = String(vmStats.total)
         result["spirit"] = String(vmStats.free)
@@ -147,24 +143,3 @@ extension AppDelegate {
 
 }
 
-struct StorageInfo {
-    static func getVolumeCapacity() -> (total: String, free: String) {
-        // 正确创建 URL
-        let homeDirectoryURL = URL(fileURLWithPath: NSHomeDirectory())
-        
-        do {
-            let values = try homeDirectoryURL.resourceValues(forKeys: [.volumeTotalCapacityKey, .volumeAvailableCapacityKey])
-            
-            guard let total = values.volumeTotalCapacity,
-                  let available = values.volumeAvailableCapacity else {
-                return ("0", "0")
-            }
-            
-            return (String(total), String(available))
-            
-        } catch {
-            print("error: \(error.localizedDescription)")
-            return ("0", "0")
-        }
-    }
-}

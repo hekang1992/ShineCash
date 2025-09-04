@@ -21,13 +21,13 @@ class CameraManager: NSObject, UIImagePickerControllerDelegate, UINavigationCont
                     if granted {
                         self.openCamera(from: viewController, type: type)
                     } else {
-                        self.showSettingsAlert(from: viewController, message: "请在“设置”中开启相机权限")
+                        self.showSettingsAlert(from: viewController, message: "Please enable camera permissions in \("Settings").")
                         completion(nil)
                     }
                 }
             }
         case .restricted, .denied:
-            self.showSettingsAlert(from: viewController, message: "请在“设置”中开启相机权限")
+            self.showSettingsAlert(from: viewController, message: "Please enable camera permissions in \("Settings").")
             completion(nil)
         case .authorized:
             self.openCamera(from: viewController, type: type)
@@ -88,11 +88,11 @@ class CameraManager: NSObject, UIImagePickerControllerDelegate, UINavigationCont
     }
 
     private func showSettingsAlert(from vc: UIViewController, message: String) {
-        let alert = UIAlertController(title: "权限被拒绝", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        let alert = UIAlertController(title: "Permission denied", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(
             UIAlertAction(
-                title: "去设置", style: .default,
+                title: "Settings", style: .default,
                 handler: { _ in
                     if let url = URL(string: UIApplication.openSettingsURLString) {
                         UIApplication.shared.open(url)

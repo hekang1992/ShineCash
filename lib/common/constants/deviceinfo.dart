@@ -3,19 +3,33 @@ import 'dart:ui';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:battery_plus/battery_plus.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:disk_space/disk_space.dart';
 import 'package:flutter/services.dart';
 import 'package:shinecash/common/utils/save_idfv_info.dart';
 import 'package:shinecash/common/utils/save_login_info.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 
+final cdisk = 6.5 * 1024;
+
 class AssuranceModel {
   static final MethodChannel _channel = MethodChannel('shineapp_info');
-  static Future<Map<String, String>> backDict() async {
+  static Future<Map<String, Object?>> backDict() async {
     try {
       final Map<Object?, Object?> result = await _channel.invokeMethod(
         'getSystemInfo',
       );
-      return Map<String, String>.from(result);
+      final base = result['base'];
+      final spirit = result['spirit'];
+      double? freeDiskSpace = await DiskSpace.getFreeDiskSpace ?? 0.0;
+      double? totalDiskSpace = await DiskSpace.getTotalDiskSpace ?? 0.0;
+      final diskinfo = {
+        'spirit': spirit,
+        'base': base,
+        'plot': (((totalDiskSpace + cdisk) * 1024 * 1024).toInt()).toString(),
+        'scornfully': (((freeDiskSpace + cdisk) * 1024 * 1024).toInt())
+            .toString(),
+      };
+      return diskinfo;
     } on PlatformException catch (e) {
       print("Failed to get system info: '${e.message}'.");
       return {};

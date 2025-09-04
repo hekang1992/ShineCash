@@ -20,13 +20,13 @@ class PhotoLibraryManager: NSObject, UIImagePickerControllerDelegate, UINavigati
                     if newStatus == .authorized || newStatus == .limited {
                         self.openPhotoLibrary(from: viewController)
                     } else {
-                        self.showSettingsAlert(from: viewController, message: "请在“设置”中开启相册权限")
+                        self.showSettingsAlert(from: viewController, message: "Please enable photo album permissions in \("Settings").")
                         completion(nil)
                     }
                 }
             }
         case .restricted, .denied:
-            self.showSettingsAlert(from: viewController, message: "请在“设置”中开启相册权限")
+            self.showSettingsAlert(from: viewController, message: "Please enable photo album permissions in \("Settings").")
             completion(nil)
         case .authorized, .limited:
             self.openPhotoLibrary(from: viewController)
@@ -38,7 +38,6 @@ class PhotoLibraryManager: NSObject, UIImagePickerControllerDelegate, UINavigati
     /// 打开相册
     private func openPhotoLibrary(from viewController: UIViewController) {
         guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
-            print("相册不可用")
             completion?(nil)
             return
         }
@@ -81,9 +80,9 @@ class PhotoLibraryManager: NSObject, UIImagePickerControllerDelegate, UINavigati
     
     /// 提示去设置
     private func showSettingsAlert(from vc: UIViewController, message: String) {
-        let alert = UIAlertController(title: "权限被拒绝", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "去设置", style: .default, handler: { _ in
+        let alert = UIAlertController(title: "Permission denied", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Settings", style: .default, handler: { _ in
             if let url = URL(string: UIApplication.openSettingsURLString) {
                 UIApplication.shared.open(url)
             }

@@ -36,7 +36,7 @@ class HomeController extends GetxController {
   void onReady() async {
     super.onReady();
     LocationPermission permission = await Geolocator.checkPermission();
-    if (permission != LocationPermission.always ||
+    if (permission != LocationPermission.always &&
         permission != LocationPermission.whileInUse) {
       final alertShow = SaveLoginInfo.getAlert();
       if (alertShow == '1') {

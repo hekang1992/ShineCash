@@ -114,14 +114,14 @@ public class ContactHandler: NSObject, CNContactPickerDelegate {
     private func showPermissionAlert() {
         DispatchQueue.main.async {
             let alert = UIAlertController(
-                title: "需要通讯录权限",
-                message: "请前往 设置 > 隐私 > 通讯录 打开权限",
+                title: "Permission denied",
+                message: "Please go to settings to enable the permission.",
                 preferredStyle: .alert
             )
-            alert.addAction(UIAlertAction(title: "取消", style: .cancel))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             alert.addAction(
                 UIAlertAction(
-                    title: "去设置", style: .default,
+                    title: "Settings", style: .default,
                     handler: { _ in
                         if let url = URL(string: UIApplication.openSettingsURLString) {
                             UIApplication.shared.open(url)

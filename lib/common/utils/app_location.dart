@@ -87,10 +87,10 @@ class LocationAlert {
           children: [
             Icon(Icons.location_off, color: Colors.orange),
             SizedBox(width: 10),
-            Text('location_error'.tr),
+            Text('Permission denied'.tr),
           ],
         ),
-        content: Text('location_permission_denied_message'.tr),
+        content: Text('Please go to settings to enable the permission.'.tr),
         actions: [
           TextButton(
             onPressed: () {
