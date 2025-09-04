@@ -74,9 +74,9 @@ extension SplashVc on SplashController {
   }
 
   initThreeInfo() async {
+    await initLoginInfo();
     await uploadlocation();
     await uploaddeviceInfo();
-    await initLoginInfo();
   }
 
   Future<void> uploadlocation() async {
@@ -88,6 +88,7 @@ extension SplashVc on SplashController {
         print('position================position');
       }
     } catch (e) {
+      print('object=============$e');
     } finally {}
   }
 
