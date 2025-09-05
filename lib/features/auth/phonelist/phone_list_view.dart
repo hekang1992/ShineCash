@@ -9,6 +9,7 @@ import 'package:shinecash/common/utils/image_pop.dart';
 import 'package:shinecash/features/apphead/app_head_view.dart';
 import 'package:shinecash/features/auth/certificationlist/app_common_footer_view.dart';
 import 'package:shinecash/features/auth/certificationlist/certification_list_controller.dart';
+import 'package:shinecash/features/auth/certificationlist/leave_view.dart';
 import 'package:shinecash/features/auth/imageface/progress_list_view.dart';
 import 'package:shinecash/features/auth/phonelist/phone_cell_view.dart';
 import 'package:shinecash/features/auth/phonelist/phone_enum_list.dart';
@@ -41,13 +42,25 @@ class PhoneListView extends GetView<PhoneListController> {
                         return AppHeadView(
                           title: controller.title.value,
                           onTap: () async {
-                            Get.until((route) {
-                              final currentRoute = route.settings.name
-                                  ?.split('?')
-                                  .first;
-                              return currentRoute == ShineAppRouter.authList;
-                            });
-                            await cerVc.initAuthListInfo(controller.productID);
+                            Get.dialog(
+                              Container(
+                                color: Colors.transparent,
+                                child: LeaveView(
+                                  onTap: () async {
+                                    Get.until((route) {
+                                      final currentRoute = route.settings.name
+                                          ?.split('?')
+                                          .first;
+                                      return currentRoute ==
+                                          ShineAppRouter.authList;
+                                    });
+                                    await cerVc.initAuthListInfo(
+                                      controller.productID,
+                                    );
+                                  },
+                                ),
+                              ),
+                            );
                           },
                         );
                       }),

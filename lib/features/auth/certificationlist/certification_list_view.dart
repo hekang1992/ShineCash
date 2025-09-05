@@ -9,6 +9,7 @@ import 'package:shinecash/features/auth/certificationlist/app_common_footer_view
 import 'package:shinecash/features/auth/certificationlist/cer_head_view.dart';
 import 'package:shinecash/features/auth/certificationlist/cer_list_view.dart';
 import 'package:shinecash/features/auth/certificationlist/certification_list_controller.dart';
+import 'package:shinecash/features/auth/certificationlist/leave_view.dart';
 import 'package:shinecash/features/home/home_controller.dart';
 import 'package:shinecash/features/order/order_controller.dart';
 
@@ -33,14 +34,24 @@ class CertificationListView extends GetView<CertificationListController> {
                   return AppHeadView(
                     title: model.expect?.egyptian?.correspondent ?? '',
                     onTap: () {
-                      Get.back(result: {'type': 'order_list'});
-                      FindHomeVc.getHomeVc();
-                      if (Get.isRegistered<OrderController>()) {
-                        final orderVc = Get.find<OrderController>();
-                        orderVc.makeChage(
-                          changeIndex: orderVc.currentIndex.value,
-                        );
-                      }
+                      Get.dialog(
+                        Container(
+                          color: Colors.transparent,
+                          child: LeaveView(
+                            onTap: () async {
+                              Get.back();
+                              Get.back(result: {'type': 'order_list'});
+                              FindHomeVc.getHomeVc();
+                              if (Get.isRegistered<OrderController>()) {
+                                final orderVc = Get.find<OrderController>();
+                                orderVc.makeChage(
+                                  changeIndex: orderVc.currentIndex.value,
+                                );
+                              }
+                            },
+                          ),
+                        ),
+                      );
                     },
                   );
                 }),

@@ -7,6 +7,7 @@ import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/features/apphead/app_head_view.dart';
 import 'package:shinecash/features/auth/certificationlist/app_common_footer_view.dart';
 import 'package:shinecash/features/auth/certificationlist/certification_list_controller.dart';
+import 'package:shinecash/features/auth/certificationlist/leave_view.dart';
 import 'package:shinecash/features/auth/imageface/progress_list_view.dart';
 import 'package:shinecash/features/auth/personalinfo/auth_one_enum_view.dart';
 import 'package:shinecash/features/auth/personalinfo/input_click_view.dart';
@@ -40,13 +41,25 @@ class WorkinfoView extends GetView<WorkinfoController> {
                         return AppHeadView(
                           title: controller.title.value,
                           onTap: () async {
-                            Get.until((route) {
-                              final currentRoute = route.settings.name
-                                  ?.split('?')
-                                  .first;
-                              return currentRoute == ShineAppRouter.authList;
-                            });
-                            await cerVc.initAuthListInfo(controller.productID);
+                            Get.dialog(
+                              Container(
+                                color: Colors.transparent,
+                                child: LeaveView(
+                                  onTap: () async {
+                                    Get.until((route) {
+                                      final currentRoute = route.settings.name
+                                          ?.split('?')
+                                          .first;
+                                      return currentRoute ==
+                                          ShineAppRouter.authList;
+                                    });
+                                    await cerVc.initAuthListInfo(
+                                      controller.productID,
+                                    );
+                                  },
+                                ),
+                              ),
+                            );
                           },
                         );
                       }),

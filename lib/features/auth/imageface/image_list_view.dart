@@ -7,6 +7,7 @@ import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/features/apphead/app_head_view.dart';
 import 'package:shinecash/features/auth/certificationlist/app_common_footer_view.dart';
 import 'package:shinecash/features/auth/certificationlist/certification_list_controller.dart';
+import 'package:shinecash/features/auth/certificationlist/leave_view.dart';
 import 'package:shinecash/features/auth/imageface/image_list_controller.dart';
 import 'package:shinecash/features/auth/imageface/progress_list_view.dart';
 
@@ -36,19 +37,31 @@ class ImageListView extends GetView<ImageListController> {
                       return AppHeadView(
                         title: 'Identity Authentication',
                         onTap: () async {
-                          if (imageStr.isEmpty) {
-                            Get.back(result: 'refresh');
-                          } else {
-                            Get.until((route) {
-                              final currentRoute = route.settings.name
-                                  ?.split('?')
-                                  .first;
-                              return currentRoute == ShineAppRouter.authList;
-                            });
-                            final cerVc =
-                                Get.find<CertificationListController>();
-                            await cerVc.initAuthListInfo(dict['productID']);
-                          }
+                          Get.dialog(
+                            Container(
+                              color: Colors.transparent,
+                              child: LeaveView(
+                                onTap: () async {
+                                  if (imageStr.isEmpty) {
+                                    Get.back(result: 'refresh');
+                                  } else {
+                                    Get.until((route) {
+                                      final currentRoute = route.settings.name
+                                          ?.split('?')
+                                          .first;
+                                      return currentRoute ==
+                                          ShineAppRouter.authList;
+                                    });
+                                    final cerVc =
+                                        Get.find<CertificationListController>();
+                                    await cerVc.initAuthListInfo(
+                                      dict['productID'],
+                                    );
+                                  }
+                                },
+                              ),
+                            ),
+                          );
                         },
                       );
                     }),
