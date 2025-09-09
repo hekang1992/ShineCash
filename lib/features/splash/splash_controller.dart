@@ -62,8 +62,8 @@ extension SplashVc on SplashController {
       SaveLoginInfo.saveNetwork('None');
       netStatus.value = 'None';
     } else if (result == ConnectivityResult.mobile) {
-      SaveLoginInfo.saveNetwork('4G/5G');
-      netStatus.value = '4G/5G';
+      SaveLoginInfo.saveNetwork('5G');
+      netStatus.value = '5G';
     } else if (result == ConnectivityResult.wifi) {
       SaveLoginInfo.saveNetwork('WIFI');
       netStatus.value = 'WIFI';
@@ -137,6 +137,12 @@ extension SplashVc on SplashController {
         }
         print('initLoginInfo================initLoginInfo');
       }
-    } catch (e) {}
+    } catch (e) {
+      if (SaveLoginInfo.isLogin()) {
+        Get.offAllNamed(ShineAppRouter.tab);
+      } else {
+        Get.offAllNamed(ShineAppRouter.login);
+      }
+    }
   }
 }

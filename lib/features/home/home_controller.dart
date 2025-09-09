@@ -3,6 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
 import 'package:shinecash/common/constants/deviceinfo.dart';
+import 'package:shinecash/common/devices/devices.dart';
 import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/common/http/http_request.dart';
 import 'package:shinecash/common/http/http_toast.dart';
@@ -111,6 +112,10 @@ extension HomeVc on HomeController {
           final pageUrl = await ApiUrlManager.getApiUrl(cautiously);
           Get.toNamed(ShineAppRouter.web, arguments: {'pageUrl': pageUrl});
         }
+      } else if (model.beautiful == '-2') {
+        SaveLoginInfo.clearAll();
+        Get.offAllNamed(ShineAppRouter.splash);
+        ToastManager.showToast(model.captive ?? '');
       } else {
         ToastManager.showToast(model.captive ?? '');
       }
@@ -259,6 +264,12 @@ extension HomeVc on HomeController {
       final response = await http.post('/wzcnrht/ever', formData: dict);
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
+        await PointTouchChannel.upLoadPoint(
+          step: '9',
+          startTime: (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString(),
+          endTime: (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString(),
+          orderID: attire,
+        );
         orderInfoModel.value = model;
         final cautiously = model.expect?.cautiously ?? '';
         final pageUrl = await ApiUrlManager.getApiUrl(cautiously);

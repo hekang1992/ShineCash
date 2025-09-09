@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/common/http/http_request.dart';
 import 'package:shinecash/common/http/http_toast.dart';
+import 'package:shinecash/common/routers/shine_router.dart';
+import 'package:shinecash/common/utils/save_login_info.dart';
 
 class OrderController extends GetxController {
   var currentIndex = 0.obs;
@@ -43,6 +45,12 @@ extension OrderVc on OrderController {
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
         this.model.value = model;
+      } else if (model.beautiful == '-2') {
+        SaveLoginInfo.clearAll();
+        Get.offAllNamed(ShineAppRouter.splash);
+        ToastManager.showToast(model.captive ?? '');
+      } else {
+        ToastManager.showToast(model.captive ?? '');
       }
       ToastManager.hideLoading();
     } catch (e) {

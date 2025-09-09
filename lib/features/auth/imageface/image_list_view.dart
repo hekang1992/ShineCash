@@ -43,6 +43,7 @@ class ImageListView extends GetView<ImageListController> {
                               child: LeaveView(
                                 onTap: () async {
                                   if (imageStr.isEmpty) {
+                                    Get.back();
                                     Get.back(result: 'refresh');
                                   } else {
                                     Get.until((route) {

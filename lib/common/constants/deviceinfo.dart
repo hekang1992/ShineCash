@@ -9,7 +9,7 @@ import 'package:shinecash/common/utils/save_idfv_info.dart';
 import 'package:shinecash/common/utils/save_login_info.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 
-final cdisk = 6.5 * 1024;
+// final cdisk = 6.5 * 1024;
 
 class AssuranceModel {
   static final MethodChannel _channel = MethodChannel('shineapp_info');
@@ -25,9 +25,8 @@ class AssuranceModel {
       final diskinfo = {
         'spirit': spirit,
         'base': base,
-        'plot': (((totalDiskSpace + cdisk) * 1024 * 1024).toInt()).toString(),
-        'scornfully': (((freeDiskSpace + cdisk) * 1024 * 1024).toInt())
-            .toString(),
+        'plot': (((totalDiskSpace) * 1024 * 1024).toInt()).toString(),
+        'scornfully': (((freeDiskSpace) * 1024 * 1024).toInt()).toString(),
       };
       return diskinfo;
     } on PlatformException catch (e) {

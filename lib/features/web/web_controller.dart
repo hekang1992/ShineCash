@@ -72,14 +72,7 @@ class WebController extends GetxController {
         'lived',
         onMessageReceived: (_) async {
           isLoan = true;
-          await PointTouchChannel.upLoadPoint(
-            step: '9',
-            startTime: (DateTime.now().millisecondsSinceEpoch ~/ 1000)
-                .toString(),
-            endTime: (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString(),
-            orderID: orderID,
-          );
-          Future.delayed(Duration(milliseconds: 500));
+          await Future.delayed(Duration(milliseconds: 500));
           await PointTouchChannel.upLoadPoint(
             step: '10',
             startTime: (DateTime.now().millisecondsSinceEpoch ~/ 1000)
