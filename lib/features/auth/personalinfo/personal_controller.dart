@@ -8,7 +8,7 @@ import 'package:shinecash/common/devices/devices.dart';
 import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/common/http/http_request.dart';
 import 'package:shinecash/common/http/http_toast.dart';
-import 'package:shinecash/features/base_controller.dart';
+import 'package:shinecash/features/web/base_controller.dart';
 import 'package:shinecash/features/home/home_controller.dart';
 
 class PersonalController extends BaseController {
@@ -38,7 +38,7 @@ extension PersonalVc on PersonalController {
       ToastManager.showLoading();
       final http = ShineHttpRequest();
       Map<String, dynamic> dict = {'nodded': productID};
-      final response = await http.post('/wzcnrht/fair', formData: dict);
+      final response = await http.post('wzcnrht/fair', formData: dict);
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
         this.model.value = model;
@@ -138,7 +138,7 @@ extension PersonalVc on PersonalController {
     try {
       ToastManager.showLoading();
       final http = ShineHttpRequest();
-      final response = await http.post('/wzcnrht/note', formData: dict);
+      final response = await http.post('wzcnrht/note', formData: dict);
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
         final homeVc = Get.find<HomeController>();

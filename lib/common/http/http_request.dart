@@ -3,28 +3,39 @@ import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:shinecash/common/constants/constant.dart';
-
-const String websiteUrl = 'http://47.84.60.25:8520';
-const String apiUrl = '$websiteUrl/iukws';
+import 'package:shinecash/common/utils/save_login_info.dart';
 
 class ShineHttpRequest {
   static final ShineHttpRequest _instance = ShineHttpRequest._internal();
-
   factory ShineHttpRequest() => _instance;
 
-  late final Dio _dio;
+  late Dio _dio;
+  bool _isInitialized = false;
+
+  // 动态获取 API URL
+  String get _apiUrl {
+    String dynamicUrl = SaveLoginInfo.getApiUrl() ?? '';
+    return dynamicUrl.isEmpty
+        ? 'https://sclt.lynxlogic-tech.com/iukws/'
+        : dynamicUrl;
+  }
 
   ShineHttpRequest._internal() {
+    _initDio();
+  }
+
+  // 初始化 Dio 实例
+  void _initDio() {
     _dio = Dio(
       BaseOptions(
-        baseUrl: apiUrl,
+        baseUrl: _apiUrl,
         connectTimeout: Duration(seconds: 30),
         receiveTimeout: Duration(seconds: 30),
         headers: {'Content-Type': 'application/json'},
       ),
     );
 
-    // 添加日志拦截器，方便调试
+    // 添加日志拦截器
     _dio.interceptors.add(
       LogInterceptor(
         request: true,
@@ -38,13 +49,20 @@ class ShineHttpRequest {
     );
 
     // _configureProxy();
+    _isInitialized = true;
+
+    print('Dio 初始化完成，baseUrl: $_apiUrl');
+  }
+
+  // 刷新 Dio 实例（在域名更新后调用）
+  void refreshDio() {
+    print('刷新 Dio 实例，新的 baseUrl: $_apiUrl');
+    _initDio();
   }
 
   // 配置代理
-  _configureProxy() {
-    // String proxyIP = '10.1.1.67';
-    String proxyIP = '192.168.71.45';
-    // String proxyIP = '192.168.0.70';
+  void _configureProxy() {
+    String proxyIP = '192.168.71.48';
     String proxyPort = "8888";
 
     if (proxyIP.isNotEmpty) {
@@ -60,13 +78,17 @@ class ShineHttpRequest {
     }
   }
 
-  /// GET请求, 参数可选
+  /// GET请求
   Future<Response> get(
     String path, {
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
   }) async {
+    if (!_isInitialized) {
+      _initDio();
+    }
+
     final resolvedUrl = await ApiUrlManager.getApiUrl(path) ?? '';
     return await _dio.get(
       resolvedUrl,
@@ -76,7 +98,7 @@ class ShineHttpRequest {
     );
   }
 
-  /// POST请求, 参数可选, 支持json和表单
+  /// POST请求
   Future<Response> post(
     String path, {
     dynamic formData,
@@ -84,6 +106,10 @@ class ShineHttpRequest {
     Options? options,
     CancelToken? cancelToken,
   }) async {
+    if (!_isInitialized) {
+      _initDio();
+    }
+
     final resolvedUrl = await ApiUrlManager.getApiUrl(path) ?? '';
     final form = FormData.fromMap(formData);
     return await _dio.post(
@@ -95,7 +121,7 @@ class ShineHttpRequest {
     );
   }
 
-  // 上传单张图片, 可选参数
+  // 上传单张图片
   Future<Response> uploadImage(
     String path, {
     required Uint8List originalData,
@@ -106,9 +132,10 @@ class ShineHttpRequest {
     int minWidth = 850,
     int minHeight = 850,
   }) async {
-    // Read and compress the image first
+    if (!_isInitialized) {
+      _initDio();
+    }
 
-    // Create form data
     FormData formData = FormData.fromMap({
       fileField: MultipartFile.fromBytes(
         originalData,
@@ -117,6 +144,7 @@ class ShineHttpRequest {
       ),
       ...?extraData,
     });
+
     final resolvedUrl = await ApiUrlManager.getApiUrl(path) ?? '';
     return await _dio.post(
       resolvedUrl,
@@ -125,6 +153,9 @@ class ShineHttpRequest {
       cancelToken: cancelToken,
     );
   }
+
+  // 获取当前 baseUrl（用于调试）
+  String get currentBaseUrl => _dio.options.baseUrl;
 }
 
 /// 获取实际请求的api地址

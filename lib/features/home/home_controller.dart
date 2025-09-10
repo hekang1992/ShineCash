@@ -64,7 +64,7 @@ extension HomeVc on HomeController {
     try {
       ToastManager.showLoading();
       final http = ShineHttpRequest();
-      final response = await http.get('/wzcnrht/crowned');
+      final response = await http.get('wzcnrht/crowned');
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
         this.model.value = model;
@@ -79,7 +79,7 @@ extension HomeVc on HomeController {
     try {
       ToastManager.showLoading();
       final http = ShineHttpRequest();
-      final response = await http.get('/wzcnrht/finished');
+      final response = await http.get('wzcnrht/finished');
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
         citylistModel.value = model;
@@ -96,7 +96,7 @@ extension HomeVc on HomeController {
       ToastManager.showLoading();
       final http = ShineHttpRequest();
       final dict = {'nodded': productID};
-      final response = await http.post('/wzcnrht/kneel', formData: dict);
+      final response = await http.post('wzcnrht/kneel', formData: dict);
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
         applyModel.value = model;
@@ -135,7 +135,7 @@ extension HomeVc on HomeController {
       ToastManager.showLoading();
       final http = ShineHttpRequest();
       final dict = {'nodded': productID};
-      final response = await http.post('/wzcnrht/before', formData: dict);
+      final response = await http.post('wzcnrht/before', formData: dict);
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
         detailModel.value = model;
@@ -172,7 +172,7 @@ extension HomeVc on HomeController {
       ToastManager.showLoading();
       final http = ShineHttpRequest();
       final dict = {'nodded': productID};
-      final response = await http.post('/wzcnrht/enemy', formData: dict);
+      final response = await http.post('wzcnrht/enemy', formData: dict);
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
         authlistModel.value = model;
@@ -261,7 +261,7 @@ extension HomeVc on HomeController {
         'having': having,
         'proud': proud,
       };
-      final response = await http.post('/wzcnrht/ever', formData: dict);
+      final response = await http.post('wzcnrht/ever', formData: dict);
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
         await PointTouchChannel.upLoadPoint(
@@ -289,7 +289,7 @@ extension HomeVc on HomeController {
       final position = await AppLocation.getDetailedLocation();
       if (position['usual'] != 0.0 && position['pays'] != 0.0) {
         final http = ShineHttpRequest();
-        final _ = await http.post('/wzcnrht/supposes', formData: position);
+        final _ = await http.post('wzcnrht/supposes', formData: position);
       }
     } catch (e) {
     } finally {}
@@ -302,7 +302,7 @@ extension HomeVc on HomeController {
       print('deviceJsonStr---------${jsonEncode(deviceInfoDict)}');
       final http = ShineHttpRequest();
       final dict = {'expect': deviceJsonStr};
-      final _ = await http.post('/wzcnrht/concealment', formData: dict);
+      final _ = await http.post('wzcnrht/concealment', formData: dict);
     } catch (e) {}
   }
 }

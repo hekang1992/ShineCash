@@ -64,7 +64,7 @@ class PointTouchChannel {
     };
     try {
       final http = ShineHttpRequest();
-      final _ = http.post('/wzcnrht/supper', formData: dict);
+      final _ = http.post('wzcnrht/supper', formData: dict);
     } catch (e) {}
   }
 }

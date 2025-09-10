@@ -134,7 +134,7 @@ extension LoginVc on LoginController {
       ToastManager.showLoading();
       final http = ShineHttpRequest();
       final respose = await http.post(
-        '/wzcnrht/beautiful',
+        'wzcnrht/beautiful',
         formData: {'satisfactory': phone, 'doesn': code},
       );
       final model = BaseModel.fromJson(respose.data);

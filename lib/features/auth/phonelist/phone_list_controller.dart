@@ -29,7 +29,7 @@ extension PhoneListVc on PhoneListController {
       ToastManager.showLoading();
       final http = ShineHttpRequest();
       Map<String, dynamic> dict = {'nodded': productID};
-      final response = await http.post('/wzcnrht/crumpled', formData: dict);
+      final response = await http.post('wzcnrht/crumpled', formData: dict);
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
         this.model.value = model;
@@ -44,7 +44,7 @@ extension PhoneListVc on PhoneListController {
     try {
       final http = ShineHttpRequest();
       Map<String, dynamic> dict = {'expect': expect};
-      final response = await http.post('/wzcnrht/later', formData: dict);
+      final response = await http.post('wzcnrht/later', formData: dict);
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {}
     } catch (e) {}
@@ -55,7 +55,7 @@ extension PhoneListVc on PhoneListController {
       ToastManager.showLoading();
       final http = ShineHttpRequest();
       Map<String, dynamic> dict = {'expect': expect, 'nodded': productID};
-      final response = await http.post('/wzcnrht/dirty', formData: dict);
+      final response = await http.post('wzcnrht/dirty', formData: dict);
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
         final homeVc = Get.find<HomeController>();

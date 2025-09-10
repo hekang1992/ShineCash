@@ -107,7 +107,7 @@ Widget _loginView(LoginController controller) {
                   controller.getCode(
                     controller.phoneController.text,
                     type: 'code',
-                    apiUrl: '/wzcnrht/feeling',
+                    apiUrl: 'wzcnrht/feeling',
                   );
                 },
               ),
@@ -128,7 +128,7 @@ Widget _loginView(LoginController controller) {
                 onTap: () {
                   controller.getCode(
                     controller.phoneController.text,
-                    apiUrl: '/wzcnrht/proudly',
+                    apiUrl: 'wzcnrht/proudly',
                   );
                 },
                 child: Image.asset(

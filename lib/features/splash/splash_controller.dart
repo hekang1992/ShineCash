@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:get/get.dart';
+import 'package:dio/dio.dart';
+import 'package:get/get.dart' hide Response;
 import 'package:shinecash/common/constants/deviceinfo.dart';
 import 'package:shinecash/common/devices/devices.dart';
 import 'package:shinecash/common/http/http_model.dart';
@@ -84,7 +85,7 @@ extension SplashVc on SplashController {
       final position = await AppLocation.getDetailedLocation();
       if (position['usual'] != 0.0 && position['pays'] != 0.0) {
         final http = ShineHttpRequest();
-        final _ = await http.post('/wzcnrht/supposes', formData: position);
+        final _ = await http.post('wzcnrht/supposes', formData: position);
         print('position================position');
       }
     } catch (e) {
@@ -98,7 +99,7 @@ extension SplashVc on SplashController {
       final deviceJsonStr = jsonEncode(deviceInfoDict);
       final http = ShineHttpRequest();
       final dict = {'expect': deviceJsonStr};
-      final _ = await http.post('/wzcnrht/concealment', formData: dict);
+      final _ = await http.post('wzcnrht/concealment', formData: dict);
       print('deviceJsonStr================deviceJsonStr');
     } catch (e) {}
   }
@@ -114,7 +115,7 @@ extension SplashVc on SplashController {
         'feeling': feeling,
         'proudly': proudly,
       };
-      final response = await http.post('/wzcnrht/delusion', formData: dict);
+      final response = await http.post('wzcnrht/delusion', formData: dict);
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
         final alert = (model.expect?.driving ?? 0).toString();
@@ -138,11 +139,36 @@ extension SplashVc on SplashController {
         print('initLoginInfo================initLoginInfo');
       }
     } catch (e) {
-      if (SaveLoginInfo.isLogin()) {
-        Get.offAllNamed(ShineAppRouter.tab);
-      } else {
-        Get.offAllNamed(ShineAppRouter.login);
+      fetchData();
+      // if (SaveLoginInfo.isLogin()) {
+      //   Get.offAllNamed(ShineAppRouter.tab);
+      // } else {
+      //   Get.offAllNamed(ShineAppRouter.login);
+      // }
+    }
+  }
+
+  void fetchData() async {
+    Dio dio = Dio();
+    try {
+      Response response = await dio.get(
+        'https://ph4-dc.oss-ap-southeast-1.aliyuncs.com/shine-cash/sclt.json',
+      );
+      if (response.statusCode == 200) {
+        List<dynamic> jsonList = response.data;
+        if (jsonList.isNotEmpty) {
+          Map<String, dynamic> firstItem = jsonList[0];
+          String scUrl = firstItem['sc'];
+          print('获取到的链接: $scUrl');
+          await SaveLoginInfo.saveApiUrl(scUrl);
+          ShineHttpRequest().refreshDio();
+          initThreeInfo();
+        } else {
+          print('返回的数据为空数组');
+        }
       }
+    } on DioException catch (e) {
+      print('请求错误: ${e.message}');
     }
   }
 }

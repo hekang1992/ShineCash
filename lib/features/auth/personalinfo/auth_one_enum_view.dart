@@ -6,7 +6,7 @@ import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/features/auth/personalinfo/personal_controller.dart';
 import 'package:shinecash/features/auth/personalinfo/pop_list_view.dart';
 import 'package:shinecash/features/auth/work/workinfo_controller.dart';
-import 'package:shinecash/features/base_controller.dart';
+import 'package:shinecash/features/web/base_controller.dart';
 import 'package:shinecash/features/login/customer_btn.dart';
 
 class AuthOneEnumView extends StatelessWidget {

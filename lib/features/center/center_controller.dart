@@ -21,7 +21,7 @@ extension CenterVc on CenterController {
     try {
       ToastManager.showLoading();
       final http = ShineHttpRequest();
-      final response = await http.get('/wzcnrht/natural');
+      final response = await http.get('wzcnrht/natural');
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
         this.model.value = model;

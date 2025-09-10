@@ -42,7 +42,7 @@ extension ImageListVc on ImageListController {
       ToastManager.showLoading();
       final http = ShineHttpRequest();
       final dict = {'nodded': productID};
-      final response = await http.post('/wzcnrht/enemy', formData: dict);
+      final response = await http.post('wzcnrht/enemy', formData: dict);
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
         authlistModel.value = model;
@@ -71,7 +71,7 @@ extension ImageListVc on ImageListController {
       final http = ShineHttpRequest();
       final dict = {'read': type, 'many': many, 'ink': ink};
       final response = await http.uploadImage(
-        '/wzcnrht/driving',
+        'wzcnrht/driving',
         originalData: originalData,
         extraData: dict,
       );
@@ -112,7 +112,7 @@ extension ImageListVc on ImageListController {
         'many': many,
         'read': read,
       };
-      final response = await http.post('/wzcnrht/kiss', formData: dict1);
+      final response = await http.post('wzcnrht/kiss', formData: dict1);
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
         Get.back();

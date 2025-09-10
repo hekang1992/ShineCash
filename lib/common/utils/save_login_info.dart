@@ -8,6 +8,7 @@ class SaveLoginInfo {
   static const String _showAlert = 'user_showAlert';
   static const String _kiss = 'user_kiss';
   static const String _deineLoacation = 'user_deineLoacation';
+  static const String _apiurl = 'user_api_url';
 
   static Box? _box;
 
@@ -62,6 +63,14 @@ class SaveLoginInfo {
 
   static String? getLocationTime() {
     return _box?.get(_deineLoacation);
+  }
+
+  static Future<void> saveApiUrl(String url) async {
+    await _box?.put(_apiurl, url);
+  }
+
+  static String? getApiUrl() {
+    return _box?.get(_apiurl);
   }
 
   static bool isLogin() {

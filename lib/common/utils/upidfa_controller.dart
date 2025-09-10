@@ -23,7 +23,7 @@ class UpidfaController extends GetxController {
   Future<void> _postToServer(Map<String, String> dict) async {
     try {
       final http = ShineHttpRequest();
-      final respose = await http.post('/wzcnrht/nonsense', formData: dict);
+      final respose = await http.post('wzcnrht/nonsense', formData: dict);
       print('respose---------${respose.data}');
     } catch (e) {
       print('response-failure: $e');

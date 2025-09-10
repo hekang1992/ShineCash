@@ -41,7 +41,7 @@ extension OrderVc on OrderController {
       ToastManager.showLoading();
       final http = ShineHttpRequest();
       final dict = {'judge': type};
-      final response = await http.post('/wzcnrht/satisfactory', formData: dict);
+      final response = await http.post('wzcnrht/satisfactory', formData: dict);
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
         this.model.value = model;

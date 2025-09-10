@@ -22,7 +22,7 @@ extension SettingVc on SettingController {
     try {
       ToastManager.showLoading();
       final http = ShineHttpRequest();
-      final response = await http.get('/wzcnrht/sent');
+      final response = await http.get('wzcnrht/sent');
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
         SaveLoginInfo.clearAll();

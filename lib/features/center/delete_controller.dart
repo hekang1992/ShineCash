@@ -16,7 +16,7 @@ class DeleteController extends GetxController {
     try {
       ToastManager.showLoading();
       final http = ShineHttpRequest();
-      final response = await http.get('/wzcnrht/ago');
+      final response = await http.get('wzcnrht/ago');
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
         SaveLoginInfo.clearAll();

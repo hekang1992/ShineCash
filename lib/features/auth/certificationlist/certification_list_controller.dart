@@ -23,7 +23,7 @@ extension CertificationlistVc on CertificationListController {
       ToastManager.showLoading();
       final http = ShineHttpRequest();
       final response = await http.post(
-        '/wzcnrht/before',
+        'wzcnrht/before',
         formData: {'nodded': productID},
       );
       final model = BaseModel.fromJson(response.data);
