@@ -9,7 +9,7 @@ class AppLocation {
   static Future<Map<String, dynamic>> getDetailedLocation() async {
     final serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      throw Exception('定位服务未开启');
+      throw Exception('location----error=====');
     }
 
     LocationPermission permission = await Geolocator.checkPermission();

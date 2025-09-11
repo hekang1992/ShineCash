@@ -8,6 +8,7 @@ import 'package:shinecash/common/utils/save_login_info.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SaveLoginInfo.init();
+  await SaveLoginInfo.saveApiUrl('');
   runApp(ShineApp());
 }
 

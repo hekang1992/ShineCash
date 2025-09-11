@@ -10,10 +10,7 @@ import 'package:shinecash/common/utils/save_idfv_info.dart';
 import 'package:shinecash/common/utils/save_login_info.dart';
 
 class LoginController extends GetxController {
-  /// idfa轮询
   Timer? _timer;
-
-  /// 获取验证码
   Timer? _codetimer;
 
   final TextEditingController phoneController = TextEditingController();
@@ -49,12 +46,10 @@ class LoginController extends GetxController {
 }
 
 extension LoginVc on LoginController {
-  /// 改边状态
   void changeType(bool grand) {
     isclickAgreement.value = grand;
   }
 
-  /// 点击获取验证码
   void getCode(String phone, {String? type, required String apiUrl}) async {
     startTime = (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString();
     if (phone.isEmpty) {
@@ -96,7 +91,6 @@ extension LoginVc on LoginController {
     });
   }
 
-  /// idfa轮询
   void startPolling() {
     fetchData();
 
@@ -109,13 +103,11 @@ extension LoginVc on LoginController {
     await GetIDFVInfo.requestIDFA(this);
   }
 
-  /// 记得在不再需要时取消定时器（如在dispose中）
   void dispose1() {
     _timer?.cancel();
     _timer = null;
   }
 
-  /// 登录
   void toLogin({required String phone, required String code}) async {
     if (phone.isEmpty) {
       ToastManager.showToast('Please enter your phone number.');

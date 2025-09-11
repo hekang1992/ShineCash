@@ -45,7 +45,7 @@ class CerReallistView extends StatelessWidget {
                 return Container(
                   width: 68.w,
                   height: 68.h,
-                  color: const Color.fromARGB(255, 216, 194, 239), // 红色背景
+                  color: const Color.fromARGB(255, 216, 194, 239),
                   child: Icon(
                     Icons.error_outline,
                     color: Colors.white,

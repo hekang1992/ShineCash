@@ -8,7 +8,6 @@ class ImageSuccessListController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     oneVc.text = '';
     twoVc.text = '';

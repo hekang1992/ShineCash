@@ -42,7 +42,7 @@ class OneListView extends StatelessWidget {
           SizedBox(height: 16.h),
           Expanded(
             child: ListView.builder(
-              padding: EdgeInsets.zero, // 移除所有内边距
+              padding: EdgeInsets.zero,
               shrinkWrap: false,
               itemCount: address?.length ?? 0,
               itemBuilder: (context, index) {

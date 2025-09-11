@@ -104,7 +104,6 @@ class HomeView extends GetView<HomeController> {
                           ],
                         );
                       } else {
-                        /// banner
                         Map<String, List<DiedModel>> receivedDict1 = controller
                             .listArray
                             .firstWhere(
@@ -117,7 +116,6 @@ class HomeView extends GetView<HomeController> {
                         List<DiedModel> listModel1 =
                             receivedDict1[actualKey1] ?? [];
 
-                        /// 小咖位
                         Map<String, List<DiedModel>> receivedDict2 = controller
                             .listArray
                             .firstWhere(
@@ -129,7 +127,6 @@ class HomeView extends GetView<HomeController> {
                         List<DiedModel> listModel2 =
                             receivedDict2[actualKey2] ?? [];
 
-                        /// 极速列表
                         Map<String, List<DiedModel>> receivedDict3 = controller
                             .listArray
                             .firstWhere(

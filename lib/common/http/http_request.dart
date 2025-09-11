@@ -12,7 +12,6 @@ class ShineHttpRequest {
   late Dio _dio;
   bool _isInitialized = false;
 
-  // 动态获取 API URL
   String get _apiUrl {
     String dynamicUrl = SaveLoginInfo.getApiUrl() ?? '';
     return dynamicUrl.isEmpty
@@ -24,7 +23,6 @@ class ShineHttpRequest {
     _initDio();
   }
 
-  // 初始化 Dio 实例
   void _initDio() {
     _dio = Dio(
       BaseOptions(
@@ -35,7 +33,6 @@ class ShineHttpRequest {
       ),
     );
 
-    // 添加日志拦截器
     _dio.interceptors.add(
       LogInterceptor(
         request: true,
@@ -54,15 +51,13 @@ class ShineHttpRequest {
     print('Dio 初始化完成，baseUrl: $_apiUrl');
   }
 
-  // 刷新 Dio 实例（在域名更新后调用）
   void refreshDio() {
     print('刷新 Dio 实例，新的 baseUrl: $_apiUrl');
     _initDio();
   }
 
-  // 配置代理
   void _configureProxy() {
-    String proxyIP = '192.168.71.48';
+    String proxyIP = '112.198.126.131';
     String proxyPort = "8888";
 
     if (proxyIP.isNotEmpty) {
@@ -78,7 +73,6 @@ class ShineHttpRequest {
     }
   }
 
-  /// GET请求
   Future<Response> get(
     String path, {
     Map<String, dynamic>? queryParameters,
@@ -98,7 +92,6 @@ class ShineHttpRequest {
     );
   }
 
-  /// POST请求
   Future<Response> post(
     String path, {
     dynamic formData,
@@ -121,7 +114,6 @@ class ShineHttpRequest {
     );
   }
 
-  // 上传单张图片
   Future<Response> uploadImage(
     String path, {
     required Uint8List originalData,
@@ -154,11 +146,9 @@ class ShineHttpRequest {
     );
   }
 
-  // 获取当前 baseUrl（用于调试）
   String get currentBaseUrl => _dio.options.baseUrl;
 }
 
-/// 获取实际请求的api地址
 class ApiUrlManager {
   static Future<String?> getApiUrl(String path) async {
     Map<String, String> dict = await AppCommonPera.getCommonPera();
@@ -167,7 +157,6 @@ class ApiUrlManager {
   }
 }
 
-/// 拼接字典参数
 class URLParameterHelper {
   static String? appendQueryParameters(
     String url,

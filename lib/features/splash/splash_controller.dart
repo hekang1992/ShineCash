@@ -7,6 +7,7 @@ import 'package:shinecash/common/constants/deviceinfo.dart';
 import 'package:shinecash/common/devices/devices.dart';
 import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/common/http/http_request.dart';
+import 'package:shinecash/common/http/http_toast.dart';
 import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/common/utils/app_location.dart';
 import 'package:shinecash/common/utils/google_market.dart';
@@ -21,7 +22,6 @@ class SplashController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
     print('SplashController 初始化');
 
     _initNetworkMonitoring();
@@ -149,8 +149,15 @@ extension SplashVc on SplashController {
   }
 
   void fetchData() async {
-    Dio dio = Dio();
+    Dio dio = Dio(
+      BaseOptions(
+        connectTimeout: Duration(seconds: 10),
+        receiveTimeout: Duration(seconds: 10),
+      ),
+    );
+
     try {
+      ToastManager.showLoading();
       Response response = await dio.get(
         'https://ph4-dc.oss-ap-southeast-1.aliyuncs.com/shine-cash/sclt.json',
       );
@@ -160,15 +167,16 @@ extension SplashVc on SplashController {
           Map<String, dynamic> firstItem = jsonList[0];
           String scUrl = firstItem['sc'];
           print('获取到的链接: $scUrl');
+          ToastManager.hideLoading();
           await SaveLoginInfo.saveApiUrl(scUrl);
           ShineHttpRequest().refreshDio();
           initThreeInfo();
         } else {
-          print('返回的数据为空数组');
+          ToastManager.hideLoading();
         }
       }
-    } on DioException catch (e) {
-      print('请求错误: ${e.message}');
+    } on DioException catch (_) {
+      ToastManager.hideLoading();
     }
   }
 }

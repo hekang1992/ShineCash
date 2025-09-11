@@ -37,7 +37,7 @@ class TabbarView extends GetView<TabbarController> {
             topRight: Radius.circular(25.r),
           ),
           child: Material(
-            color: Colors.white, // 圆角容器的背景色
+            color: Colors.white,
             child: BottomNavigationBar(
               items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(

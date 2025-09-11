@@ -12,7 +12,6 @@ class LeaveView extends StatelessWidget {
     return Center(
       child: Stack(
         children: [
-          // 图片作为背景
           Image.asset(
             'assets/images/leace_image.png',
             width: 263.w,
@@ -20,7 +19,6 @@ class LeaveView extends StatelessWidget {
             fit: BoxFit.contain,
           ),
 
-          // 左下角方块
           Positioned(
             left: 0,
             bottom: 0,
@@ -34,7 +32,6 @@ class LeaveView extends StatelessWidget {
             ),
           ),
 
-          // 右下角方块
           Positioned(
             right: 0,
             bottom: 0,

@@ -49,9 +49,7 @@ extension ImageListVc on ImageListController {
         final rule = model.expect?.rule;
         final posted = model.expect?.rule;
         if (rule?.listening == 1 || posted?.listening == 1) {
-          //人脸认证完成 -- 直接进入
         } else if (rule?.listening == 0) {
-          //选择认证列表页面
         } else {}
       }
       ToastManager.hideLoading();

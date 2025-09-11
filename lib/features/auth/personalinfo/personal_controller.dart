@@ -15,8 +15,7 @@ class PersonalController extends BaseController {
   late final String productID;
   final title = ''.obs;
   final model = BaseModel().obs;
-  List<TextEditingController> textControllers =
-      []; // 存储所有的 TextEditingController
+  List<TextEditingController> textControllers = [];
 
   var startTime = '';
   var endTime = '';
@@ -58,7 +57,6 @@ extension PersonalVc on PersonalController {
     BuildContext context, {
     required void Function(String) cityBlock,
   }) {
-    // 构造 Map<String, dynamic> 格式的数据
     Map<String, dynamic> pickerData = {};
 
     for (var province in modelArray) {
