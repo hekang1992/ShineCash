@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shinecash/common/constants/constant.dart';
+import 'package:shinecash/common/http/http_request.dart';
 import 'package:shinecash/common/routers/shine_router.dart';
 import 'package:shinecash/features/center/center_controller.dart';
 
@@ -50,16 +51,17 @@ class CenterMoreView extends GetView<CenterController> {
                 return listItemView(
                   oneStr: finished,
                   twoStr: name,
-                  onTap: () {
+                  onTap: () async {
                     if (cautiously.contains(settingSchemeUrl)) {
                       Get.toNamed(
                         ShineAppRouter.setting,
                         arguments: {'model': controller.model.value},
                       );
                     } else {
+                      final pageUrl = await ApiUrlManager.getApiUrl(cautiously);
                       Get.toNamed(
                         ShineAppRouter.web,
-                        arguments: {'pageUrl': cautiously},
+                        arguments: {'pageUrl': pageUrl},
                       );
                     }
                   },
