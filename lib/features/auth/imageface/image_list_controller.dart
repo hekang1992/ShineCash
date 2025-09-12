@@ -166,6 +166,7 @@ extension ImageListVc on ImageListController {
     Get.bottomSheet(
       isDismissible: false,
       enableDrag: false,
+      isScrollControlled: true,
       ImageSheetView(
         imageStr: 'de_list_image.png',
         onTap: () async {

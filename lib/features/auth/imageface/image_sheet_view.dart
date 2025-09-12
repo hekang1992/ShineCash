@@ -16,12 +16,13 @@ class ImageSheetView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 480.h,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(30.sp)),
       ),
       child: Padding(
-        padding: EdgeInsets.only(top: 16.sp, left: 12.sp, right: 12.sp),
+        padding: EdgeInsets.only(top: 16.sp),
         child: Column(
           children: [
             Row(
@@ -60,7 +61,7 @@ class ImageSheetView extends StatelessWidget {
               height: 321.h,
               fit: BoxFit.contain,
             ),
-            SizedBox(height: 12.h),
+            SizedBox(height: 25.h),
             CustomBtn(
               width: 350.w,
               height: 52.h,
