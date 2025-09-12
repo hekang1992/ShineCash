@@ -1,3 +1,4 @@
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shinecash/common/constants/constant.dart';
@@ -25,31 +26,37 @@ class HomeTwoView extends StatelessWidget {
       child: Stack(
         alignment: AlignmentDirectional.topCenter,
         children: [
-          Image.asset('assets/images/$name1', width: 350.w, height: 283.h),
+          Image.asset('assets/images/$name1', width: 375.w, height: 260.h),
           Container(
             color: Colors.transparent,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 85.h),
-                Text(
-                  name2,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14.sp,
-                    color: AppColor.whiteColor,
+                SizedBox(height: 80.h),
+                SizedBox(
+                  height: 20.h,
+                  child: Text(
+                    name2,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14.sp,
+                      color: AppColor.whiteColor,
+                    ),
                   ),
                 ),
                 SizedBox(height: 20.h),
-                Text(
-                  name3,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w900,
-                    fontSize: 40.sp,
-                    color: AppColor.whiteColor,
+                SizedBox(
+                  height: 63.h,
+                  child: Text(
+                    name3,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                      fontSize: 40.sp,
+                      color: AppColor.whiteColor,
+                    ),
                   ),
                 ),
-                SizedBox(height: 60.h),
+                SizedBox(height: 37.h),
                 Text(
                   name4,
                   style: TextStyle(
