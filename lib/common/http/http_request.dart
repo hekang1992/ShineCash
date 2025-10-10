@@ -48,11 +48,11 @@ class ShineHttpRequest {
     // _configureProxy();
     _isInitialized = true;
 
-    print('Dio 初始化完成，baseUrl: $_apiUrl');
+    print('Dio. baseUrl: $_apiUrl');
   }
 
   void refreshDio() {
-    print('刷新 Dio 实例，新的 baseUrl: $_apiUrl');
+    print('refresh Dio new baseUrl: $_apiUrl');
     _initDio();
   }
 

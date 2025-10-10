@@ -34,15 +34,15 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>To provide efficient and convenient identity verification services, Shine Cash requires access to your camera for document capture and facial recognition. All collected images are stored encrypted to ensure the security of your information.</string>
+	<string>To provide efficient and convenient identity verification services, ShineCash requires access to your camera for document capture and facial recognition. All collected images are stored encrypted to ensure the security of your information.</string>
 	<key>NSContactsUsageDescription</key>
-	<string>To improve the risk control system, Shine Cash needs to access your address book to set up emergency contacts. We will only obtain contact information that you have voluntarily selected and strictly adhere to the principle of minimizing data collection.</string>
+	<string>To improve the risk control system, ShineCash needs to access your address book to set up emergency contacts. We will only obtain contact information that you have voluntarily selected and strictly adhere to the principle of minimizing data collection.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Shine Cash needs to obtain your location information to provide you with a convenient financial service experience and ensure transaction security. We only obtain location data when you use the service and never track it in the background. You can turn off this permission at any time in your phone settings.</string>
+	<string>ShineCash needs to obtain your location information to provide you with a convenient financial service experience and ensure transaction security. We only obtain location data when you use the service and never track it in the background. You can turn off this permission at any time in your phone settings.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Shine Cash applies for album access permission, allowing you to quickly upload stored ID photos, saving the trouble of repeated shooting. You can choose the photos you want to share independently and have complete control over your personal privacy.</string>
+	<string>ShineCash applies for album access permission, allowing you to quickly upload stored ID photos, saving the trouble of repeated shooting. You can choose the photos you want to share independently and have complete control over your personal privacy.</string>
 	<key>NSUserTrackingUsageDescription</key>
-	<string>Shine Cash uses advertising identifiers to optimize personalized product recommendations and provide you with more accurate financial service solutions. You can manage personalized advertising features at any time through "Settings - Privacy - Tracking".</string>
+	<string>ShineCash uses advertising identifiers to optimize personalized product recommendations and provide you with more accurate financial service solutions. You can manage personalized advertising features at any time through "Settings - Privacy - Tracking".</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

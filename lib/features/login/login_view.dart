@@ -68,10 +68,19 @@ Widget _loginView(LoginController controller) {
                 child: Row(
                   children: [
                     SizedBox(width: 10.w),
-                    Image.asset(
-                      'assets/images/login_logo_image.png',
+                    Container(
                       width: 120.w,
                       height: 120.h,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.white, width: 3),
+                      ),
+                      child: ClipOval(
+                        child: Image.asset(
+                          'assets/images/login_logo_image.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                     SizedBox(width: 15.w),
                     Column(
@@ -86,7 +95,7 @@ Widget _loginView(LoginController controller) {
                           ),
                         ),
                         Text(
-                          'Shine Cash',
+                          'ShineCash',
                           style: TextStyle(
                             fontSize: 24.sp,
                             fontWeight: FontWeight.w600,

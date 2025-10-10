@@ -38,21 +38,21 @@ class WebController extends GetxController {
             // ToastManager.showProgressLoading(_progress.value);
             progress.value = 0;
             isLoading.value = true;
-            title.value = 'Shine Cash';
+            title.value = 'ShineCash';
           },
           onPageFinished: (url) async {
             // ToastManager.hideLoading();
             isLoading.value = false;
             final t = await webcontroller.getTitle() ?? '';
             if (t.isEmpty) {
-              title.value = 'Shine Cash';
+              title.value = 'ShineCash';
             } else {
               title.value = t;
             }
           },
           onWebResourceError: (error) {
             isLoading.value = false;
-            title.value = 'Shine Cash';
+            title.value = 'ShineCash';
           },
         ),
       )
