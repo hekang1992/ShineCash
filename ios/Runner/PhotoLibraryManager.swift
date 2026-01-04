@@ -8,7 +8,6 @@ class PhotoLibraryManager: NSObject, UIImagePickerControllerDelegate, UINavigati
     
     private override init() {}
     
-    /// 检查相册权限并打开相册
     func presentPhotoLibrary(from viewController: UIViewController, completion: @escaping (Data?) -> Void) {
         self.completion = completion
         
@@ -35,7 +34,6 @@ class PhotoLibraryManager: NSObject, UIImagePickerControllerDelegate, UINavigati
         }
     }
     
-    /// 打开相册
     private func openPhotoLibrary(from viewController: UIViewController) {
         guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
             completion?(nil)
@@ -48,7 +46,6 @@ class PhotoLibraryManager: NSObject, UIImagePickerControllerDelegate, UINavigati
         viewController.present(picker, animated: true, completion: nil)
     }
     
-    /// 选择图片回调
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
         
@@ -65,7 +62,6 @@ class PhotoLibraryManager: NSObject, UIImagePickerControllerDelegate, UINavigati
         completion?(nil)
     }
     
-    /// 压缩图片到 500KB 以下
     private func compressImageToUnder500KB(_ image: UIImage) -> Data? {
         var compression: CGFloat = 1.0
         let maxFileSize = 500 * 1024 // 500 KB
@@ -78,7 +74,6 @@ class PhotoLibraryManager: NSObject, UIImagePickerControllerDelegate, UINavigati
         return imageData
     }
     
-    /// 提示去设置
     private func showSettingsAlert(from vc: UIViewController, message: String) {
         let alert = UIAlertController(title: "Permission denied", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
