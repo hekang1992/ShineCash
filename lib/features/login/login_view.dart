@@ -95,7 +95,7 @@ Widget _loginView(LoginController controller) {
                           ),
                         ),
                         Text(
-                          'ShineCash',
+                          'EasyPeso',
                           style: TextStyle(
                             fontSize: 24.sp,
                             fontWeight: FontWeight.w600,
