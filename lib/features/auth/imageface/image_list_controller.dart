@@ -141,7 +141,7 @@ extension ImageListVc on ImageListController {
         imageStr: 'faca_de_image.png',
         onTap: () async {
           Get.back();
-          await AppLocation.getDetailedLocation();
+          AppLocation.getDetailedLocation();
           await Future.delayed(Duration(milliseconds: 250));
           final originalData = await ImageChannel.openCamera('1');
           final model = await uploadImageWithType(
