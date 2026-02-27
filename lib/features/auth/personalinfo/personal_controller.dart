@@ -152,8 +152,9 @@ extension PersonalVc on PersonalController {
           endTime: (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString(),
           orderID: '',
         );
+      } else {
+        ToastManager.showToast(model.captive ?? '');
       }
-      ToastManager.showToast(model.captive ?? '');
       ToastManager.hideLoading();
     } catch (e) {
       ToastManager.hideLoading();

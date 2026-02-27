@@ -76,7 +76,6 @@ extension ImageListVc on ImageListController {
         extraData: dict,
       );
       final model = BaseModel.fromJson(response.data);
-      ToastManager.showToast(model.captive ?? '');
       ToastManager.hideLoading();
       if (model.beautiful == '0' || model.beautiful == '00') {
         if (many == 10) {
@@ -88,6 +87,8 @@ extension ImageListVc on ImageListController {
           );
         }
         return model;
+      } else {
+        ToastManager.showToast(model.captive ?? '');
       }
     } catch (e) {
       ToastManager.hideLoading();
@@ -125,8 +126,9 @@ extension ImageListVc on ImageListController {
             orderID: '',
           );
         }
+      } else {
+        ToastManager.showToast(model.captive ?? '');
       }
-      ToastManager.showToast(model.captive ?? '');
     } catch (e) {
       ToastManager.hideLoading();
     }
