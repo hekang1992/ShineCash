@@ -104,14 +104,16 @@ class HomeView extends GetView<HomeController> {
                           ],
                         );
                       } else {
-                        Map<String, List<DiedModel>> receivedDict1 = controller
+                        Map<String, List<DiedModel>>? receivedDict1 = controller
                             .listArray
                             .firstWhere(
                               (dict) =>
                                   dict.keys.any((k) => k.contains('stopped')),
+                              orElse: () => {},
                             );
                         String actualKey1 = receivedDict1.keys.firstWhere(
                           (k) => k.contains('stopped'),
+                          orElse: () => '',
                         );
                         List<DiedModel> listModel1 =
                             receivedDict1[actualKey1] ?? [];
@@ -120,9 +122,11 @@ class HomeView extends GetView<HomeController> {
                             .listArray
                             .firstWhere(
                               (dict) => dict.keys.any((k) => k.contains('the')),
+                              orElse: () => {},
                             );
                         String actualKey2 = receivedDict2.keys.firstWhere(
                           (k) => k.contains('the'),
+                          orElse: () => '',
                         );
                         List<DiedModel> listModel2 =
                             receivedDict2[actualKey2] ?? [];
@@ -132,9 +136,11 @@ class HomeView extends GetView<HomeController> {
                             .firstWhere(
                               (dict) =>
                                   dict.keys.any((k) => k.contains('said')),
+                              orElse: () => {},
                             );
                         String actualKey3 = receivedDict3.keys.firstWhere(
                           (k) => k.contains('said'),
+                          orElse: () => '',
                         );
                         List<DiedModel> listModel3 =
                             receivedDict3[actualKey3] ?? [];
@@ -143,7 +149,7 @@ class HomeView extends GetView<HomeController> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              listModel2.first.correspondent ?? '',
+                              listModel2.firstOrNull?.correspondent ?? '',
                               style: TextStyle(
                                 fontSize: 17.sp,
                                 color: Colors.white,
@@ -208,8 +214,9 @@ class HomeView extends GetView<HomeController> {
                             // SizedBox(height: 16.sp),
                             InkWell(
                               onTap: () async {
-                                final productID = (listModel2.first.hasten ?? 0)
-                                    .toString();
+                                final productID =
+                                    (listModel2.firstOrNull?.hasten ?? 0)
+                                        .toString();
                                 await controller.applyProductWithID(productID);
                               },
                               child: Stack(
@@ -228,14 +235,18 @@ class HomeView extends GetView<HomeController> {
                                       children: [
                                         ClipOval(
                                           child: Image.network(
-                                            listModel2.first.imaginary ?? '',
+                                            listModel2.firstOrNull?.imaginary ??
+                                                '',
                                             width: 32.w,
                                             height: 32.h,
                                           ),
                                         ),
                                         SizedBox(width: 8.sp),
                                         Text(
-                                          listModel2.first.correspondent ?? '',
+                                          listModel2
+                                                  .firstOrNull
+                                                  ?.correspondent ??
+                                              '',
                                           style: TextStyle(
                                             fontSize: 14.sp,
                                             color: AppColor.blackColor,
@@ -251,7 +262,10 @@ class HomeView extends GetView<HomeController> {
                                     child: Transform.rotate(
                                       angle: 45 * (pi / 180),
                                       child: Text(
-                                        listModel2.first.disappointment ?? '',
+                                        listModel2
+                                                .firstOrNull
+                                                ?.disappointment ??
+                                            '',
                                         style: TextStyle(
                                           fontSize: 10.sp,
                                           color: AppColor.whiteColor,
@@ -270,7 +284,8 @@ class HomeView extends GetView<HomeController> {
                                       child: Row(
                                         children: [
                                           Text(
-                                            listModel2.first.reduced ?? '',
+                                            listModel2.firstOrNull?.reduced ??
+                                                '',
                                             style: TextStyle(
                                               fontSize: 10.sp,
                                               color: Color(0xff888888),
@@ -279,7 +294,8 @@ class HomeView extends GetView<HomeController> {
                                           ),
                                           Spacer(),
                                           Text(
-                                            listModel2.first.condition ?? '',
+                                            listModel2.firstOrNull?.condition ??
+                                                '',
                                             style: TextStyle(
                                               fontSize: 30.sp,
                                               color: AppColor.blackColor,
@@ -303,7 +319,7 @@ class HomeView extends GetView<HomeController> {
                                       ),
                                       child: Center(
                                         child: Text(
-                                          listModel2.first.appeal ?? '',
+                                          listModel2.firstOrNull?.appeal ?? '',
                                           style: TextStyle(
                                             fontSize: 16.sp,
                                             color: Colors.white,

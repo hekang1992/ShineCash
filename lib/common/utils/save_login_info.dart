@@ -10,6 +10,9 @@ class SaveLoginInfo {
   static const String _deineLoacation = 'user_deineLoacation';
   static const String _apiurl = 'user_api_url';
 
+  static const String _lat = 'user_lat';
+  static const String _lon = 'user_lon';
+
   static Box? _box;
 
   static Future<void> init() async {
@@ -67,6 +70,22 @@ class SaveLoginInfo {
 
   static Future<void> saveApiUrl(String url) async {
     await _box?.put(_apiurl, url);
+  }
+
+  static Future<void> saveLat(String lat) async {
+    await _box?.put(_lat, lat);
+  }
+
+  static String? getLat() {
+    return _box?.get(_lat);
+  }
+
+  static Future<void> saveLon(String lon) async {
+    await _box?.put(_lon, lon);
+  }
+
+  static String? getLon() {
+    return _box?.get(_lon);
   }
 
   static String? getApiUrl() {

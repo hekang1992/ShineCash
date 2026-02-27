@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:shinecash/common/http/http_request.dart';
 import 'package:shinecash/common/utils/app_location.dart';
 import 'package:shinecash/common/utils/save_idfv_info.dart';
+import 'package:shinecash/common/utils/save_login_info.dart';
 
 class GetLanguageInfo {
   static final MethodChannel _channel = MethodChannel('shineapp_info');
@@ -39,32 +40,70 @@ class VpnEnabled {
   }
 }
 
+// class PointTouchChannel {
+//   static upLoadPoint({
+//     required String step,
+//     required String startTime,
+//     required String endTime,
+//     required String orderID,
+//   }) async {
+//     final idfv = await SaveIdfvInfo.getOrCreateIDFV();
+//     final idfa = await AppTrackingTransparency.getAdvertisingIdentifier();
+//     final position = await AppLocation.getDetailedLocation();
+//     final pays = position['pays'] ?? '';
+//     final usual = position['usual'] ?? '';
+//     final dict = {
+//       'excited': step,
+//       'shows': '2',
+//       'excitement': idfv,
+//       'present': idfa,
+//       'tone': startTime,
+//       'unhappily': endTime,
+//       'disordered': orderID,
+//       'pays': pays,
+//       'usual': usual,
+//     };
+//     try {
+//       final http = ShineHttpRequest();
+//       final _ = await http.post('wzcnrht/supper', formData: dict);
+//     } catch (e) {}
+//   }
+// }
+
 class PointTouchChannel {
-  static upLoadPoint({
+  static Future<void> upLoadPoint({
     required String step,
     required String startTime,
     required String endTime,
     required String orderID,
   }) async {
-    final idfv = await SaveIdfvInfo.getOrCreateIDFV();
-    final idfa = await AppTrackingTransparency.getAdvertisingIdentifier();
-    final position = await AppLocation.getDetailedLocation();
-    final pays = position['pays'] ?? '';
-    final usual = position['usual'] ?? '';
-    final dict = {
-      'excited': step,
-      'shows': '2',
-      'excitement': idfv,
-      'present': idfa,
-      'tone': startTime,
-      'unhappily': endTime,
-      'disordered': orderID,
-      'pays': pays,
-      'usual': usual,
-    };
     try {
+      final results = await Future.wait([
+        SaveIdfvInfo.getOrCreateIDFV(),
+        AppTrackingTransparency.getAdvertisingIdentifier(),
+      ]);
+
+      final String idfv = results[0] as String;
+      final String idfa = results[1] as String;
+      // final Map? position = results[2] as Map?;
+
+      final String pays = SaveLoginInfo.getLon() ?? '';
+      final String usual = SaveLoginInfo.getLat() ?? '';
+
+      final Map<String, dynamic> dict = {
+        'excited': step,
+        'shows': '2',
+        'excitement': idfv,
+        'present': idfa,
+        'tone': startTime,
+        'unhappily': endTime,
+        'disordered': orderID,
+        'pays': pays,
+        'usual': usual,
+      };
+
       final http = ShineHttpRequest();
-      final _ = http.post('wzcnrht/supper', formData: dict);
+      await http.post('wzcnrht/supper', formData: dict);
     } catch (e) {}
   }
 }

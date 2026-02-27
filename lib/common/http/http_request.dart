@@ -52,12 +52,12 @@ class ShineHttpRequest {
   }
 
   void refreshDio() {
-    print('refresh Dio new baseUrl: $_apiUrl');
+    // print('refresh Dio new baseUrl: $_apiUrl');
     _initDio();
   }
 
   void _configureProxy() {
-    String proxyIP = '10.1.1.77';
+    String proxyIP = '192.168.71.58';
     String proxyPort = '9090';
 
     if (proxyIP.isNotEmpty) {

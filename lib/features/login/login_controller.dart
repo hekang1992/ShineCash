@@ -6,6 +6,7 @@ import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/common/http/http_request.dart';
 import 'package:shinecash/common/http/http_toast.dart';
 import 'package:shinecash/common/routers/shine_router.dart';
+import 'package:shinecash/common/utils/app_location.dart';
 import 'package:shinecash/common/utils/save_idfv_info.dart';
 import 'package:shinecash/common/utils/save_login_info.dart';
 
@@ -24,9 +25,10 @@ class LoginController extends GetxController {
   var endTime = '';
 
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
     startTime = (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString();
+    // await AppLocation.getDetailedLocation();
   }
 
   @override
@@ -140,15 +142,16 @@ extension LoginVc on LoginController {
         final token = model.expect?.emerging ?? '';
         SaveLoginInfo.savePhone(phone);
         SaveLoginInfo.saveToken(token);
-        Future.delayed(Duration(microseconds: 500));
-        Get.offAllNamed(ShineAppRouter.tab);
 
-        PointTouchChannel.upLoadPoint(
+        await PointTouchChannel.upLoadPoint(
           step: '1',
           startTime: startTime,
           endTime: (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString(),
           orderID: '',
         );
+
+        await Future.delayed(Duration(microseconds: 2000));
+        Get.offAllNamed(ShineAppRouter.tab);
       }
       ToastManager.hideLoading();
     } catch (e) {

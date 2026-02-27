@@ -5,6 +5,7 @@ import 'package:shinecash/common/devices/devices.dart';
 import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/common/http/http_request.dart';
 import 'package:shinecash/common/http/http_toast.dart';
+import 'package:shinecash/common/utils/app_location.dart';
 import 'package:shinecash/common/utils/image_pop.dart';
 import 'package:shinecash/features/auth/imageface/image_sheet_view.dart';
 import 'package:shinecash/features/auth/imageface/image_success_list_view.dart';
@@ -33,6 +34,7 @@ class ImageListController extends GetxController {
     } else if (faceimageStr.isEmpty) {
       faceClick();
     }
+    await AppLocation.getDetailedLocation();
   }
 }
 
@@ -139,6 +141,7 @@ extension ImageListVc on ImageListController {
         imageStr: 'faca_de_image.png',
         onTap: () async {
           Get.back();
+          await AppLocation.getDetailedLocation();
           await Future.delayed(Duration(milliseconds: 250));
           final originalData = await ImageChannel.openCamera('1');
           final model = await uploadImageWithType(

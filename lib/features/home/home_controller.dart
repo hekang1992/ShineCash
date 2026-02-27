@@ -24,6 +24,8 @@ class HomeController extends GetxController {
 
   final orderInfoModel = BaseModel().obs;
 
+  final http = ShineHttpRequest();
+
   final listArray = <Map<String, List<DiedModel>>>[].obs;
 
   @override
@@ -63,7 +65,6 @@ extension HomeVc on HomeController {
   initHomeInfo() async {
     try {
       ToastManager.showLoading();
-      final http = ShineHttpRequest();
       final response = await http.get('wzcnrht/crowned');
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
@@ -78,7 +79,6 @@ extension HomeVc on HomeController {
   initCityInfo() async {
     try {
       ToastManager.showLoading();
-      final http = ShineHttpRequest();
       final response = await http.get('wzcnrht/finished');
       final model = BaseModel.fromJson(response.data);
       if (model.beautiful == '0' || model.beautiful == '00') {
@@ -94,7 +94,6 @@ extension HomeVc on HomeController {
   applyProductWithID(String productID) async {
     try {
       ToastManager.showLoading();
-      final http = ShineHttpRequest();
       final dict = {'nodded': productID};
       final response = await http.post('wzcnrht/kneel', formData: dict);
       final model = BaseModel.fromJson(response.data);
@@ -133,7 +132,7 @@ extension HomeVc on HomeController {
   }) async {
     try {
       ToastManager.showLoading();
-      final http = ShineHttpRequest();
+
       final dict = {'nodded': productID};
       final response = await http.post('wzcnrht/before', formData: dict);
       final model = BaseModel.fromJson(response.data);
@@ -170,7 +169,6 @@ extension HomeVc on HomeController {
   judgeMentThat({required String productID, required String type}) async {
     try {
       ToastManager.showLoading();
-      final http = ShineHttpRequest();
       final dict = {'nodded': productID};
       final response = await http.post('wzcnrht/enemy', formData: dict);
       final model = BaseModel.fromJson(response.data);
@@ -250,7 +248,6 @@ extension HomeVc on HomeController {
   requestOrderIDInfo({required BaseModel pmodel}) async {
     try {
       ToastManager.showLoading();
-      final http = ShineHttpRequest();
       final attire = pmodel.expect?.egyptian?.styled ?? '';
       final wink = pmodel.expect?.egyptian?.wink ?? 0;
       final having = pmodel.expect?.egyptian?.having ?? '';
@@ -288,7 +285,6 @@ extension HomeVc on HomeController {
     try {
       final position = await AppLocation.getDetailedLocation();
       if (position['usual'] != 0.0 && position['pays'] != 0.0) {
-        final http = ShineHttpRequest();
         final _ = await http.post('wzcnrht/supposes', formData: position);
       }
     } catch (e) {
@@ -300,7 +296,6 @@ extension HomeVc on HomeController {
       final deviceInfoDict = await DeviceinfoManager.backDictAll();
       final deviceJsonStr = jsonEncode(deviceInfoDict);
       print('deviceJsonStr---------${jsonEncode(deviceInfoDict)}');
-      final http = ShineHttpRequest();
       final dict = {'expect': deviceJsonStr};
       final _ = await http.post('wzcnrht/concealment', formData: dict);
     } catch (e) {}

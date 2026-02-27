@@ -42,7 +42,7 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>EasyPeso applies for album access permission, allowing you to quickly upload stored ID photos, saving the trouble of repeated shooting. You can choose the photos you want to share independently and have complete control over your personal privacy.</string>
 	<key>NSUserTrackingUsageDescription</key>
-	<string>EasyPeso uses advertising identifiers to optimize personalized product recommendations and provide you with more accurate financial service solutions. You can manage personalized advertising features at any time through &quot;Settings - Privacy - Tracking&quot;.</string>
+	<string>EasyPeso uses advertising identifiers to optimize personalized product recommendations and provide you with more accurate financial service solutions. You can manage personalized advertising features at any time through "Settings - Privacy - Tracking".</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

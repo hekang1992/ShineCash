@@ -8,6 +8,7 @@ import 'package:shinecash/common/devices/devices.dart';
 import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/common/http/http_request.dart';
 import 'package:shinecash/common/http/http_toast.dart';
+import 'package:shinecash/common/utils/app_location.dart';
 import 'package:shinecash/features/web/base_controller.dart';
 import 'package:shinecash/features/home/home_controller.dart';
 
@@ -22,12 +23,13 @@ class WorkinfoController extends BaseController {
   var endTime = '';
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     productID = Get.arguments['productID'];
     title.value = Get.arguments['title'];
     findWorkInfo(productID: productID);
     startTime = (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString();
+    await AppLocation.getDetailedLocation();
   }
 }
 

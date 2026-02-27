@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:shinecash/common/http/http_model.dart';
 import 'package:shinecash/common/http/http_request.dart';
 import 'package:shinecash/common/http/http_toast.dart';
+import 'package:shinecash/common/utils/app_location.dart';
 
 class CertificationListController extends GetxController {
   late final String productID;
@@ -9,11 +10,12 @@ class CertificationListController extends GetxController {
   final model = BaseModel().obs;
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     productID = Get.arguments['productID'];
     print('🧊productID-------$productID');
     initAuthListInfo(productID);
+    await AppLocation.getDetailedLocation();
   }
 }
 

@@ -9,25 +9,13 @@ class AppLocation {
   static Future<Map<String, dynamic>> getDetailedLocation() async {
     final serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      throw Exception('location----error=====');
+      throw Exception('location error');
     }
 
     LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        // final alertShow = SaveLoginInfo.getAlert();
-        // if (alertShow == '1') {
-        //   final getTime = SaveLoginInfo.getLocationTime() ?? '';
-        //   if (getTime.isEmpty) {
-        //     LocationAlert.alertShow();
-        //   } else {
-        //     final isgrand = TimeUtil.isExpired24h(getTime);
-        //     if (isgrand) {
-        //       LocationAlert.alertShow();
-        //     }
-        //   }
-        // }
         throw Exception('location error');
       }
     }
@@ -71,6 +59,9 @@ class AppLocation {
       'conspiracy': place.locality,
       'share': place.subLocality,
     };
+
+    SaveLoginInfo.saveLat(position.latitude.toStringAsFixed(6));
+    SaveLoginInfo.saveLon(position.longitude.toStringAsFixed(6));
 
     return locationdict;
   }
